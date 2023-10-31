@@ -7,8 +7,20 @@
 
 import SwiftUI
 
+//@main
+//struct TasteBudzApp: App {
+//    var body: some Scene {
+//        WindowGroup {
+//            ContentView()
+//        }
+//    }
+//}
+
 @main
 struct TasteBudzApp: App {
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
