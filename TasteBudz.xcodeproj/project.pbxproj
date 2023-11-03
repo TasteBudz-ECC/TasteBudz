@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2846D662AF55F20009D22DF /* SwipeView.swift */; };
+		B2846D692AF560E5009D22DF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2846D682AF560E5009D22DF /* GoogleService-Info.plist */; };
 		B2A935042AF181FB006B7AD8 /* TasteBudzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */; };
 		B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935052AF181FB006B7AD8 /* ContentView.swift */; };
 		B2A935082AF181FE006B7AD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A935072AF181FE006B7AD8 /* Assets.xcassets */; };
@@ -14,7 +16,6 @@
 		B2A935152AF181FE006B7AD8 /* TasteBudzTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935142AF181FE006B7AD8 /* TasteBudzTests.swift */; };
 		B2A9351F2AF181FE006B7AD8 /* TasteBudzUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A9351E2AF181FE006B7AD8 /* TasteBudzUITests.swift */; };
 		B2A935212AF181FE006B7AD8 /* TasteBudzUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935202AF181FE006B7AD8 /* TasteBudzUITestsLaunchTests.swift */; };
-		B2A935312AF1830F006B7AD8 /* GoogleService-Info (1).plist in Resources */ = {isa = PBXBuildFile; fileRef = B2A935302AF1830F006B7AD8 /* GoogleService-Info (1).plist */; };
 		B2A935342AF183C0006B7AD8 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B2A935332AF183C0006B7AD8 /* FirebaseAnalytics */; };
 		B2A935362AF183C0006B7AD8 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = B2A935352AF183C0006B7AD8 /* FirebaseAnalyticsOnDeviceConversion */; };
 		B2A935382AF183C0006B7AD8 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B2A935372AF183C0006B7AD8 /* FirebaseAnalyticsSwift */; };
@@ -51,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B2846D662AF55F20009D22DF /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
+		B2846D682AF560E5009D22DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2A935002AF181FB006B7AD8 /* TasteBudz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteBudz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzApp.swift; sourceTree = "<group>"; };
 		B2A935052AF181FB006B7AD8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,7 +64,6 @@
 		B2A9351A2AF181FE006B7AD8 /* TasteBudzUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TasteBudzUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A9351E2AF181FE006B7AD8 /* TasteBudzUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzUITests.swift; sourceTree = "<group>"; };
 		B2A935202AF181FE006B7AD8 /* TasteBudzUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		B2A935302AF1830F006B7AD8 /* GoogleService-Info (1).plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info (1).plist"; path = "../../../../Downloads/GoogleService-Info (1).plist"; sourceTree = "<group>"; };
 		B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2A935532AF1A708006B7AD8 /* SignupLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupLoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,10 +130,11 @@
 		B2A935022AF181FB006B7AD8 /* TasteBudz */ = {
 			isa = PBXGroup;
 			children = (
-				B2A935302AF1830F006B7AD8 /* GoogleService-Info (1).plist */,
+				B2846D682AF560E5009D22DF /* GoogleService-Info.plist */,
 				B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */,
 				B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */,
 				B2A935052AF181FB006B7AD8 /* ContentView.swift */,
+				B2846D662AF55F20009D22DF /* SwipeView.swift */,
 				B2A935532AF1A708006B7AD8 /* SignupLoginView.swift */,
 				B2A935072AF181FE006B7AD8 /* Assets.xcassets */,
 				B2A935092AF181FE006B7AD8 /* Preview Content */,
@@ -288,8 +291,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2A9350B2AF181FE006B7AD8 /* Preview Assets.xcassets in Resources */,
-				B2A935312AF1830F006B7AD8 /* GoogleService-Info (1).plist in Resources */,
 				B2A935082AF181FE006B7AD8 /* Assets.xcassets in Resources */,
+				B2846D692AF560E5009D22DF /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +320,7 @@
 				B2A935502AF1A481006B7AD8 /* AppDelegate.swift in Sources */,
 				B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */,
 				B2A935542AF1A708006B7AD8 /* SignupLoginView.swift in Sources */,
+				B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */,
 				B2A935042AF181FB006B7AD8 /* TasteBudzApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

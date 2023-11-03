@@ -9,10 +9,39 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            SignupLoginView()
+//        VStack {
+//            SignupLoginView()
+//        }
+//        .padding()
+        
+        
+        /*
+        TabView{
+        
+        /* Todo:
+            Uncomment the views and change the name accordingly when the files have been created
+         */
+            // HomeView()
+                .tabItem {
+                    Image(systemName: "house")
+                }
+            // SavedView()
+                .tabItem {
+                    Image(systemName: "heart")
+                }
+            // MessagesView()
+                .tabItem {
+                    Image(systemName: "messages")
+                }
+            // ProfileView()
+                .tabItem {
+                    Image(systemName: "person")
+                }
         }
-        .padding()
+        .accentColor(.blue)
+         
+         */
+        Text("Hello World")
     }
 }
 
