@@ -8,7 +8,32 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selection: Int = 0
     var body: some View {
+        TabView(selection: $selection) {
+                    SwipeView()
+                        .tabItem {
+//                            Text("SwipeView 1")
+                        }
+                        .tag(0)
+
+                    SwipeView2()
+                        .tabItem {
+//                            Text("SwipeView 2")
+                        }
+                        .tag(1)
+                }
+                .gesture(DragGesture().onEnded { gesture in
+                    if gesture.translation.width < 0 && self.selection < 1 {
+                        self.selection += 1 // Swipe right to switch to the next tab
+                    } else if gesture.translation.width > 0 && self.selection > 0 {
+                        self.selection -= 1 // Swipe left to switch to the previous tab
+                    }
+                })
+        
+    
+        
+    
 //        VStack {
 //            SignupLoginView()
 //        }
@@ -41,7 +66,6 @@ struct ContentView: View {
         .accentColor(.blue)
          
          */
-        Text("Hello World")
     }
 }
 

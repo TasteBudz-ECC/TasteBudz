@@ -7,11 +7,7 @@
 
 import SwiftUI
 
-//func getDescription() {
-//    
-//}
-
-struct SwipeView: View {
+struct SwipeView2: View {
     var body: some View {
         ZStack {
             GeometryReader { geometry in
@@ -21,7 +17,7 @@ struct SwipeView: View {
             }
             VStack {
                 VStack(alignment: .leading) {
-                    Text("Restaurant Name")
+                    Text("Restaurant Name2")
                         .font(.title)
                     HStack {
                         Text("Type of Restaurant")
@@ -31,7 +27,7 @@ struct SwipeView: View {
                     ZStack {
                         Rectangle() // grab image from yelp
                             .frame(width: 350, height: 300)
-                            .foregroundColor(Color.blue)
+                            .foregroundColor(Color.green)
                             .cornerRadius(20)
 
                         Text("Image")
@@ -75,7 +71,7 @@ struct SwipeView: View {
 }
 
 #Preview {
-    SwipeView()
+    SwipeView2()
 }
 
 
