@@ -1,4 +1,3 @@
-//
 //  SwipeView.swift
 //  TasteBudz
 //

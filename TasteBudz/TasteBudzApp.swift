@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 //@main
 //struct TasteBudzApp: App {
@@ -18,12 +19,16 @@ import SwiftUI
 
 @main
 struct TasteBudzApp: App {
-    
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var viewModel = AuthViewModel()
+    init() {
+        FirebaseApp.configure()
+    }
+    //@UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            InitialView()
+                .environmentObject(viewModel)
         }
     }
 }
