@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		B2388E532AF58FC3009B82DE /* SwipeView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E522AF58FC3009B82DE /* SwipeView2.swift */; };
 		B2388E552AF593B2009B82DE /* ContentView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E542AF593B2009B82DE /* ContentView2.swift */; };
+		B2388E572AFB1095009B82DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2388E562AFB1095009B82DE /* GoogleService-Info.plist */; };
 		B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2846D662AF55F20009D22DF /* SwipeView.swift */; };
-		B2846D692AF560E5009D22DF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2846D682AF560E5009D22DF /* GoogleService-Info.plist */; };
 		B2A935042AF181FB006B7AD8 /* TasteBudzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */; };
 		B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935052AF181FB006B7AD8 /* ContentView.swift */; };
 		B2A935082AF181FE006B7AD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2A935072AF181FE006B7AD8 /* Assets.xcassets */; };
@@ -56,8 +56,8 @@
 /* Begin PBXFileReference section */
 		B2388E522AF58FC3009B82DE /* SwipeView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView2.swift; sourceTree = "<group>"; };
 		B2388E542AF593B2009B82DE /* ContentView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView2.swift; sourceTree = "<group>"; };
+		B2388E562AFB1095009B82DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2846D662AF55F20009D22DF /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
-		B2846D682AF560E5009D22DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2A935002AF181FB006B7AD8 /* TasteBudz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteBudz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzApp.swift; sourceTree = "<group>"; };
 		B2A935052AF181FB006B7AD8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 		B2A935022AF181FB006B7AD8 /* TasteBudz */ = {
 			isa = PBXGroup;
 			children = (
-				B2846D682AF560E5009D22DF /* GoogleService-Info.plist */,
+				B2388E562AFB1095009B82DE /* GoogleService-Info.plist */,
 				B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */,
 				B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */,
 				B2A935052AF181FB006B7AD8 /* ContentView.swift */,
@@ -298,7 +298,7 @@
 			files = (
 				B2A9350B2AF181FE006B7AD8 /* Preview Assets.xcassets in Resources */,
 				B2A935082AF181FE006B7AD8 /* Assets.xcassets in Resources */,
-				B2846D692AF560E5009D22DF /* GoogleService-Info.plist in Resources */,
+				B2388E572AFB1095009B82DE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
