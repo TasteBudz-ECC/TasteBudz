@@ -70,9 +70,9 @@ struct SwipeView2: View {
     }
 }
 
-#Preview {
-    SwipeView2()
-}
+//#Preview {
+//    SwipeView2()
+//}
 
 
 //ZStack{
