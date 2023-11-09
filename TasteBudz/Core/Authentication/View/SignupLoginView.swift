@@ -64,5 +64,5 @@ struct SignupLoginView: View {
 }
 
 #Preview {
-    SignupLoginView()
+    SignupLoginView().environmentObject(AuthViewModel())
 }

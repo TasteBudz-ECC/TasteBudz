@@ -8,11 +8,12 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import FirebaseAuth
 
 @MainActor
 class AuthViewModel: ObservableObject {
-    @Published var userSession: FirebaseAuth.User?
-    @Published var currentUser: User?
+    @Published var userSession: User?
+    @Published var currentUser: OurUser?
     
     init() {
         self.userSession = Auth.auth().currentUser
@@ -26,7 +27,7 @@ class AuthViewModel: ObservableObject {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(id: result.user.uid, fullname: fullname, email: email)
+            let user = OurUser(id: result.user.uid, fullname: fullname, email: email)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
         } catch {

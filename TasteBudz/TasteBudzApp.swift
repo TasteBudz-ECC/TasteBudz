@@ -28,8 +28,7 @@ struct TasteBudzApp: App {
     
     var body: some Scene {
         WindowGroup {
-            InitialView()
-                .environmentObject(viewModel)
+            InitialView().environmentObject(viewModel)
         }
     }
 }
