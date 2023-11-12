@@ -16,6 +16,7 @@ import FirebaseCore
  This controlls the app on a per launch level. You can also use Scene Delegates to controll what happens per scene.
  */
 
+//hi there
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
