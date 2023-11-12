@@ -1,5 +1,5 @@
 //
-//  SignUpLoginView.swift
+//  SigningUpLogInView.swift
 //  TasteBudz
 //
 //  Created by student on 11/12/23.
@@ -16,7 +16,7 @@ import SwiftUI
 import FirebaseAuth
 import Firebase
 
-struct SignupLoginView: View {
+struct SigningUpLoginView: View {
     //@State makes the variable "Globally" accessible. Without it the variable would be private to this struct.
         
         //@State makes it so the value is able to change and be mutable.

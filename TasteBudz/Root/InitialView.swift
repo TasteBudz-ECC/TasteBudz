@@ -2,17 +2,25 @@
 //  InitialView.swift
 //  TasteBudz
 //
-//  Created by student on 11/12/23.
+//  Created by student on 11/4/23.
 //
 
 import SwiftUI
 
 struct InitialView: View {
+    @EnvironmentObject var viewModel: AuthViewModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Group {
+              if viewModel.userSession != nil {
+                ProfileView()
+              } else {
+                  SigningUpLoginView()
+              }
+        }
     }
 }
-
 #Preview {
-    InitialView()
+    InitialView().environmentObject(AuthViewModel())
+    // this ui file is to decide where to take user depending on if the user already has an account :)
 }
+// comment

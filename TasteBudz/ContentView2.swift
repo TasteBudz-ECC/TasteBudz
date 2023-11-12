@@ -18,7 +18,7 @@ struct ContentView2: View {
                     }
                     .tag(1)
 
-                SignupLoginView()
+                SigningUpLoginView()
                     .tabItem {
                         Image(systemName: "house")
                     }
