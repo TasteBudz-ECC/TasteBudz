@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3FBC606B2B018414001DB696 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC606A2B018414001DB696 /* AuthViewModel.swift */; };
+		3FBC606D2B01845B001DB696 /* OurUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC606C2B01845B001DB696 /* OurUser.swift */; };
+		3FBC606F2B01848F001DB696 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC606E2B01848F001DB696 /* SettingsRowView.swift */; };
+		3FBC60712B0184C2001DB696 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC60702B0184C2001DB696 /* InputView.swift */; };
+		3FBC60732B01852C001DB696 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC60722B01852C001DB696 /* RegistrationView.swift */; };
+		3FBC60752B018560001DB696 /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC60742B018560001DB696 /* InitialView.swift */; };
+		3FBC60772B018594001DB696 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC60762B018594001DB696 /* ProfileView.swift */; };
+		3FBC60792B018E12001DB696 /* SignUpLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC60782B018E12001DB696 /* SignUpLoginView.swift */; };
 		B2388E532AF58FC3009B82DE /* SwipeView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E522AF58FC3009B82DE /* SwipeView2.swift */; };
 		B2388E552AF593B2009B82DE /* ContentView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E542AF593B2009B82DE /* ContentView2.swift */; };
 		B2388E572AFB1095009B82DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2388E562AFB1095009B82DE /* GoogleService-Info.plist */; };
@@ -33,7 +41,6 @@
 		B2A9354C2AF183C0006B7AD8 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = B2A9354B2AF183C0006B7AD8 /* FirebasePerformance */; };
 		B2A9354E2AF183C0006B7AD8 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B2A9354D2AF183C0006B7AD8 /* FirebaseStorage */; };
 		B2A935502AF1A481006B7AD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */; };
-		B2A935542AF1A708006B7AD8 /* SignupLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935532AF1A708006B7AD8 /* SignupLoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +61,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3FBC606A2B018414001DB696 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		3FBC606C2B01845B001DB696 /* OurUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurUser.swift; sourceTree = "<group>"; };
+		3FBC606E2B01848F001DB696 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
+		3FBC60702B0184C2001DB696 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		3FBC60722B01852C001DB696 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		3FBC60742B018560001DB696 /* InitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
+		3FBC60762B018594001DB696 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		3FBC60782B018E12001DB696 /* SignUpLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpLoginView.swift; sourceTree = "<group>"; };
 		B2388E522AF58FC3009B82DE /* SwipeView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView2.swift; sourceTree = "<group>"; };
 		B2388E542AF593B2009B82DE /* ContentView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView2.swift; sourceTree = "<group>"; };
 		B2388E562AFB1095009B82DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -69,7 +84,6 @@
 		B2A9351E2AF181FE006B7AD8 /* TasteBudzUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzUITests.swift; sourceTree = "<group>"; };
 		B2A935202AF181FE006B7AD8 /* TasteBudzUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B2A935532AF1A708006B7AD8 /* SignupLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupLoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +125,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3FBC60622B018367001DB696 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3FBC606E2B01848F001DB696 /* SettingsRowView.swift */,
+				3FBC60702B0184C2001DB696 /* InputView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3FBC60632B018372001DB696 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				3FBC60762B018594001DB696 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		3FBC60642B01837B001DB696 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				3FBC60672B0183A4001DB696 /* View Model */,
+				3FBC60652B018384001DB696 /* View */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		3FBC60652B018384001DB696 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3FBC60722B01852C001DB696 /* RegistrationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3FBC60672B0183A4001DB696 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				3FBC606A2B018414001DB696 /* AuthViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		3FBC60682B0183B6001DB696 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3FBC606C2B01845B001DB696 /* OurUser.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3FBC60692B0183C4001DB696 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				3FBC60742B018560001DB696 /* InitialView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 		B2A934F72AF181FB006B7AD8 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +206,11 @@
 		B2A935022AF181FB006B7AD8 /* TasteBudz */ = {
 			isa = PBXGroup;
 			children = (
+				3FBC60692B0183C4001DB696 /* Root */,
+				3FBC60682B0183B6001DB696 /* Model */,
+				3FBC60642B01837B001DB696 /* Core */,
+				3FBC60632B018372001DB696 /* Profile */,
+				3FBC60622B018367001DB696 /* Components */,
 				B2388E562AFB1095009B82DE /* GoogleService-Info.plist */,
 				B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */,
 				B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */,
@@ -141,9 +218,9 @@
 				B2388E542AF593B2009B82DE /* ContentView2.swift */,
 				B2846D662AF55F20009D22DF /* SwipeView.swift */,
 				B2388E522AF58FC3009B82DE /* SwipeView2.swift */,
-				B2A935532AF1A708006B7AD8 /* SignupLoginView.swift */,
 				B2A935072AF181FE006B7AD8 /* Assets.xcassets */,
 				B2A935092AF181FE006B7AD8 /* Preview Content */,
+				3FBC60782B018E12001DB696 /* SignUpLoginView.swift */,
 			);
 			path = TasteBudz;
 			sourceTree = "<group>";
@@ -325,10 +402,17 @@
 			files = (
 				B2388E532AF58FC3009B82DE /* SwipeView2.swift in Sources */,
 				B2A935502AF1A481006B7AD8 /* AppDelegate.swift in Sources */,
+				3FBC606F2B01848F001DB696 /* SettingsRowView.swift in Sources */,
+				3FBC60732B01852C001DB696 /* RegistrationView.swift in Sources */,
+				3FBC606D2B01845B001DB696 /* OurUser.swift in Sources */,
 				B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */,
-				B2A935542AF1A708006B7AD8 /* SignupLoginView.swift in Sources */,
+				3FBC606B2B018414001DB696 /* AuthViewModel.swift in Sources */,
+				3FBC60752B018560001DB696 /* InitialView.swift in Sources */,
 				B2388E552AF593B2009B82DE /* ContentView2.swift in Sources */,
+				3FBC60712B0184C2001DB696 /* InputView.swift in Sources */,
+				3FBC60792B018E12001DB696 /* SignUpLoginView.swift in Sources */,
 				B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */,
+				3FBC60772B018594001DB696 /* ProfileView.swift in Sources */,
 				B2A935042AF181FB006B7AD8 /* TasteBudzApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
