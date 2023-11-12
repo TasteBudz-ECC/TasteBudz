@@ -11,6 +11,8 @@ import SwiftUI
 //    
 //}
 
+// hi
+
 struct SwipeView: View {
     var body: some View {
         ZStack {
