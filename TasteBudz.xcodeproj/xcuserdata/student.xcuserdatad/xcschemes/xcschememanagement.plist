@@ -23,7 +23,11 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>0</integer>
+=======
+			<integer>1</integer>
+>>>>>>> joannar
 		</dict>
 		<key>TasteBudz.xcscheme_^#shared#^_</key>
 		<dict>
