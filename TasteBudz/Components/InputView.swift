@@ -32,6 +32,10 @@ struct InputView: View {
     }
 }
 
+/*
+ This is a view dedicated to viewing input
+ */
+
 #Preview {
     InputView(text: .constant(""), title: "Email Address", placeholder: "name@example.com")
 }
