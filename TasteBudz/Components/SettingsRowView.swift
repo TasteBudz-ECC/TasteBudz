@@ -12,6 +12,7 @@ struct SettingsRowView: View {
     let title: String
     let tintColor: Color
     var body: some View {
+        //Hstack to store a image and a title 
         HStack(spacing: 12) {
             Image(systemName: imageName)
                 .imageScale(.small)
