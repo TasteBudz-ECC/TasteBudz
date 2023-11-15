@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 import FirebaseAuth
 
 @MainActor
+//This is the view model for the authentication view -- Devin
 class AuthViewModel: ObservableObject {
     @Published var userSession: User?
     @Published var currentUser: OurUser?
