@@ -23,4 +23,6 @@ struct InitialView: View {
     InitialView().environmentObject(AuthViewModel())
     // this ui file is to decide where to take user depending on if the user already has an account :)
 }
-// comment
+
+//howdy
+
