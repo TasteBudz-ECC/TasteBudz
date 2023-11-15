@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+//Struct to represent A single User
 struct OurUser: Identifiable, Codable {
     let id: String
     let fullname: String
