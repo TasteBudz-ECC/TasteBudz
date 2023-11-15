@@ -23,7 +23,11 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+<<<<<<< Updated upstream
 			<integer>0</integer>
+=======
+			<integer>1</integer>
+>>>>>>> Stashed changes
 		</dict>
 		<key>TasteBudz.xcscheme_^#shared#^_</key>
 		<dict>
