@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+    
 
 struct ContentView: View {
     @State private var selection: Int = 0
@@ -30,19 +32,19 @@ struct ContentView: View {
                         self.selection -= 1 // Swipe left to switch to the previous tab
                     }
                 })
-        
-    
-        
-    
+
+
+
+
 //        VStack {
 //            SignupLoginView()
 //        }
 //        .padding()
-        
-        
+
+
         /*
         TabView{
-        
+
         /* Todo:
             Uncomment the views and change the name accordingly when the files have been created
          */
@@ -64,7 +66,7 @@ struct ContentView: View {
                 }
         }
         .accentColor(.blue)
-         
+
          */
     }
 }

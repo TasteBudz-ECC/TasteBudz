@@ -106,5 +106,5 @@ struct SigningUpLoginView: View {
 }
 
 //#Preview {
-//    SignupLoginView()
+//    SigningUpLoginView()
 //}
