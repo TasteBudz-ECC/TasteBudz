@@ -18,6 +18,11 @@
 		B2388E532AF58FC3009B82DE /* SwipeView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E522AF58FC3009B82DE /* SwipeView2.swift */; };
 		B2388E552AF593B2009B82DE /* ContentView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E542AF593B2009B82DE /* ContentView2.swift */; };
 		B2388E572AFB1095009B82DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2388E562AFB1095009B82DE /* GoogleService-Info.plist */; };
+		B2388E5D2B0557FB009B82DE /* SwipeView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E5C2B0557FB009B82DE /* SwipeView3.swift */; };
+		B2388E942B060BEA009B82DE /* RequestUserContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E932B060BEA009B82DE /* RequestUserContactsView.swift */; };
+		B2388E962B0626F4009B82DE /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E952B0626F4009B82DE /* ContactModel.swift */; };
+		B2388E992B0639BC009B82DE /* PhoneNumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */; };
+		B2388E9B2B0C2707009B82DE /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E9A2B0C2706009B82DE /* UIColor+Hex.swift */; };
 		B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2846D662AF55F20009D22DF /* SwipeView.swift */; };
 		B2A935042AF181FB006B7AD8 /* TasteBudzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */; };
 		B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935052AF181FB006B7AD8 /* ContentView.swift */; };
@@ -72,6 +77,11 @@
 		B2388E522AF58FC3009B82DE /* SwipeView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView2.swift; sourceTree = "<group>"; };
 		B2388E542AF593B2009B82DE /* ContentView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView2.swift; sourceTree = "<group>"; };
 		B2388E562AFB1095009B82DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B2388E5C2B0557FB009B82DE /* SwipeView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView3.swift; sourceTree = "<group>"; };
+		B2388E932B060BEA009B82DE /* RequestUserContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUserContactsView.swift; sourceTree = "<group>"; };
+		B2388E952B0626F4009B82DE /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
+		B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberPickerView.swift; sourceTree = "<group>"; };
+		B2388E9A2B0C2706009B82DE /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		B2846D662AF55F20009D22DF /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		B2A935002AF181FB006B7AD8 /* TasteBudz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteBudz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzApp.swift; sourceTree = "<group>"; };
@@ -183,9 +193,28 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		B2388E5B2B055783009B82DE /* SwipeUIView */ = {
+			isa = PBXGroup;
+			children = (
+				B2388E5C2B0557FB009B82DE /* SwipeView3.swift */,
+			);
+			path = SwipeUIView;
+			sourceTree = "<group>";
+		};
+		B2388E972B063983009B82DE /* ContactsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B2388E952B0626F4009B82DE /* ContactModel.swift */,
+				B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */,
+				B2388E932B060BEA009B82DE /* RequestUserContactsView.swift */,
+			);
+			path = ContactsScreen;
+			sourceTree = "<group>";
+		};
 		B2A934F72AF181FB006B7AD8 = {
 			isa = PBXGroup;
 			children = (
+				B2388E9A2B0C2706009B82DE /* UIColor+Hex.swift */,
 				B2A935022AF181FB006B7AD8 /* TasteBudz */,
 				B2A935132AF181FE006B7AD8 /* TasteBudzTests */,
 				B2A9351D2AF181FE006B7AD8 /* TasteBudzUITests */,
@@ -206,6 +235,8 @@
 		B2A935022AF181FB006B7AD8 /* TasteBudz */ = {
 			isa = PBXGroup;
 			children = (
+				B2388E972B063983009B82DE /* ContactsScreen */,
+				B2388E5B2B055783009B82DE /* SwipeUIView */,
 				3FBC60692B0183C4001DB696 /* Root */,
 				3FBC60682B0183B6001DB696 /* Model */,
 				3FBC60642B01837B001DB696 /* Core */,
@@ -405,12 +436,17 @@
 				3FBC606F2B01848F001DB696 /* SettingsRowView.swift in Sources */,
 				3FBC60732B01852C001DB696 /* RegistrationView.swift in Sources */,
 				3FBC606D2B01845B001DB696 /* OurUser.swift in Sources */,
+				B2388E962B0626F4009B82DE /* ContactModel.swift in Sources */,
 				B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */,
 				3FBC606B2B018414001DB696 /* AuthViewModel.swift in Sources */,
 				3FBC60752B018560001DB696 /* InitialView.swift in Sources */,
 				B2388E552AF593B2009B82DE /* ContentView2.swift in Sources */,
+				B2388E5D2B0557FB009B82DE /* SwipeView3.swift in Sources */,
+				B2388E942B060BEA009B82DE /* RequestUserContactsView.swift in Sources */,
 				3FBC60712B0184C2001DB696 /* InputView.swift in Sources */,
 				B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */,
+				B2388E9B2B0C2707009B82DE /* UIColor+Hex.swift in Sources */,
+				B2388E992B0639BC009B82DE /* PhoneNumberPickerView.swift in Sources */,
 				3FBC60772B018594001DB696 /* ProfileView.swift in Sources */,
 				B2A935042AF181FB006B7AD8 /* TasteBudzApp.swift in Sources */,
 				3FBC607B2B0190DE001DB696 /* SigningUpLogInView.swift in Sources */,
@@ -579,6 +615,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TasteBudz/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSContactsUsageDescription = "Invite your friends and expand your network within the app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -608,6 +645,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TasteBudz/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSContactsUsageDescription = "Invite your friends and expand your network within the app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
