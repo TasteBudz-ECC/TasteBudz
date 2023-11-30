@@ -23,7 +23,7 @@ struct TasteBudzApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentViewOfficial()
         }
     }
 }
