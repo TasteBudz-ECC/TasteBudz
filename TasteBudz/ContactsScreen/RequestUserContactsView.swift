@@ -169,6 +169,10 @@ struct RequestUserContactsView: View {
     
 }
 
-#Preview {
-    RequestUserContactsView()
+
+
+struct RequestUserContactsView_Previews: PreviewProvider {
+    static var previews: some View {
+        RequestUserContactsView()
+    }
 }
