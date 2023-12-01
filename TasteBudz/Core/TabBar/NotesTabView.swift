@@ -19,7 +19,8 @@ struct NotesTabView: View {
                 .onAppear { selectedTab = 0 }
                 .tag(0)
             
-            ExploreView()
+//            ExploreView() UNCOMMENT THIS LATER
+              ContentView() // replace this with exploreview
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                 }
