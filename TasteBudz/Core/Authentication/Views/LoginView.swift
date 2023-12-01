@@ -64,7 +64,8 @@ struct LoginView: View {
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     HStack(spacing: 3) {
-                        Text("Don't have an account?")
+   
+                    Text("Don't have an account?")
                         
                         Text("Sign Up")
                             .fontWeight(.semibold)
