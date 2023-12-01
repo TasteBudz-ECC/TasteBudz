@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NotesTabView: View {
     @State private var selectedTab = 0
+    @State private var showCreateNoteView = false
     var body: some View {
         TabView(selection: $selectedTab) {
             FeedView()
@@ -27,7 +28,7 @@ struct NotesTabView: View {
                 .onAppear { selectedTab = 1 }
                 .tag(1)
             
-            CreateNoteView()
+            Text("")
                 .tabItem {
                     Image(systemName: "plus")
                 }
@@ -43,7 +44,7 @@ struct NotesTabView: View {
                 .onAppear { selectedTab = 3 }
                 .tag(3)
             
-            ProfileView()
+            CurrentUserProfileView()
                 .tabItem {
                     Image(systemName: selectedTab == 4 ? "person.fill" : "person")
                         .environment(\.symbolVariants, selectedTab == 4 ? .fill : .none)
@@ -52,6 +53,14 @@ struct NotesTabView: View {
                 .tag(4)
 
         }
+        .onChange(of: selectedTab, perform: { newValue in
+            showCreateNoteView = selectedTab == 2
+        })
+        .sheet(isPresented: $showCreateNoteView, onDismiss: {
+            selectedTab = 0
+        }, content: {
+            CreateNoteView()
+        })
         .tint(.black)
     }
 }
