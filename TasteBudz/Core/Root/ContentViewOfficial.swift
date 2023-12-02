@@ -11,10 +11,10 @@ struct ContentViewOfficial: View {
     @StateObject var viewModel = ContentViewOfficialModel()
     var body: some View {
         Group {
-            if viewModel.userSession != nil {
-                NotesTabView()
-            } else {
+            if viewModel.userSession == nil {
                 LoginView()
+            } else {
+                NotesTabView()
             }
         }
     }
