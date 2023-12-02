@@ -8,27 +8,33 @@
 import SwiftUI
 
 struct CreateNoteView: View {
-    @State private var caption = ""
     @Environment(\.dismiss) var dismiss
+    @StateObject var viewModel = CreateNoteViewModel()
+    @Binding var tabIndex: Int
+    
+    private var user: User? {
+        return UserService.shared.currentUser
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
                 HStack(alignment: .top) {
-                    CircularProfileImageView()
+                    CircularProfileImageView(user: user, size: .small)
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("username1")
+                        Text(user?.username ?? "")
                             .fontWeight(.semibold)
                         
-                        TextField("Start a note...", text: $caption, axis: .vertical)
+                        TextField("Start a thread...", text: $viewModel.caption, axis: .vertical)
                     }
                     .font(.footnote)
                     
                     Spacer()
                     
-                    if !caption.isEmpty {
+                    if !viewModel.caption.isEmpty {
                         Button {
-                            caption = ""
+                            viewModel.caption = ""
                         } label: {
                             Image(systemName: "xmark")
                                 .resizable()
@@ -37,37 +43,43 @@ struct CreateNoteView: View {
                         }
                     }
                 }
+                
                 Spacer()
             }
             .padding()
-            .navigationTitle("New Note")
-            .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("Cancel") {
-                           dismiss()
-                        }
-                        .font(.subheadline)
-                        .foregroundColor(.black)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                    .font(.subheadline)
+                    .foregroundStyle(Color.theme.primaryText)
                 }
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Post") {
-                            
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Post") {
+                        Task {
+                            try await viewModel.uploadNote()
+                            dismiss()
                         }
-                        .opacity(caption.isEmpty ? 0.5 : 1.0)
-                        .disabled(caption.isEmpty)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.black)
+                    }
+                    .opacity(viewModel.caption.isEmpty ? 0.5 : 1.0)
+                    .disabled(viewModel.caption.isEmpty)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(Color.theme.primaryText)
                 }
             }
+            .onDisappear { tabIndex = 0 }
+            .navigationTitle("New Thread")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
-struct CreateNoteView_Previews: PreviewProvider {
+struct CreateThreadView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateNoteView()
+        CreateNoteView(tabIndex: .constant(0))
     }
 }
+

@@ -8,22 +8,21 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
-    var user: User?
-    init(user: User?) {
-        self.user = user
+    @EnvironmentObject var viewModel: CurrentUserProfileViewModel
+    
+    private var user: User? {
+        return viewModel.currentUser
     }
+    
     var body: some View {
         HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 4) {
-                // this v stack is for bio and stats
+            VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
-                    // this is for full name and username
                     Text(user?.fullname ?? "")
-                        .font(.title)
+                        .font(.title2)
                         .fontWeight(.semibold)
                     
                     Text(user?.username ?? "")
-                        .font(.subheadline)
                 }
                 
                 if let bio = user?.bio {
@@ -31,20 +30,20 @@ struct ProfileHeaderView: View {
                         .font(.footnote)
                 }
                 
-                Text("2 followers")
+                Text("22k followers")
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
             }
             
             Spacer()
             
-            CircularProfileImageView()
+            CircularProfileImageView(user: user, size: .medium)
         }
     }
 }
 
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHeaderView(user: dev.user)
+        ProfileHeaderView()
     }
 }

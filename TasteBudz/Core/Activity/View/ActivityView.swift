@@ -8,8 +8,45 @@
 import SwiftUI
 
 struct ActivityView: View {
+    @StateObject var viewModel = ActivityViewModel()
+    
     var body: some View {
-        Text("Hello, Activities!")
+        NavigationStack {
+            VStack {
+                ScrollView {
+                    ActivityFilterView(selectedFilter: $viewModel.selectedFilter)
+                        .padding(.vertical)
+
+                    LazyVStack(spacing: 16) {
+                        ForEach(viewModel.notifications) { activityModel in
+                            if activityModel.type != .follow {
+                                NavigationLink(value: activityModel) {
+                                    ActivityRowView(model: activityModel)
+                                }
+                            } else {
+                                NavigationLink(value: activityModel.user) {
+                                    ActivityRowView(model: activityModel)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .overlay {
+                if viewModel.isLoading {
+                    ProgressView()
+                }
+            }
+            .navigationTitle("Activity")
+            .navigationDestination(for: ActivityModel.self, destination: { model in
+                if let note = model.note {
+                    NoteDetailsView(note: note)
+                }
+            })
+            .navigationDestination(for: User.self, destination: { user in
+                ProfileView(user: user)
+            })
+        }
     }
 }
 

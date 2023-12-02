@@ -10,17 +10,21 @@ import SwiftUI
 struct RegistrationView: View {
     @StateObject var viewModel = RegistrationViewModel()
     @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         VStack {
             Spacer()
             
+            // logo image
             Image("GatherIcon_1024x1024")
-            // could add the other image here instead
+                // .renderingMode(.template)
                 .resizable()
-                .scaledToFill()
+                // .colorMultiply(Color.theme.primaryText)
+                .scaledToFit()
                 .frame(width: 120, height: 120)
                 .padding()
             
+            // text fields
             VStack {
                 TextField("Enter your email", text: $viewModel.email)
                     .autocapitalization(.none)
@@ -30,25 +34,30 @@ struct RegistrationView: View {
                     .modifier(NotesTextFieldModifier())
                 
                 TextField("Enter your full name", text: $viewModel.fullname)
+                    .autocapitalization(.none)
                     .modifier(NotesTextFieldModifier())
                 
                 TextField("Enter your username", text: $viewModel.username)
                     .autocapitalization(.none)
                     .modifier(NotesTextFieldModifier())
-                
             }
             
             Button {
                 Task { try await viewModel.createUser() }
             } label: {
-                Text("Sign Up")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .frame(width: 352, height: 44)
-                    .background(.black)
-                    .cornerRadius(8)
+                Text(viewModel.isAuthenticating ? "" : "Sign up")
+                    .foregroundColor(Color.theme.primaryBackground)
+                    .modifier(NotesButtonModifier())
+                    .overlay {
+                        if viewModel.isAuthenticating {
+                            ProgressView()
+                                .tint(Color.theme.primaryBackground)
+                        }
+                    }
+                    
             }
+            .disabled(viewModel.isAuthenticating || !formIsValid)
+            .opacity(formIsValid ? 1 : 0.7)
             .padding(.vertical)
             
             Spacer()
@@ -56,20 +65,35 @@ struct RegistrationView: View {
             Divider()
             
             Button {
-               dismiss()
+                dismiss()
             } label: {
                 HStack(spacing: 3) {
                     Text("Already have an account?")
                     
-                    Text("Sign In")
+                    Text("Sign in")
                         .fontWeight(.semibold)
                 }
-                .foregroundColor(.black)
+                .foregroundColor(Color.theme.primaryText)
                 .font(.footnote)
             }
             .padding(.vertical, 16)
-
         }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Error"),
+                  message: Text(viewModel.authError?.description ?? ""))
+        }
+    }
+}
+
+// MARK: - Form Validation
+
+extension RegistrationView: AuthenticationFormProtocol {
+    var formIsValid: Bool {
+        return !viewModel.email.isEmpty
+        && viewModel.email.contains("@")
+        && !viewModel.password.isEmpty
+        && !viewModel.fullname.isEmpty
+        && viewModel.password.count > 5
     }
 }
 
