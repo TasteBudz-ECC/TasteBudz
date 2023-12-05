@@ -23,6 +23,10 @@
 		B2388E962B0626F4009B82DE /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E952B0626F4009B82DE /* ContactModel.swift */; };
 		B2388E992B0639BC009B82DE /* PhoneNumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */; };
 		B2388E9B2B0C2707009B82DE /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E9A2B0C2706009B82DE /* UIColor+Hex.swift */; };
+		B24F15DA2B1933E30076DD33 /* YelpApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15D92B1933E30076DD33 /* YelpApiService.swift */; };
+		B24F15DC2B193AFF0076DD33 /* RecommendRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15DB2B193AFF0076DD33 /* RecommendRestaurantView.swift */; };
+		B24F15DE2B193E360076DD33 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15DD2B193E360076DD33 /* RecommendViewModel.swift */; };
+		B24F15E02B1FD6190076DD33 /* DisplayListofRestaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15DF2B1FD6190076DD33 /* DisplayListofRestaurants.swift */; };
 		B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2846D662AF55F20009D22DF /* SwipeView.swift */; };
 		B2A935042AF181FB006B7AD8 /* TasteBudzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */; };
 		B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935052AF181FB006B7AD8 /* ContentView.swift */; };
@@ -82,6 +86,10 @@
 		B2388E952B0626F4009B82DE /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberPickerView.swift; sourceTree = "<group>"; };
 		B2388E9A2B0C2706009B82DE /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		B24F15D92B1933E30076DD33 /* YelpApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpApiService.swift; sourceTree = "<group>"; };
+		B24F15DB2B193AFF0076DD33 /* RecommendRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendRestaurantView.swift; sourceTree = "<group>"; };
+		B24F15DD2B193E360076DD33 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
+		B24F15DF2B1FD6190076DD33 /* DisplayListofRestaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayListofRestaurants.swift; sourceTree = "<group>"; };
 		B2846D662AF55F20009D22DF /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		B2A935002AF181FB006B7AD8 /* TasteBudz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteBudz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzApp.swift; sourceTree = "<group>"; };
@@ -211,6 +219,17 @@
 			path = ContactsScreen;
 			sourceTree = "<group>";
 		};
+		B24F15D82B1933D10076DD33 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B24F15D92B1933E30076DD33 /* YelpApiService.swift */,
+				B24F15DB2B193AFF0076DD33 /* RecommendRestaurantView.swift */,
+				B24F15DD2B193E360076DD33 /* RecommendViewModel.swift */,
+				B24F15DF2B1FD6190076DD33 /* DisplayListofRestaurants.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		B2A934F72AF181FB006B7AD8 = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +254,7 @@
 		B2A935022AF181FB006B7AD8 /* TasteBudz */ = {
 			isa = PBXGroup;
 			children = (
+				B24F15D82B1933D10076DD33 /* Services */,
 				B2388E972B063983009B82DE /* ContactsScreen */,
 				B2388E5B2B055783009B82DE /* SwipeUIView */,
 				3FBC60692B0183C4001DB696 /* Root */,
@@ -431,12 +451,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B24F15DA2B1933E30076DD33 /* YelpApiService.swift in Sources */,
 				B2388E532AF58FC3009B82DE /* SwipeView2.swift in Sources */,
 				B2A935502AF1A481006B7AD8 /* AppDelegate.swift in Sources */,
+				B24F15DE2B193E360076DD33 /* RecommendViewModel.swift in Sources */,
 				3FBC606F2B01848F001DB696 /* SettingsRowView.swift in Sources */,
 				3FBC60732B01852C001DB696 /* RegistrationView.swift in Sources */,
 				3FBC606D2B01845B001DB696 /* OurUser.swift in Sources */,
 				B2388E962B0626F4009B82DE /* ContactModel.swift in Sources */,
+				B24F15DC2B193AFF0076DD33 /* RecommendRestaurantView.swift in Sources */,
 				B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */,
 				3FBC606B2B018414001DB696 /* AuthViewModel.swift in Sources */,
 				3FBC60752B018560001DB696 /* InitialView.swift in Sources */,
@@ -444,6 +467,7 @@
 				B2388E5D2B0557FB009B82DE /* SwipeView3.swift in Sources */,
 				B2388E942B060BEA009B82DE /* RequestUserContactsView.swift in Sources */,
 				3FBC60712B0184C2001DB696 /* InputView.swift in Sources */,
+				B24F15E02B1FD6190076DD33 /* DisplayListofRestaurants.swift in Sources */,
 				B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */,
 				B2388E9B2B0C2707009B82DE /* UIColor+Hex.swift in Sources */,
 				B2388E992B0639BC009B82DE /* PhoneNumberPickerView.swift in Sources */,
