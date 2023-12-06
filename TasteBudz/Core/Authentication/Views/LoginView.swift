@@ -9,18 +9,23 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject var viewModel = LoginViewModel()
+    
     var body: some View {
         NavigationStack {
             VStack {
+                
                 Spacer()
                 
+                // logo image
                 Image("GatherIcon_1024x1024")
-                // could add the other image here instead
+                    //.renderingMode(.template)
                     .resizable()
-                    .scaledToFill()
+                    //.colorMultiply(Color.theme.primaryText)
+                    .scaledToFit()
                     .frame(width: 120, height: 120)
                     .padding()
                 
+                // text fields
                 VStack {
                     TextField("Enter your email", text: $viewModel.email)
                         .autocapitalization(.none)
@@ -31,28 +36,35 @@ struct LoginView: View {
                 }
                 
                 NavigationLink {
+                    ForgotPasswordView()
+                } label: {
                     Text("Forgot Password?")
-                } label : {
-                    Text("Forgot password?")
                         .font(.footnote)
                         .fontWeight(.semibold)
-                        .padding(.vertical)
+                        .padding(.top)
                         .padding(.trailing, 28)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color.theme.primaryText)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
+                
                 Button {
                     Task { try await viewModel.login() }
                 } label: {
-                    Text("Login")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(width: 352, height: 44)
-                        .background(.black)
-                        .cornerRadius(8)
+                    Text(viewModel.isAuthenticating ? "" : "Login")
+                        .foregroundColor(Color.theme.primaryBackground)
+                        .modifier(NotesButtonModifier())
+                        .overlay {
+                            if viewModel.isAuthenticating {
+                                ProgressView()
+                                    .tint(Color.theme.primaryBackground)
+                            }
+                        }
                 }
-
+                .disabled(viewModel.isAuthenticating || !formIsValid)
+                .opacity(formIsValid ? 1 : 0.7)
+                
+                .padding(.vertical)
+                
                 Spacer()
                 
                 Divider()
@@ -62,19 +74,32 @@ struct LoginView: View {
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     HStack(spacing: 3) {
-   
-                    Text("Don't have an account?")
+                        Text("Don't have an account?")
                         
                         Text("Sign Up")
                             .fontWeight(.semibold)
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(Color.theme.primaryText)
                     .font(.footnote)
                 }
                 .padding(.vertical, 16)
 
             }
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(title: Text("Error"),
+                      message: Text(viewModel.authError?.description ?? ""))
+            }
         }
+    }
+}
+
+// MARK: - Form Validation
+
+extension LoginView: AuthenticationFormProtocol {
+    var formIsValid: Bool {
+        return !viewModel.email.isEmpty
+        && viewModel.email.contains("@")
+        && !viewModel.password.isEmpty
     }
 }
 

@@ -6,90 +6,111 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct EditProfileView: View {
-    @State private var bio = ""
-    @State private var link = ""
     @State private var isPrivateProfile = false
+    @EnvironmentObject var viewModel: CurrentUserProfileViewModel
+    @Environment(\.dismiss) var dismiss
+    
+    private var user: User? {
+        return viewModel.currentUser
+    }
+        
     var body: some View {
         NavigationStack {
             ZStack {
                 Color(.systemGroupedBackground)
                     .edgesIgnoringSafeArea([.bottom, .horizontal])
-                
-                VStack {
-                    // name and profile image
+                VStack(alignment: .leading) {
+                    
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Name")
                                 .fontWeight(.semibold)
                             
-                            Text("User Name")
+                            Text(user?.fullname ?? "")
                         }
-                        
+                        .font(.footnote)
+
                         Spacer()
                         
-                        CircularProfileImageView()
-                        
+                        PhotosPicker(selection: $viewModel.selectedImage) {
+                            if let image = viewModel.profileImage {
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: ProfileImageSize.small.dimension, height: ProfileImageSize.small.dimension)
+                                    .clipShape(Circle())
+                                    .foregroundColor(Color(.systemGray4))
+                            } else {
+                                CircularProfileImageView(user: user, size: .small)
+                            }
+                        }
                     }
                     
                     Divider()
                     
-                    // bio fields
-                    
-                    VStack(alignment: .leading){
+                    VStack(alignment: .leading) {
                         Text("Bio")
                             .fontWeight(.semibold)
                         
-                        TextField("Enter your bio...", text: $bio, axis: .vertical)
-                        
+                        TextField("Enter you bio..", text: $viewModel.bio, axis: .vertical)
                     }
+                    .font(.footnote)
                     
                     Divider()
                     
-                    VStack(alignment: .leading){
+                    VStack(alignment: .leading) {
                         Text("Link")
                             .fontWeight(.semibold)
                         
-                        TextField("Add link...", text: $link)
-                        
+                        TextField("Add link...", text: $viewModel.link)
                     }
+                    .font(.footnote)
                     
                     Divider()
                     
                     Toggle("Private profile", isOn: $isPrivateProfile)
+                        .font(.footnote)
+                    
+                    Divider()
                     
                 }
-                .font(.footnote)
+                
+                .navigationTitle("Edit Profile")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("Cancel") {
+                            dismiss()
+                        }
+                        .font(.subheadline)
+                        .foregroundColor(Color.theme.primaryText)
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Done") {
+                            Task {
+                                try await viewModel.updateUserData()
+                                dismiss()
+                            }
+                        }
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                    }
+                }
                 .padding()
-                .background(.white)
-                .cornerRadius(10)
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color(.systemGray4), lineWidth: 1)
                 }
+                .background(Color.theme.primaryBackground)
+
                 .padding()
-                
             }
-            .navigationTitle("Edit Profile")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        
-                    }
-                    .font(.subheadline)
-                    .foregroundColor(.black)
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        
-                    }
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.black)
-                }
+            .onAppear {
+                viewModel.loadUserData()
             }
         }
     }

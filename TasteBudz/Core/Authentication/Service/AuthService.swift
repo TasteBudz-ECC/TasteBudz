@@ -6,51 +6,64 @@
 //
 
 import Firebase
-import FirebaseFirestoreSwift
-
 
 class AuthService {
-    
     @Published var userSession: FirebaseAuth.User?
     
     static let shared = AuthService()
     
     init() {
         self.userSession = Auth.auth().currentUser
+        Task { try await UserService.shared.fetchCurrentUser() }
     }
+    
     @MainActor
     func login(withEmail email: String, password: String) async throws {
-        do  {
+        do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             try await UserService.shared.fetchCurrentUser()
         } catch {
-            print("DEBUG: FAILED TO CREATE USER WITH ERROR \(error.localizedDescription)")
+            print("DEBUG: Failed to login with error \(error.localizedDescription)")
+            throw error
         }
     }
     
     @MainActor
     func createUser(withEmail email: String, password: String, fullname: String, username: String) async throws {
-        do  {
+        do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            try await uploadUserData(withEmail: email, fullname: fullname, username: username, id: result.user.uid)
+            try await uploadUserData(email: email, fullname: fullname, username: username, id: result.user.uid)
         } catch {
-            print("DEBUG: FAILED TO CREATE USER WITH ERROR \(error.localizedDescription)")
+            print("DEBUG: Failed to login with error \(error.localizedDescription)")
+            throw error
         }
     }
     
-    func signOut() {
-        try? Auth.auth().signOut() // signs out user on backend
-        self.userSession = nil // this removes user session locally and updates routing
-        UserService.shared.reset() // sets current user object to nil
+    @MainActor
+    private func uploadUserData(email: String, fullname: String, username: String, id: String) async throws {
+        let user = User(fullname: fullname, email: email, username: username.lowercased(), id: id)
+        guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
+        try await FirestoreConstants.UserCollection.document(id).setData(encodedUser)
+        UserService.shared.currentUser = user
     }
     
-    @MainActor
-    private func uploadUserData(withEmail email: String, fullname: String, username: String, id: String) async throws {
-       let user = User(id: id, fullname: fullname, email: email, username: username)
-        guard let userData = try? Firestore.Encoder().encode(user) else { return }
-        try await Firestore.firestore().collection("users").document(id).setData(userData)
-        UserService.shared.currentUser = user
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+            self.userSession = nil
+        } catch {
+            print("DEBUG: Failed to sign out")
+        }
+    }
+    
+    func sendPasswordResetEmail(toEmail email: String) async throws {
+        do {
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+        } catch {
+            print("DEBUG: Failed to send email with error \(error.localizedDescription)")
+            throw error
+        }
     }
 }
