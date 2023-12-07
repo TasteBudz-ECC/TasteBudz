@@ -269,13 +269,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		3F40AA332B1810A5006DD8FA /* App */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
 		3F40AA352B1810E3006DD8FA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -742,7 +735,6 @@
 				3F500CB72B1A9EE0004D96CD /* Extensions */,
 				3F40AA582B183C7B006DD8FA /* GatherModels */,
 				3F40AA352B1810E3006DD8FA /* Utils */,
-				3F40AA332B1810A5006DD8FA /* App */,
 				3F40AA322B181091006DD8FA /* Services */,
 				B2388E972B063983009B82DE /* ContactsScreen */,
 				B2388E5B2B055783009B82DE /* SwipeUIView */,
