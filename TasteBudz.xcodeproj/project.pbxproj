@@ -85,6 +85,10 @@
 		B2388E962B0626F4009B82DE /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E952B0626F4009B82DE /* ContactModel.swift */; };
 		B2388E992B0639BC009B82DE /* PhoneNumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */; };
 		B2388E9B2B0C2707009B82DE /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E9A2B0C2706009B82DE /* UIColor+Hex.swift */; };
+		B24F15ED2B214D300076DD33 /* YelpApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15EC2B214D300076DD33 /* YelpApiService.swift */; };
+		B24F15F12B214D5E0076DD33 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F02B214D5E0076DD33 /* RecommendViewModel.swift */; };
+		B24F15F32B214D860076DD33 /* RecommendedRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F22B214D860076DD33 /* RecommendedRestaurantView.swift */; };
+		B24F15F52B214D990076DD33 /* DisplayListofRestaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F42B214D990076DD33 /* DisplayListofRestaurants.swift */; };
 		B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2846D662AF55F20009D22DF /* SwipeView.swift */; };
 		B2A935042AF181FB006B7AD8 /* TasteBudzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */; };
 		B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935052AF181FB006B7AD8 /* ContentView.swift */; };
@@ -205,6 +209,10 @@
 		B2388E952B0626F4009B82DE /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberPickerView.swift; sourceTree = "<group>"; };
 		B2388E9A2B0C2706009B82DE /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		B24F15EC2B214D300076DD33 /* YelpApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpApiService.swift; sourceTree = "<group>"; };
+		B24F15F02B214D5E0076DD33 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
+		B24F15F22B214D860076DD33 /* RecommendedRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedRestaurantView.swift; sourceTree = "<group>"; };
+		B24F15F42B214D990076DD33 /* DisplayListofRestaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayListofRestaurants.swift; sourceTree = "<group>"; };
 		B2846D662AF55F20009D22DF /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		B2A935002AF181FB006B7AD8 /* TasteBudz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteBudz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzApp.swift; sourceTree = "<group>"; };
@@ -708,6 +716,17 @@
 			path = ContactsScreen;
 			sourceTree = "<group>";
 		};
+		B24F15EB2B214D120076DD33 /* RecommendRestaurants */ = {
+			isa = PBXGroup;
+			children = (
+				B24F15EC2B214D300076DD33 /* YelpApiService.swift */,
+				B24F15F22B214D860076DD33 /* RecommendedRestaurantView.swift */,
+				B24F15F02B214D5E0076DD33 /* RecommendViewModel.swift */,
+				B24F15F42B214D990076DD33 /* DisplayListofRestaurants.swift */,
+			);
+			path = RecommendRestaurants;
+			sourceTree = "<group>";
+		};
 		B2A934F72AF181FB006B7AD8 = {
 			isa = PBXGroup;
 			children = (
@@ -732,6 +751,7 @@
 		B2A935022AF181FB006B7AD8 /* TasteBudz */ = {
 			isa = PBXGroup;
 			children = (
+				B24F15EB2B214D120076DD33 /* RecommendRestaurants */,
 				3F500CB72B1A9EE0004D96CD /* Extensions */,
 				3F40AA582B183C7B006DD8FA /* GatherModels */,
 				3F40AA352B1810E3006DD8FA /* Utils */,
@@ -934,6 +954,7 @@
 				3F40AA392B18115E006DD8FA /* ContentViewOfficial.swift in Sources */,
 				B2A935502AF1A481006B7AD8 /* AppDelegate.swift in Sources */,
 				3F40AA3C2B18119F006DD8FA /* LoginView.swift in Sources */,
+				B24F15F52B214D990076DD33 /* DisplayListofRestaurants.swift in Sources */,
 				3F7E62EA2B19B3A200B38ECC /* User.swift in Sources */,
 				3F500D132B1ADC92004D96CD /* ActivityModel.swift in Sources */,
 				3F500D102B1ADC3E004D96CD /* ActivityBadgeView.swift in Sources */,
@@ -969,6 +990,7 @@
 				3F7E62F72B19D00600B38ECC /* CurrentUserProfileView.swift in Sources */,
 				3F500CEB2B1AC4D5004D96CD /* NoteDetailsView.swift in Sources */,
 				3F500D252B1AE3EB004D96CD /* ContentActionButtonViewModel.swift in Sources */,
+				B24F15F12B214D5E0076DD33 /* RecommendViewModel.swift in Sources */,
 				3F40AA4A2B1836B7006DD8FA /* FeedView.swift in Sources */,
 				3F500CE52B1AC24A004D96CD /* ExploreViewModel.swift in Sources */,
 				3F500CFE2B1AD73F004D96CD /* NoteReplyViewModel.swift in Sources */,
@@ -992,6 +1014,7 @@
 				3F500D152B1ADD1E004D96CD /* ActivityType.swift in Sources */,
 				B2388E992B0639BC009B82DE /* PhoneNumberPickerView.swift in Sources */,
 				3F500CBD2B1A9F3D004D96CD /* String.swift in Sources */,
+				B24F15F32B214D860076DD33 /* RecommendedRestaurantView.swift in Sources */,
 				3F500CFC2B1AD67F004D96CD /* NoteReplyView.swift in Sources */,
 				3F500D1F2B1AE185004D96CD /* UserListView.swift in Sources */,
 				3F500CD22B1AAF0E004D96CD /* NoteReplyCell.swift in Sources */,
@@ -1003,6 +1026,7 @@
 				3F500CCC2B1AA386004D96CD /* NotesButtonModifier.swift in Sources */,
 				3F7E62EC2B19B76A00B38ECC /* UserService.swift in Sources */,
 				3F500CC32B1AA136004D96CD /* NoteService.swift in Sources */,
+				B24F15ED2B214D300076DD33 /* YelpApiService.swift in Sources */,
 				3F500CBF2B1A9F7A004D96CD /* Note.swift in Sources */,
 				3F500D082B1AD9C7004D96CD /* AuthError.swift in Sources */,
 				3F7E62FB2B19D3BD00B38ECC /* ProfileHeaderView.swift in Sources */,
