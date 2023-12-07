@@ -36,9 +36,11 @@ struct DisplayListofRestaurants: View {
 
 private func toggleSelection(for business: Business) {
         if viewModel.selectedRestaurants.contains(business) {
-            viewModel.selectedRestaurants.remove(business)
+            viewModel.selectedRestaurants.removeAll { b in
+                return b == business
+            }
         } else {
-            viewModel.selectedRestaurants.insert(business)
+            viewModel.selectedRestaurants.append(business)
         }
     }
 }

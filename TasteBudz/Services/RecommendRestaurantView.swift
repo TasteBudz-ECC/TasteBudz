@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import FirebaseFirestore
 
 struct RecommendRestaurantView: View {
     
@@ -13,22 +15,22 @@ struct RecommendRestaurantView: View {
     @State private var searchTerm: String = ""
     
     var body: some View {
-//        NavigationView {
-//            List {
-//                ForEach(viewModel.businesses, id: \.id) { business in
-//                    Text(business.name ?? "no name")
-//                }
-//            }
-//            .listStyle(.plain)
-//            .navigationBarTitle(Text("Search for Restaurant"), displayMode: .large)
-//            .searchable(text: $viewModel.searchText) {
-//                            Text("")
-//                                .onTapGesture {
-//                                    viewModel.search()
-//                                }
-//                        }
-//            .onAppear(perform: viewModel.search)
-//        }
+        //        NavigationView {
+        //            List {
+        //                ForEach(viewModel.businesses, id: \.id) { business in
+        //                    Text(business.name ?? "no name")
+        //                }
+        //            }
+        //            .listStyle(.plain)
+        //            .navigationBarTitle(Text("Search for Restaurant"), displayMode: .large)
+        //            .searchable(text: $viewModel.searchText) {
+        //                            Text("")
+        //                                .onTapGesture {
+        //                                    viewModel.search()
+        //                                }
+        //                        }
+        //            .onAppear(perform: viewModel.search)
+        //        }
         
         VStack {
             Text("Recommond 2 restaurants").font(.headline)
@@ -39,7 +41,7 @@ struct RecommendRestaurantView: View {
                 print("search term: \(searchTerm)")
                 
             }).textFieldStyle(RoundedBorderTextFieldStyle())
-    
+            
             
             DisplayListofRestaurants(viewModel: viewModel)
             
@@ -48,6 +50,11 @@ struct RecommendRestaurantView: View {
                 // Handle the action when the continue button is tapped
                 // You can check the selected restaurants in the `selectedRestaurants` set
                 print("Continue button tapped with selected restaurants: \(viewModel.selectedRestaurants)")
+                
+                for item in viewModel.selectedRestaurants {
+                    addRestaurantToFirebase(restID: item.id!)
+                }
+                
             }) {
                 Text("Continue")
                     .foregroundColor(viewModel.selectedRestaurants.count == 2 ? .white : .gray)
@@ -60,6 +67,24 @@ struct RecommendRestaurantView: View {
             
         }.padding()
     }
+}
+
+
+func addRestaurantToFirebase(restID : String){
+    
+    let db = Firestore.firestore()
+    
+    let restDoc = [
+        "userID":Auth.auth().currentUser?.uid.description,
+        "restID":restID,
+    ] as [String : Any]
+    
+    print(restDoc)
+    
+    //add new data point, no error will occur, no try catch is needed in this operation with no specific document
+    db.collection("restaurants").addDocument(data: restDoc)
+    
+    
 }
 
 #Preview {

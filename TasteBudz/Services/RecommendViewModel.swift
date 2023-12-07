@@ -36,7 +36,7 @@ final class RecommendViewModel: ObservableObject {
     //    }
     @Published var businesses = [Business]()
     @Published var searchText = ""
-    @Published var selectedRestaurants: Set<Business> = []
+    @Published var selectedRestaurants: Array<Business> = []
     
     private var cancellables: Set<AnyCancellable> = []
     
