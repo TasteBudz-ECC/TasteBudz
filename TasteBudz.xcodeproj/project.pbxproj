@@ -89,6 +89,7 @@
 		B24F15F12B214D5E0076DD33 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F02B214D5E0076DD33 /* RecommendViewModel.swift */; };
 		B24F15F32B214D860076DD33 /* RecommendedRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F22B214D860076DD33 /* RecommendedRestaurantView.swift */; };
 		B24F15F52B214D990076DD33 /* DisplayListofRestaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F42B214D990076DD33 /* DisplayListofRestaurants.swift */; };
+		B24F15F72B23DBAF0076DD33 /* ContactsScreenFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F62B23DBAF0076DD33 /* ContactsScreenFunctions.swift */; };
 		B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2846D662AF55F20009D22DF /* SwipeView.swift */; };
 		B2A935042AF181FB006B7AD8 /* TasteBudzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */; };
 		B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935052AF181FB006B7AD8 /* ContentView.swift */; };
@@ -213,6 +214,7 @@
 		B24F15F02B214D5E0076DD33 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
 		B24F15F22B214D860076DD33 /* RecommendedRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedRestaurantView.swift; sourceTree = "<group>"; };
 		B24F15F42B214D990076DD33 /* DisplayListofRestaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayListofRestaurants.swift; sourceTree = "<group>"; };
+		B24F15F62B23DBAF0076DD33 /* ContactsScreenFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsScreenFunctions.swift; sourceTree = "<group>"; };
 		B2846D662AF55F20009D22DF /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		B2A935002AF181FB006B7AD8 /* TasteBudz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteBudz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzApp.swift; sourceTree = "<group>"; };
@@ -709,9 +711,10 @@
 		B2388E972B063983009B82DE /* ContactsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				B2388E952B0626F4009B82DE /* ContactModel.swift */,
 				B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */,
+				B2388E952B0626F4009B82DE /* ContactModel.swift */,
 				B2388E932B060BEA009B82DE /* RequestUserContactsView.swift */,
+				B24F15F62B23DBAF0076DD33 /* ContactsScreenFunctions.swift */,
 			);
 			path = ContactsScreen;
 			sourceTree = "<group>";
@@ -954,6 +957,7 @@
 				3F40AA392B18115E006DD8FA /* ContentViewOfficial.swift in Sources */,
 				B2A935502AF1A481006B7AD8 /* AppDelegate.swift in Sources */,
 				3F40AA3C2B18119F006DD8FA /* LoginView.swift in Sources */,
+				B24F15F72B23DBAF0076DD33 /* ContactsScreenFunctions.swift in Sources */,
 				B24F15F52B214D990076DD33 /* DisplayListofRestaurants.swift in Sources */,
 				3F7E62EA2B19B3A200B38ECC /* User.swift in Sources */,
 				3F500D132B1ADC92004D96CD /* ActivityModel.swift in Sources */,
