@@ -52,29 +52,31 @@ struct RecommendRestaurantView: View {
                 print("Continue button tapped with selected restaurants: \(viewModel.selectedRestaurants)")
                 
                 for item in viewModel.selectedRestaurants {
-                    addRestaurantToFirebase(restID: item.id!)
+                    addRestaurantToFirebase(restID: item.id!, restName: item.name!)
                 }
                 
             }) {
                 Text("Continue")
-                    .foregroundColor(viewModel.selectedRestaurants.count == 2 ? .white : .gray)
-                    .padding()
-                    .background(viewModel.selectedRestaurants.count == 2 ? Color.blue : Color.gray.opacity(0.5))
+                    .foregroundColor(viewModel.selectedRestaurants.count >= 2 ? .white : .gray)
+                    .padding(.vertical, 8) // Adjust the vertical padding to make the button shorter
+                    .padding(.horizontal, 16)
+                    .background(viewModel.selectedRestaurants.count >= 2 ? Color.blue : Color.gray.opacity(0.5))
                     .cornerRadius(8)
             }
             .padding()
-            .disabled(viewModel.selectedRestaurants.count != 2)
+            .disabled(viewModel.selectedRestaurants.count < 2)
             
         }.padding()
     }
 }
 
 
-func addRestaurantToFirebase(restID : String){
+func addRestaurantToFirebase(restID : String, restName : String){
     
     let db = Firestore.firestore()
     
     let restDoc = [
+        "restName":restName,
         "userID":Auth.auth().currentUser?.uid.description,
         "restID":restID,
     ] as [String : Any]
@@ -83,8 +85,6 @@ func addRestaurantToFirebase(restID : String){
     
     //add new data point, no error will occur, no try catch is needed in this operation with no specific document
     db.collection("restaurants").addDocument(data: restDoc)
-    
-    
 }
 
 #Preview {
