@@ -6,33 +6,44 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum SettingsOptions: Int, CaseIterable, Identifiable {
-    case notifications
+//    case notifications
     case privacy
-    case account
-    case help
+//    case account
+    case report
     case about
     
     var title: String {
         switch self {
-        case .notifications: return "Notifications"
+//        case .notifications: return "Notifications"
         case .privacy: return "Privacy"
-        case .account: return "Account"
-        case .help: return "Help"
+//        case .account: return "Account"
+        case .report: return "Report"
         case .about: return "About"
         }
     }
     
     var imageName: String {
         switch self {
-        case .notifications: return "bell"
+//        case .notifications: return "bell"
         case .privacy: return "lock"
-        case .account: return "person.circle"
-        case .help: return "questionmark.circle"
+//        case .account: return "person.circle"
+        case .report: return "flag.circle"
         case .about: return "info.circle"
         }
     }
+    
+    var destinationView: some View {
+           switch self {
+//           case .notifications: return Text("Notifications View")
+           case .privacy: return AnyView(PrivacyView())
+//           case .account: return Text("Account View")
+           case .report: return AnyView(ReportPopupContentView())
+           case .about: return AnyView(AboutView())
+           }
+       }
     
     var id: Int { return self.rawValue }
 }
