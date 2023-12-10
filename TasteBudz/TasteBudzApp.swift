@@ -23,9 +23,9 @@ struct TasteBudzApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            ContentViewOfficial()
+
+            ContentViewOfficial()
 //            RequestUserContactsView()
-            NetworkViewTest()
         }
     }
 }

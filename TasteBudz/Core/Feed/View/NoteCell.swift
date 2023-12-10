@@ -4,18 +4,16 @@
 //
 //  Created by student on 11/29/23.
 //
-
 import SwiftUI
-
 enum NoteViewConfig {
     case note(Note)
     case reply(NoteReply)
 }
-
 struct NoteCell: View {
     let config: NoteViewConfig
     @State private var showNoteActionSheet = false
     @State private var selectedNoteAction: NoteActionSheetOptions?
+    @State private var isReportPopupPresented = false
     
     private var user: User? {
         switch config {
@@ -84,7 +82,6 @@ struct NoteCell: View {
                     NoteActionSheetView(note: note, selectedAction: $selectedNoteAction)
                 }
             }
-
             Divider()
         }
         .onChange(of: selectedNoteAction, perform: { newValue in
@@ -98,7 +95,7 @@ struct NoteCell: View {
             case .unfollow:
                 print("DEBUG: Unfollow here..")
             case .report:
-                print("DEBUG: Report note here..")
+                isReportPopupPresented = true
             case .none:
                 break
             }
@@ -107,7 +104,6 @@ struct NoteCell: View {
         .foregroundColor(Color.theme.primaryText)
     }
 }
-
 struct NoteCell_Previews: PreviewProvider {
     static var previews: some View {
         NoteCell(config: .note(dev.note))

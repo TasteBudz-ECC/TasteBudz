@@ -87,6 +87,12 @@ func addRestaurantToFirebase(restID : String, restName : String){
     db.collection("restaurants").addDocument(data: restDoc)
 }
 
-#Preview {
-    RecommendRestaurantView()
+//#Preview {
+//    RecommendRestaurantView()
+//}
+
+struct RecommendRestaurantView_Previews: PreviewProvider {
+    static var previews: some View {
+        RecommendRestaurantView()
+    }
 }

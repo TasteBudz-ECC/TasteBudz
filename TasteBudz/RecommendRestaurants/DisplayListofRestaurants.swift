@@ -47,6 +47,13 @@ private func toggleSelection(for business: Business) {
 
 
 
-#Preview {
-    DisplayListofRestaurants()
+//#Preview {
+//    DisplayListofRestaurants()
+//}
+
+
+struct DisplayListofRestaurants_Previews: PreviewProvider {
+    static var previews: some View {
+        DisplayListofRestaurants()
+    }
 }
