@@ -4,9 +4,7 @@
 //
 //  Created by student on 11/29/23.
 //
-
 import SwiftUI
-
 enum NoteViewConfig {
     case note(Note)
     case reply(NoteReply)
@@ -16,6 +14,9 @@ struct NoteCell: View {
     let config: NoteViewConfig
     @State private var showNoteActionSheet = false
     @State private var selectedNoteAction: NoteActionSheetOptions?
+    @State private var isReportPopupPresented = false
+    
+    @State private var shouldShowReportPopup = false
     
     private var user: User? {
         switch config {
@@ -45,66 +46,62 @@ struct NoteCell: View {
     }
     
     var body: some View {
-        VStack {
-            HStack(alignment: .top, spacing: 12) {
-                NavigationLink(value: user) {
-                    CircularProfileImageView(user: user, size: .small)
-                }
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack {
-                        Text(user?.username ?? "")
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                        
-                        Spacer()
-                        
-                        Text(timestampString)
-                            .font(.caption)
-                            .foregroundStyle(Color(.systemGray3))
-                        
-                        Button {
-                            showNoteActionSheet.toggle()
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .foregroundStyle(Color(.darkGray))
-                        }
+        NavigationView {
+            VStack {
+                HStack(alignment: .top, spacing: 12) {
+                    NavigationLink(destination: Text("Detail View")) {
+                        CircularProfileImageView(user: user, size: .small)
                     }
                     
-                    Text(caption)
-                        .font(.footnote)
-                        .multilineTextAlignment(.leading)
-                    
-                    ContentActionButtonView(viewModel: ContentActionButtonViewModel(contentType: config))
-                        .padding(.top, 12)
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack {
+                            Text(user?.username ?? "")
+                                .font(.footnote)
+                                .fontWeight(.semibold)
+                            
+                            Spacer()
+                            
+                            Text(timestampString)
+                                .font(.caption)
+                                .foregroundStyle(Color(.systemGray3))
+                            
+                            Button {
+                                showNoteActionSheet.toggle()
+                            } label: {
+                                Image(systemName: "ellipsis")
+                                    .foregroundStyle(Color(.darkGray))
+                            }
+                        }
+                        
+                        Text(caption)
+                            .font(.footnote)
+                            .multilineTextAlignment(.leading)
+                        
+                        ContentActionButtonView(viewModel: ContentActionButtonViewModel(contentType: config))
+                            .padding(.top, 12)
+                    }
                 }
-            }
-            .sheet(isPresented: $showNoteActionSheet) {
-                if case .note(let note) = config {
-                    NoteActionSheetView(note: note, selectedAction: $selectedNoteAction)
+                .actionSheet(isPresented: $showNoteActionSheet) {
+                    ActionSheet(
+                        title: Text("Options"),
+                        buttons: [
+                            .default(Text("Report")) {
+                                selectedNoteAction = .report
+                            },
+                            .cancel()
+                        ]
+                    )
                 }
+                
+                NavigationLink(destination: ReportPopupContentView(), isActive: $shouldShowReportPopup) {
+                    EmptyView()
+                }
+                .hidden()
             }
-
-            Divider()
+            .foregroundColor(Color.theme.primaryText)
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
-        .onChange(of: selectedNoteAction, perform: { newValue in
-            switch newValue {
-            case .block:
-                print("DEBUG: Block user here..")
-            case .hide:
-                print("DEBUG: Hide thread here..")
-            case .mute:
-                print("DEBUG: Mute notes here..")
-            case .unfollow:
-                print("DEBUG: Unfollow here..")
-            case .report:
-                print("DEBUG: Report note here..")
-            case .none:
-                break
-            }
-        })
-        
-        .foregroundColor(Color.theme.primaryText)
     }
 }
 
