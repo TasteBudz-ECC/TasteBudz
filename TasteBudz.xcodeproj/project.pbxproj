@@ -113,6 +113,8 @@
 		B2A9354C2AF183C0006B7AD8 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = B2A9354B2AF183C0006B7AD8 /* FirebasePerformance */; };
 		B2A9354E2AF183C0006B7AD8 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B2A9354D2AF183C0006B7AD8 /* FirebaseStorage */; };
 		B2A935502AF1A481006B7AD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */; };
+		B2B48A1D2B240C890082076F /* CreateNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A1C2B240C890082076F /* CreateNetwork.swift */; };
+		B2B48A212B2673540082076F /* NetworkViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A202B2673540082076F /* NetworkViewTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +229,8 @@
 		B2A9351E2AF181FE006B7AD8 /* TasteBudzUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzUITests.swift; sourceTree = "<group>"; };
 		B2A935202AF181FE006B7AD8 /* TasteBudzUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B2B48A1C2B240C890082076F /* CreateNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNetwork.swift; sourceTree = "<group>"; };
+		B2B48A202B2673540082076F /* NetworkViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -704,6 +708,10 @@
 			isa = PBXGroup;
 			children = (
 				B2388E5C2B0557FB009B82DE /* SwipeView3.swift */,
+				B2846D662AF55F20009D22DF /* SwipeView.swift */,
+				B2388E522AF58FC3009B82DE /* SwipeView2.swift */,
+				B2B48A1C2B240C890082076F /* CreateNetwork.swift */,
+				B2B48A202B2673540082076F /* NetworkViewTest.swift */,
 			);
 			path = SwipeUIView;
 			sourceTree = "<group>";
@@ -768,8 +776,6 @@
 				B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */,
 				B2A935052AF181FB006B7AD8 /* ContentView.swift */,
 				B2388E542AF593B2009B82DE /* ContentView2.swift */,
-				B2846D662AF55F20009D22DF /* SwipeView.swift */,
-				B2388E522AF58FC3009B82DE /* SwipeView2.swift */,
 				B2A935072AF181FE006B7AD8 /* Assets.xcassets */,
 				B2A935092AF181FE006B7AD8 /* Preview Content */,
 			);
@@ -953,6 +959,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2B48A1D2B240C890082076F /* CreateNetwork.swift in Sources */,
 				B2388E532AF58FC3009B82DE /* SwipeView2.swift in Sources */,
 				3F40AA392B18115E006DD8FA /* ContentViewOfficial.swift in Sources */,
 				B2A935502AF1A481006B7AD8 /* AppDelegate.swift in Sources */,
@@ -1021,6 +1028,7 @@
 				B24F15F32B214D860076DD33 /* RecommendedRestaurantView.swift in Sources */,
 				3F500CFC2B1AD67F004D96CD /* NoteReplyView.swift in Sources */,
 				3F500D1F2B1AE185004D96CD /* UserListView.swift in Sources */,
+				B2B48A212B2673540082076F /* NetworkViewTest.swift in Sources */,
 				3F500CD22B1AAF0E004D96CD /* NoteReplyCell.swift in Sources */,
 				3F7E62E62B19AB9E00B38ECC /* ContentViewOfficialModel.swift in Sources */,
 				3F500CB92B1A9EF6004D96CD /* PreviewProvider.swift in Sources */,

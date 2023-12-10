@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-//func getDescription() {
-//    
-//}
 
-// hi
+// Create an array of network
+// Search for user id in firebase in the friends collection
+// Add the friends to network array
+// For every friend in that array, search for their friends, add those friends to network
 
 struct SwipeView: View {
     var body: some View {
@@ -101,6 +101,15 @@ struct SwipeView: View {
         }
     }
 }
+
+func populateNetwork() {
+    // Create an array of network
+    // Search for user id in firebase in the friends collection
+    // Add the friends to network array
+    // For every friend in that array, search for their friends, add those friends to network
+
+}
+
 
 struct SwipeView_Previews: PreviewProvider {
     static var previews: some View {
