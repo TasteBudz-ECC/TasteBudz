@@ -9,32 +9,7 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
-
-//// function to get restaurant yelp keys from the user's recommended 
-//func getRestaurantFromUID(userid: String) async -> [String:Any]{
-//    let fs = Firestore.firestore()
-//    
-//    let data = fs.collection("restaurants").whereField("userID", isEqualTo: userid)
-//    
-//    var restaurantArray = [String]()
-//    
-//    do {
-//        let dataSnapshot = try await data.getDocuments()
-//        
-//        for dataItem in dataSnapshot.documents{
-//            let dataPoint = dataItem.data()
-//            
-//            if let restaurantID = dataPoint["restaurantIDKey"] as? String {
-//                            restaurantArray.append(restaurantID)
-//                        }
-//        }
-//    } catch {
-//        print("\(error) + An Error has occured retrieving data")
-//    }
-//    
-//    return restaurantArray
-//}
-
+import Foundation
 
 struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
@@ -53,43 +28,42 @@ struct FeedView: View {
                         .font(.title)
                     
                 }
-                // retrieve user's recommended restaurants (yelp keys)
-//                db.collection("restaurants").whereField("userID", isEqualTo: Auth.auth().currentUser?.uid.description).getDocuments() {
-//                    (querySnapshot, err) in
-//                        if let err = err {
-//                          print("Error getting documents: \(err)")
-//                        } else {
-//                          for document in querySnapshot!.documents {
-//                            print("\(document.documentID) => \(document.data())")
-//                          }
-//                    }
-//                }
                 
+                
+                // retrieve user's recommended restaurants (yelp keys)
+                // let userRestaurantKeys = getRestaurantsFromUID(userid: Auth.auth().currentUser??.uid)
                 
                 // retrieve user friends and mutuals recommended restaurants
                 // store these all in the same array, check for duplicates
+                
+                
                 // pull the image links from yelp api using the keys
-//
+                // let restaurantImageLinks = getImageURLsForRestaurants(restaurantKeys: userRestaurantKeys, completion: <#T##([String?]) -> Void#>)
+              
                 
                 // View of restaurants
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack(spacing: 20){
-                        VStack {
-                            AsyncImage(url: imageURL) { image in image
-                                    .resizable()
-                                    .scaledToFit()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width:150, height: 200)
-                                //                                    .border(Color.gray, width:5)
-                                    .cornerRadius(20)
-                                //
+                        // for restaurant in restaurant array: get the imageurl of each of the restaurants
+                        
+//                        for link in restaurantImageLinks {
+                            VStack {
+                                AsyncImage(url: imageURL) { image in image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width:150, height: 200)
+                                    //                                    .border(Color.gray, width:5)
+                                        .cornerRadius(20)
+                                    //
+                                    
+                                } placeholder: {
+                                    ProgressView()
+                                }
                                 
-                            } placeholder: {
-                                ProgressView()
+                                Text("Bar Louie") // insert restaurant name
                             }
-                            
-                            Text("Bar Louie")
-                        }
+//                        }
                         
                         ForEach(2..<10) {
                             Text("Restaurant \($0)")
@@ -106,6 +80,7 @@ struct FeedView: View {
                 }
                 
                 // if no post yet, then have text that says "be the first post!"
+                
                 
                 // list of all posts
                 NavigationStack {
@@ -154,6 +129,104 @@ struct FeedView: View {
         }
     }
 }
+
+//// function to get restaurant yelp keys from the user's recommended
+func getRestaurantsFromUID(userid: String) async -> [String]{
+    let fs = Firestore.firestore()
+    
+    let data = fs.collection("restaurants").whereField("userID", isEqualTo: userid)
+    
+    var restaurantArray = [String]()
+    
+    do {
+        let dataSnapshot = try await data.getDocuments()
+        
+        for dataItem in dataSnapshot.documents{
+            let dataPoint = dataItem.data()
+            
+            if let restaurantID = dataPoint["restaurantIDKey"] as? String {
+                            restaurantArray.append(restaurantID)
+                        }
+        }
+    } catch {
+        print("\(error) + An Error has occured retrieving data")
+    }
+    
+    return restaurantArray
+}
+
+func getImageURLsForRestaurants(restaurantKeys: [String], completion: @escaping ([String?]) -> Void) {
+    let apiKey = "CBz-Ykj4Kpaw9hum4DDI9hIJcRg7Q0uvtbEeAe_znKmG-HF6av3NUdQBI1OZihgG0YILrSS6KOb1ZRsoCs_HSNc4KutlGnkOKAAYw7p_MRXvdgdn4EBtwMBsxc1VZXYx"
+    let baseURL = "https://api.yelp.com/v3/businesses/"
+    
+    let group = DispatchGroup()
+    var imageURLs = [String?]()
+    
+    for restaurantKey in restaurantKeys {
+        group.enter()
+        
+        let endpoint = baseURL + restaurantKey
+        guard let url = URL(string: endpoint) else {
+            imageURLs.append(nil)
+            group.leave()
+            continue
+        }
+        
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            defer {
+                group.leave()
+            }
+            
+            guard let data = data, error == nil else {
+                imageURLs.append(nil)
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                
+                // Assuming the image URL is nested inside the "image_url" key, adjust as needed
+                if let imageURL = json?["image_url"] as? String {
+                    imageURLs.append(imageURL)
+                } else {
+                    imageURLs.append(nil)
+                }
+            } catch {
+                print("Error parsing JSON: \(error)")
+                imageURLs.append(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    group.notify(queue: DispatchQueue.main) {
+        completion(imageURLs)
+    }
+    
+}
+
+
+// example of how api is used
+//func search(searchTerm: String) {
+//    YelpApiService.live.search(searchTerm, "Chicago")
+//        .sink { [weak self] businesses in
+//            self?.businesses = businesses
+//        }
+//        .store(in: &cancellables)
+//
+//    print("Search Text: \(searchTerm)")
+//}
+
+
+//func get imageFromRestKey(restKey: String) async -> [String: Any] {
+//    let imageArray = [restKey]
+//
+//    return imageArray
+//}
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {

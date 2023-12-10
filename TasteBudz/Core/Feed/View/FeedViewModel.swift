@@ -57,4 +57,23 @@ class FeedViewModel: ObservableObject {
         
         return result
     }
+    
+    private func getUserRestaurantsFromUID() async -> [String] {
+        do {
+            guard let uid = Auth.auth().currentUser?.uid else { return [] }
+            
+            let querySnapshot = try await Firestore
+                .firestore()
+                .collection("restaurants")
+                .whereField("userID", isEqualTo: uid)
+                .getDocuments()
+            
+            let restaurantIDs = querySnapshot.documents.map { $0.documentID }
+            return restaurantIDs
+        } catch {
+            print("Error fetching user restaurants: \(error)")
+            return []
+        }
+    }
+
 }
