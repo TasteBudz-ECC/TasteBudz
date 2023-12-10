@@ -23,8 +23,8 @@ struct TasteBudzApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            ContentViewOfficial()
-            RequestUserContactsView()
+            ContentViewOfficial()
+//            RequestUserContactsView()
         }
     }
 }
