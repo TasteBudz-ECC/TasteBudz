@@ -20,7 +20,7 @@ struct FeedView: View {
     
     var body: some View {
         
-        ScrollView(){
+//        ScrollView(){
             VStack{
                 
                 HStack{
@@ -126,7 +126,8 @@ struct FeedView: View {
                     .padding([.top, .horizontal])
                 }
             }
-        }
+        //}
+        //
     }
 }
 
