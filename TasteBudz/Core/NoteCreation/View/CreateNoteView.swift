@@ -71,15 +71,14 @@ struct CreateNoteView: View {
                 }
             }
             .onDisappear { tabIndex = 0 }
-            .navigationTitle("New Thread")
+            .navigationTitle("New Gathering")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
-struct CreateThreadView_Previews: PreviewProvider {
+struct CreateNoteView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNoteView(tabIndex: .constant(0))
     }
 }
-

@@ -67,6 +67,9 @@
 		3F7CA13C2B25451900CC1705 /* ReportPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CA13B2B25451900CC1705 /* ReportPopupView.swift */; };
 		3F7CA13E2B255E5C00CC1705 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CA13D2B255E5C00CC1705 /* AboutView.swift */; };
 		3F7CA1402B25777D00CC1705 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CA13F2B25777D00CC1705 /* PrivacyView.swift */; };
+		3F7CA1432B2582D600CC1705 /* NewGatheringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CA1422B2582D600CC1705 /* NewGatheringView.swift */; };
+		3F7CA1472B25835900CC1705 /* NewGatherViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CA1462B25835900CC1705 /* NewGatherViewViewModel.swift */; };
+		3F7CA1492B25838A00CC1705 /* NGButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7CA1482B25838A00CC1705 /* NGButton.swift */; };
 		3F7E62D42B19635000B38ECC /* CircularProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E62D32B19635000B38ECC /* CircularProfileImageView.swift */; };
 		3F7E62D62B1963F500B38ECC /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E62D52B1963F500B38ECC /* UserCell.swift */; };
 		3F7E62D92B19679200B38ECC /* ProfileNoteFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E62D82B19679200B38ECC /* ProfileNoteFilterViewModel.swift */; };
@@ -198,6 +201,9 @@
 		3F7CA13B2B25451900CC1705 /* ReportPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPopupView.swift; sourceTree = "<group>"; };
 		3F7CA13D2B255E5C00CC1705 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		3F7CA13F2B25777D00CC1705 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
+		3F7CA1422B2582D600CC1705 /* NewGatheringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGatheringView.swift; sourceTree = "<group>"; };
+		3F7CA1462B25835900CC1705 /* NewGatherViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGatherViewViewModel.swift; sourceTree = "<group>"; };
+		3F7CA1482B25838A00CC1705 /* NGButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NGButton.swift; sourceTree = "<group>"; };
 		3F7E62D32B19635000B38ECC /* CircularProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProfileImageView.swift; sourceTree = "<group>"; };
 		3F7E62D52B1963F500B38ECC /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		3F7E62D82B19679200B38ECC /* ProfileNoteFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNoteFilterViewModel.swift; sourceTree = "<group>"; };
@@ -591,6 +597,16 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		3F7CA1412B2582BF00CC1705 /* Gatherings */ = {
+			isa = PBXGroup;
+			children = (
+				3F7CA1422B2582D600CC1705 /* NewGatheringView.swift */,
+				3F7CA1462B25835900CC1705 /* NewGatherViewViewModel.swift */,
+				3F7CA1482B25838A00CC1705 /* NGButton.swift */,
+			);
+			path = Gatherings;
+			sourceTree = "<group>";
+		};
 		3F7E62D22B19632900B38ECC /* Users */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,6 +715,7 @@
 		3FBC60642B01837B001DB696 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3F7CA1412B2582BF00CC1705 /* Gatherings */,
 				3F500D262B1AE9BD004D96CD /* Settings */,
 				3F500D212B1AE342004D96CD /* Notes */,
 				3F500CFA2B1AD64D004D96CD /* NoteReplies */,
@@ -1027,6 +1044,7 @@
 				3F40AA3E2B1817DD006DD8FA /* RegistrationView.swift in Sources */,
 				B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */,
 				3F500CD62B1AB0A6004D96CD /* UserContentListViewModel.swift in Sources */,
+				3F7CA1432B2582D600CC1705 /* NewGatheringView.swift in Sources */,
 				3F500CE02B1AC16D004D96CD /* UserRelationsView.swift in Sources */,
 				B2388E9B2B0C2707009B82DE /* UIColor+Hex.swift in Sources */,
 				3F40AA462B18336A006DD8FA /* NotesTabView.swift in Sources */,
@@ -1046,6 +1064,7 @@
 				3F500CD22B1AAF0E004D96CD /* NoteReplyCell.swift in Sources */,
 				3F7E62E62B19AB9E00B38ECC /* ContentViewOfficialModel.swift in Sources */,
 				3F500CB92B1A9EF6004D96CD /* PreviewProvider.swift in Sources */,
+				3F7CA1492B25838A00CC1705 /* NGButton.swift in Sources */,
 				3FBC60772B018594001DB696 /* ProfileView.swift in Sources */,
 				3F7CA13A2B25439A00CC1705 /* ReportPopupContentView.swift in Sources */,
 				3F40AA4E2B183737006DD8FA /* ExploreView.swift in Sources */,
@@ -1054,6 +1073,7 @@
 				3F7E62EC2B19B76A00B38ECC /* UserService.swift in Sources */,
 				3F7CA13C2B25451900CC1705 /* ReportPopupView.swift in Sources */,
 				3F500CC32B1AA136004D96CD /* NoteService.swift in Sources */,
+				3F7CA1472B25835900CC1705 /* NewGatherViewViewModel.swift in Sources */,
 				B24F15ED2B214D300076DD33 /* YelpApiService.swift in Sources */,
 				3F500CBF2B1A9F7A004D96CD /* Note.swift in Sources */,
 				3F500D082B1AD9C7004D96CD /* AuthError.swift in Sources */,

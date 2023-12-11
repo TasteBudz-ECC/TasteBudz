@@ -51,7 +51,8 @@ struct UserCell: View {
             Divider()
         }
         .padding(.vertical, 4)
-        .foregroundColor(Color.theme.primaryText)
+        .foregroundColor(.black)
+//        .foregroundColor(Color.theme.primaryText)
     }
 }
 
