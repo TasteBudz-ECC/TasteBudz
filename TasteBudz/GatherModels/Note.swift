@@ -24,4 +24,22 @@ struct Note: Identifiable, Codable, Hashable {
     var id: String {
         return noteId ?? NSUUID().uuidString
     }
+    
+    // Implement Equatable
+    static func == (lhs: Note, rhs: Note) -> Bool {
+        return lhs.id == rhs.id // You might need to compare other properties for equality
+    }
+    
+    // Implement Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id) // You might need to combine other properties here for hashing
+    }
 }
+
+struct GatheringDetails: Codable {
+    // Define properties for GatheringDetails
+    var restaurantName: String
+    var selectedDate: Date
+    var gatheringDescription: String
+}
+

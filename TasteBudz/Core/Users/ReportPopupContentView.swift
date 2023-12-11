@@ -10,11 +10,13 @@ struct ReportPopupContentView: View {
     @State private var isReportPopupPresented = false
     var body: some View {
         VStack {
+            Text("Click below to make a report:")
             // Your other content here
             Button("Report") {
                 self.isReportPopupPresented.toggle()
                    
             }
+            .foregroundColor(.black)
             .padding()
             
             // Your other content here
