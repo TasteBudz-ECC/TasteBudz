@@ -32,7 +32,6 @@ struct ReportPopupView: View {
             Spacer()
         }
         .padding()
-        .background(Color.white)
         .cornerRadius(10)
     }
     //handlesubmitbutton() defined for when submit button is pressed
