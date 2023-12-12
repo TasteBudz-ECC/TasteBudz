@@ -33,7 +33,7 @@ struct RecommendRestaurantView: View {
         //        }
         
         VStack {
-            Text("Recommond 2 restaurants").font(.headline)
+            Text("Recommend 2 Cheap Eats").font(.headline)
             TextField("Search", text: $searchTerm, onEditingChanged: { _ in
                 
             }, onCommit: {

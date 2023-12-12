@@ -122,6 +122,8 @@
 		B2A935502AF1A481006B7AD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */; };
 		B2B48A1D2B240C890082076F /* CreateNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A1C2B240C890082076F /* CreateNetwork.swift */; };
 		B2B48A212B2673540082076F /* NetworkViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A202B2673540082076F /* NetworkViewTest.swift */; };
+		B2B48A3A2B285C430082076F /* RestDetailRetrieval.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A392B285C430082076F /* RestDetailRetrieval.swift */; };
+		B2B48A3E2B285C740082076F /* YelpApiDetailsTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A3D2B285C740082076F /* YelpApiDetailsTestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,6 +247,8 @@
 		B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2B48A1C2B240C890082076F /* CreateNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNetwork.swift; sourceTree = "<group>"; };
 		B2B48A202B2673540082076F /* NetworkViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewTest.swift; sourceTree = "<group>"; };
+		B2B48A392B285C430082076F /* RestDetailRetrieval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestDetailRetrieval.swift; sourceTree = "<group>"; };
+		B2B48A3D2B285C740082076F /* YelpApiDetailsTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpApiDetailsTestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -741,6 +745,8 @@
 				B2388E522AF58FC3009B82DE /* SwipeView2.swift */,
 				B2B48A1C2B240C890082076F /* CreateNetwork.swift */,
 				B2B48A202B2673540082076F /* NetworkViewTest.swift */,
+				B2B48A392B285C430082076F /* RestDetailRetrieval.swift */,
+				B2B48A3D2B285C740082076F /* YelpApiDetailsTestView.swift */,
 			);
 			path = SwipeUIView;
 			sourceTree = "<group>";
@@ -1030,6 +1036,7 @@
 				3F40AA562B1837E9006DD8FA /* ActivityView.swift in Sources */,
 				3F7E62F72B19D00600B38ECC /* CurrentUserProfileView.swift in Sources */,
 				3F500CEB2B1AC4D5004D96CD /* NoteDetailsView.swift in Sources */,
+				B2B48A3A2B285C430082076F /* RestDetailRetrieval.swift in Sources */,
 				3F500D252B1AE3EB004D96CD /* ContentActionButtonViewModel.swift in Sources */,
 				B24F15F12B214D5E0076DD33 /* RecommendViewModel.swift in Sources */,
 				3F40AA4A2B1836B7006DD8FA /* FeedView.swift in Sources */,
@@ -1063,6 +1070,7 @@
 				B2B48A212B2673540082076F /* NetworkViewTest.swift in Sources */,
 				3F500CD22B1AAF0E004D96CD /* NoteReplyCell.swift in Sources */,
 				3F7E62E62B19AB9E00B38ECC /* ContentViewOfficialModel.swift in Sources */,
+				B2B48A3E2B285C740082076F /* YelpApiDetailsTestView.swift in Sources */,
 				3F500CB92B1A9EF6004D96CD /* PreviewProvider.swift in Sources */,
 				3F7CA1492B25838A00CC1705 /* NGButton.swift in Sources */,
 				3FBC60772B018594001DB696 /* ProfileView.swift in Sources */,
