@@ -70,10 +70,14 @@ struct SwipeView2: View {
     }
 }
 
-#Preview {
-    SwipeView2()
+//#Preview {
+//    SwipeView2()
+//}
+struct SwipeView2_Previews: PreviewProvider {
+    static var previews: some View {
+        SwipeView2()
+    }
 }
-
 
 //ZStack{
 //    Rectangle()

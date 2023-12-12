@@ -77,6 +77,12 @@ struct NetworkViewTest: View {
     }
 }
 
-#Preview {
-    NetworkViewTest()
+//#Preview {
+//    NetworkViewTest()
+//}
+
+struct NetworkViewTest_Previews: PreviewProvider {
+    static var previews: some View {
+        NetworkViewTest()
+    }
 }
