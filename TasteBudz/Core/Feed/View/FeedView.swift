@@ -31,14 +31,14 @@ struct FeedView: View {
                 
                 
                 // retrieve user's recommended restaurants (yelp keys)
-                // let userRestaurantKeys = getRestaurantsFromUID(userid: Auth.auth().currentUser??.uid)
+//                 let userRestaurantKeys = getRestaurantsFromUID(userid: Auth.auth().currentUser??.uid)
                 
                 // retrieve user friends and mutuals recommended restaurants
                 // store these all in the same array, check for duplicates
                 
                 
                 // pull the image links from yelp api using the keys
-                // let restaurantImageLinks = getImageURLsForRestaurants(restaurantKeys: userRestaurantKeys, completion: <#T##([String?]) -> Void#>)
+//                 let restaurantImageLinks = getImageURLsForRestaurants(restaurantKeys: userRestaurantKeys, completion: <#T##([String?]) -> Void#>)
               
                 
                 // View of restaurants
@@ -125,9 +125,36 @@ struct FeedView: View {
 //                    }
 //                    .padding([.top, .horizontal])
                 }
+            // NEW EDITS
+            }.onAppear() {
+                Task {
+                    
+                    // Auth.auth().currentUser!.uid
+                    // "3Xi8IpFv9Df42WafUHjpaK5nSOd2"
+                    let userRestaurantKeys = await getRestaurantsFromUID(userid: "3Xi8IpFv9Df42WafUHjpaK5nSOd2")
+//                    print("userRestaurant \(userRestaurantKeys)")
+                    
+                    let restaurantImageLinks = try await getImageURLsForRestaurants(restaurantKeys: ["boE4Ahsssqic7o5wQLI04w"])
+//                    print("restaurantImageLinks \(restaurantImageLinks)")
+                    
+                    // load the image links into hstack onto the feed
+//                    for imageLink in restaurantImageLinks {
+//                        AsyncImage(url: URL(string: imageLink)) { image in image
+//                                .resizable()
+//                                .scaledToFit()
+//                                .aspectRatio(contentMode: .fill)
+//                                .frame(width:150, height: 200)
+//                            //                                    .border(Color.gray, width:5)
+//                                .cornerRadius(20)
+//                            //
+//                            
+//                        } placeholder: {
+//                            ProgressView()
+//                        }
+//                    }
+                }
+
             }
-        //}
-        //
     }
 }
 
@@ -145,7 +172,7 @@ func getRestaurantsFromUID(userid: String) async -> [String]{
         for dataItem in dataSnapshot.documents{
             let dataPoint = dataItem.data()
             
-            if let restaurantID = dataPoint["restaurantIDKey"] as? String {
+            if let restaurantID = dataPoint["restID"] as? String {
                             restaurantArray.append(restaurantID)
                         }
         }
@@ -156,59 +183,45 @@ func getRestaurantsFromUID(userid: String) async -> [String]{
     return restaurantArray
 }
 
-func getImageURLsForRestaurants(restaurantKeys: [String], completion: @escaping ([String?]) -> Void) {
+
+func getImageURLsForRestaurants(restaurantKeys: [String]) async throws -> [String] {
     let apiKey = "CBz-Ykj4Kpaw9hum4DDI9hIJcRg7Q0uvtbEeAe_znKmG-HF6av3NUdQBI1OZihgG0YILrSS6KOb1ZRsoCs_HSNc4KutlGnkOKAAYw7p_MRXvdgdn4EBtwMBsxc1VZXYx"
     let baseURL = "https://api.yelp.com/v3/businesses/"
     
-    let group = DispatchGroup()
-    var imageURLs = [String?]()
+    var imageURLs = [String]()
     
     for restaurantKey in restaurantKeys {
-        group.enter()
-        
-        let endpoint = baseURL + restaurantKey
-        guard let url = URL(string: endpoint) else {
-            imageURLs.append(nil)
-            group.leave()
-            continue
-        }
-        
-        var request = URLRequest(url: url)
-        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            defer {
-                group.leave()
+        do {
+            let endpoint = baseURL + restaurantKey
+            guard let url = URL(string: endpoint) else {
+                imageURLs.append("")
+                continue
             }
             
-            guard let data = data, error == nil else {
-                imageURLs.append(nil)
-                return
-            }
+            var request = URLRequest(url: url)
+            request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
             
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                
-                // Assuming the image URL is nested inside the "image_url" key, adjust as needed
-                if let imageURL = json?["image_url"] as? String {
-                    imageURLs.append(imageURL)
-                } else {
-                    imageURLs.append(nil)
-                }
-            } catch {
-                print("Error parsing JSON: \(error)")
-                imageURLs.append(nil)
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            let decoder = JSONDecoder()
+            let business = try decoder.decode(Business.self, from: data)
+            
+            // Access the image URL from the decoded Business model
+            if let imageURL = business.imageURL {
+                imageURLs.append(imageURL)
+            } else {
+                print("not found")
+                imageURLs.append("")
             }
+        } catch {
+            print("Error fetching image URL for restaurant \(restaurantKey): \(error)")
+            throw error // Propagate the error
         }
-        
-        task.resume()
     }
     
-    group.notify(queue: DispatchQueue.main) {
-        completion(imageURLs)
-    }
-    
+    return imageURLs
 }
+
 
 
 // example of how api is used
