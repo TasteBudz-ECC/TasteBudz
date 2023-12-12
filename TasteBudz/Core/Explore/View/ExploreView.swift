@@ -19,6 +19,9 @@ struct ExploreView: View {
                         ProfileView(user: user)
                     }
             }
+            .refreshable {
+                        Task { try await viewModel.fetchUsers() }
+                        }
             .overlay {
                 if viewModel.isLoading {
                     ProgressView()

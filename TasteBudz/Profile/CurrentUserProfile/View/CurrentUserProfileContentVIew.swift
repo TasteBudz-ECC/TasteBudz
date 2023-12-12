@@ -15,6 +15,7 @@ enum CurrentUserProfileSheetConfig: Identifiable {
 }
 
 struct CurrentUserProfileContentView: View {
+    @StateObject var viewModelfetchNote = FeedViewModel()
     @StateObject var viewModel = CurrentUserProfileViewModel()
     @State private var selectedThreadFilter: ProfileNoteFilterViewModel = .notes
     @State private var sheetConfig: CurrentUserProfileSheetConfig?
@@ -104,6 +105,12 @@ struct CurrentUserProfileContentView: View {
                 }
             }
         }
+        .refreshable {
+                                Task { try await viewModelfetchNote.fetchNotes() }
+                            }
+                            .overlay {
+                                if viewModelfetchNote.isLoading { ProgressView() }
+                            }
         .sheet(item: $sheetConfig, content: { config in
             switch config {
             case .editProfile:

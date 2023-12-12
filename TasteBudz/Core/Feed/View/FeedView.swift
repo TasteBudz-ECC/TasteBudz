@@ -112,18 +112,18 @@ struct FeedView: View {
                     })
                     .navigationTitle("Notes")
                     .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                Task { try await viewModel.fetchNotes() }
-                            } label: {
-                                Image(systemName: "arrow.counterclockwise")
-                                    .foregroundColor(Color.theme.primaryText)
-                            }
-                            
-                        }
-                    }
-                    .padding([.top, .horizontal])
+//                    .toolbar {
+//                        ToolbarItem(placement: .navigationBarTrailing) {
+//                            Button {
+//                                Task { try await viewModel.fetchNotes() }
+//                            } label: {
+//                                Image(systemName: "arrow.counterclockwise")
+//                                    .foregroundColor(Color.theme.primaryText)
+//                            }
+//                            
+//                        }
+//                    }
+//                    .padding([.top, .horizontal])
                 }
             }
         //}

@@ -32,6 +32,9 @@ struct ActivityView: View {
                     }
                 }
             }
+            .refreshable {
+                Task { try await viewModel.isLoading }
+            }
             .overlay {
                 if viewModel.isLoading {
                     ProgressView()
