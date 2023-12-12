@@ -15,9 +15,9 @@ struct ActivityRowView: View {
         case .like:
             return model.note?.caption ?? ""
         case .follow:
-            return "Followed you"
+            return "Added you"
         case .reply:
-            return "Replied to one of your threads"
+            return "Replied to one of your gatherings"
         }
     }
     

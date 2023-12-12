@@ -28,6 +28,7 @@ struct ReportPopupView: View {
                 self.isPresented = false
             }
             .padding()
+            .foregroundColor(.black)
             // You can add more UI components as needed
             Spacer()
         }
