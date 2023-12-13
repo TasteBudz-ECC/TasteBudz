@@ -13,7 +13,8 @@ import Foundation
 
 struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
-    
+    @State var userRestaurantKeys: [String] = []
+    @State var imageLinks: [String] = []
     
     
     var imageURL = URL(string:"https://images.prismic.io/bar-louie%2F28acb893-a2eb-4542-b063-d3c0cb3eb94c_739143_495794_1518558828478.jpg")
@@ -44,26 +45,31 @@ struct FeedView: View {
                 // View of restaurants
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack(spacing: 20){
-                        // for restaurant in restaurant array: get the imageurl of each of the restaurants
                         
 //                        for link in restaurantImageLinks {
+//                        print("vstack \(imageLinks)")
+                        ForEach(imageLinks, id: \.self) { link in
                             VStack {
-                                AsyncImage(url: imageURL) { image in image
-                                        .resizable()
-                                        .scaledToFit()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width:150, height: 200)
-                                    //                                    .border(Color.gray, width:5)
-                                        .cornerRadius(20)
-                                    //
+                                //                                Text("link \(link)")
+                                //AsyncImage(url: imageURL) { image in image
+                                
+                                AsyncImage(url: URL(string: link)) {image in image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width:150, height: 200)
+                                    .cornerRadius(20)
+                                //
                                     
                                 } placeholder: {
-                                    ProgressView()
-                                }
+                                        ProgressView()
+                                    }
+                                    
+                                    Text("Bar Louie") // insert restaurant name
+                                    
                                 
-                                Text("Bar Louie") // insert restaurant name
                             }
-//                        }
+                        }
                         
                         ForEach(2..<10) {
                             Text("Restaurant \($0)")
@@ -126,32 +132,31 @@ struct FeedView: View {
 //                    .padding([.top, .horizontal])
                 }
             // NEW EDITS
-            }.onAppear() {
+            }.onAppear {
                 Task {
                     
                     // Auth.auth().currentUser!.uid
                     // "3Xi8IpFv9Df42WafUHjpaK5nSOd2"
-                    let userRestaurantKeys = await getRestaurantsFromUID(userid: "3Xi8IpFv9Df42WafUHjpaK5nSOd2")
+                    userRestaurantKeys = await getRestaurantsFromUID(userid: "3Xi8IpFv9Df42WafUHjpaK5nSOd2")
 //                    print("userRestaurant \(userRestaurantKeys)")
                     
-                    let restaurantImageLinks = try await getImageURLsForRestaurants(restaurantKeys: ["boE4Ahsssqic7o5wQLI04w"])
+//                    let restaurantImageLinks = try await getImageURLsForRestaurants(restaurantKeys: ["boE4Ahsssqic7o5wQLI04w"])
 //                    print("restaurantImageLinks \(restaurantImageLinks)")
                     
-                    // load the image links into hstack onto the feed
-//                    for imageLink in restaurantImageLinks {
-//                        AsyncImage(url: URL(string: imageLink)) { image in image
-//                                .resizable()
-//                                .scaledToFit()
-//                                .aspectRatio(contentMode: .fill)
-//                                .frame(width:150, height: 200)
-//                            //                                    .border(Color.gray, width:5)
-//                                .cornerRadius(20)
-//                            //
-//                            
-//                        } placeholder: {
-//                            ProgressView()
-//                        }
-//                    }
+                    
+                    //  = ["http://s3-media4.fl.yelpcdn.com/bphoto/6He-NlZrAv2mDV-yg6jW3g/o.jpg"]
+                    // imageLinks = ["https://images.prismic.io/bar-louie%2F28acb893-a2eb-4542-b063-d3c0cb3eb94c_739143_495794_1518558828478.jpg"]
+                    
+                    
+                    
+                    for rKey in userRestaurantKeys {
+                        let restRetreive = try await restDetailRetrieval(businessID: rKey, toRetrieve: "image_url"){ data in
+                            imageLinks.append(data!)
+                        }
+                    }
+                    
+                    print("imageLinks \(imageLinks)")
+
                 }
 
             }
@@ -184,6 +189,7 @@ func getRestaurantsFromUID(userid: String) async -> [String]{
 }
 
 
+// DELETE THIS FUNCTION LATER
 func getImageURLsForRestaurants(restaurantKeys: [String]) async throws -> [String] {
     let apiKey = "CBz-Ykj4Kpaw9hum4DDI9hIJcRg7Q0uvtbEeAe_znKmG-HF6av3NUdQBI1OZihgG0YILrSS6KOb1ZRsoCs_HSNc4KutlGnkOKAAYw7p_MRXvdgdn4EBtwMBsxc1VZXYx"
     let baseURL = "https://api.yelp.com/v3/businesses/"
@@ -222,25 +228,6 @@ func getImageURLsForRestaurants(restaurantKeys: [String]) async throws -> [Strin
     return imageURLs
 }
 
-
-
-// example of how api is used
-//func search(searchTerm: String) {
-//    YelpApiService.live.search(searchTerm, "Chicago")
-//        .sink { [weak self] businesses in
-//            self?.businesses = businesses
-//        }
-//        .store(in: &cancellables)
-//
-//    print("Search Text: \(searchTerm)")
-//}
-
-
-//func get imageFromRestKey(restKey: String) async -> [String: Any] {
-//    let imageArray = [restKey]
-//
-//    return imageArray
-//}
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
