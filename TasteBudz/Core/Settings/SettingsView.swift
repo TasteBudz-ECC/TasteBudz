@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @StateObject var viewModel = AccountDeletionViewModel()
+    @State private var showActionSheet = false
+
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
@@ -33,7 +37,39 @@ struct SettingsView: View {
                     .padding(.top)
                 }
                 
+//                Spacer()
+//
+             
+//                    func logout() {
+//                        session.logout()
+//                    }
+                
+                Button(action: {
+                    self.showActionSheet = true
+                }) {
+                    Text("Delete Account")
+//                        .foregroundColor(.white)
+                        .padding()
+                }
+//                .background(Color.gray)
+                .cornerRadius(10)
+                .padding(.trailing, 20)
+                .actionSheet(isPresented: self.$showActionSheet) {
+                    ActionSheet(title: Text("Delete"), message: Text("Are you sure you want to delete your account?"),
+                        buttons: [
+                            .default(Text("Yes, delete my account."), action: {
+                                // Call your delete account function here
+                                self.viewModel.deleteUser()
+                                // Additional actions if needed, like logging out
+                                AuthService.shared.signOut()
+                                self.showActionSheet.toggle()
+                            }),
+                            .cancel()
+                        ])
+                }
                 Spacer()
+                
+
             }
             .padding()
             .navigationTitle("Settings")
