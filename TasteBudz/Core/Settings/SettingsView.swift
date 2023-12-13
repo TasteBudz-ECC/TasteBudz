@@ -26,6 +26,35 @@ struct SettingsView: View {
                     }
                 }
                 
+                Button(action: {
+                    self.showActionSheet = true
+                }) {
+                    HStack {
+                        Image(systemName: "xmark.circle").foregroundColor(.red)
+                        Text("Delete Account")
+                            .font(.system(size: 15))
+                            .foregroundColor(.red)
+    //                        .foregroundColor(.white)
+//                            .padding()
+                    }
+                }
+//                .background(Color.gray)
+                .cornerRadius(10)
+                .padding(.trailing, 20)
+                .actionSheet(isPresented: self.$showActionSheet) {
+                    ActionSheet(title: Text("Delete"), message: Text("Are you sure you want to delete your account?"),
+                        buttons: [
+                            .default(Text("Yes, delete my account."), action: {
+                                // Call your delete account function here
+                                self.viewModel.deleteUser()
+                                // Additional actions if needed, like logging out
+                                AuthService.shared.signOut()
+                                self.showActionSheet.toggle()
+                            }),
+                            .cancel()
+                        ])
+                }
+                
                 VStack(alignment: .leading) {
                     Divider()
                     
@@ -44,29 +73,6 @@ struct SettingsView: View {
 //                        session.logout()
 //                    }
                 
-                Button(action: {
-                    self.showActionSheet = true
-                }) {
-                    Text("Delete Account")
-//                        .foregroundColor(.white)
-                        .padding()
-                }
-//                .background(Color.gray)
-                .cornerRadius(10)
-                .padding(.trailing, 20)
-                .actionSheet(isPresented: self.$showActionSheet) {
-                    ActionSheet(title: Text("Delete"), message: Text("Are you sure you want to delete your account?"),
-                        buttons: [
-                            .default(Text("Yes, delete my account."), action: {
-                                // Call your delete account function here
-                                self.viewModel.deleteUser()
-                                // Additional actions if needed, like logging out
-                                AuthService.shared.signOut()
-                                self.showActionSheet.toggle()
-                            }),
-                            .cancel()
-                        ])
-                }
                 Spacer()
                 
 
