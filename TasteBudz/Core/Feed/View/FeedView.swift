@@ -13,11 +13,13 @@ import Foundation
 
 struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
-    @State var userRestaurantKeys: [String] = []
-    @State var imageLinks: [String] = []
+    @State var userNetwork: [String] = []
+    @State var networkRestaurantKeys: [String] = []
+//    @State var imageLinks: [String] = []
+    @State var restInfoDict: [String: (imageURL: String, name: String)] = [:]
     
     
-    var imageURL = URL(string:"https://images.prismic.io/bar-louie%2F28acb893-a2eb-4542-b063-d3c0cb3eb94c_739143_495794_1518558828478.jpg")
+    var testImageURL = URL(string:"https://images.prismic.io/bar-louie%2F28acb893-a2eb-4542-b063-d3c0cb3eb94c_739143_495794_1518558828478.jpg")
     
     var body: some View {
         
@@ -38,6 +40,9 @@ struct FeedView: View {
                 // store these all in the same array, check for duplicates
                 
                 
+                /* get list of user's network, for each person in their network, get their restaurant keys and append them to userRestaurantKeys*/
+                
+                
                 // pull the image links from yelp api using the keys
 //                 let restaurantImageLinks = getImageURLsForRestaurants(restaurantKeys: userRestaurantKeys, completion: <#T##([String?]) -> Void#>)
               
@@ -46,40 +51,50 @@ struct FeedView: View {
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack(spacing: 20){
                         
-//                        for link in restaurantImageLinks {
-//                        print("vstack \(imageLinks)")
-                        ForEach(imageLinks, id: \.self) { link in
+//                        ForEach(imageLinks, id: \.self) { link in
+//                            VStack {
+//                                //                                Text("link \(link)")
+//                                //AsyncImage(url: imageURL) { image in image
+//                                
+//                                AsyncImage(url: URL(string: link)) {image in image
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .aspectRatio(contentMode: .fill)
+//                                    .frame(width:150, height: 200)
+//                                    .cornerRadius(20)
+//                                //
+//                                    
+//                                } placeholder: {
+//                                        ProgressView()
+//                                    }
+//                                    
+//                                    Text("Bar Louie") // insert restaurant name
+//                                    
+//                                
+//                            }
+//                        }
+                        
+                        ForEach(Array(restInfoDict.keys), id: \.self) { rest in
                             VStack {
-                                //                                Text("link \(link)")
-                                //AsyncImage(url: imageURL) { image in image
-                                
-                                AsyncImage(url: URL(string: link)) {image in image
+                                let link = restInfoDict[rest]?.imageURL
+                                AsyncImage(url: URL(string: link ?? "https://static.vecteezy.com/system/resources/thumbnails/002/412/377/small/coffee-cup-logo-coffee-shop-icon-design-free-vector.jpg")) {image in image // change the default link to our logo
                                     .resizable()
                                     .scaledToFit()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width:150, height: 200)
                                     .cornerRadius(20)
                                 //
-                                    
+
                                 } placeholder: {
                                         ProgressView()
                                     }
-                                    
-                                    Text("Bar Louie") // insert restaurant name
-                                    
-                                
+
+                                Text(restInfoDict[rest]?.name ?? "not found")
+                                    .frame(maxWidth: 200)
+                                    // .frame(maxWidth: .infinity, alignment: .leading)
+                                    .fixedSize(horizontal: false, vertical: true)
+
                             }
-                        }
-                        
-                        ForEach(2..<10) {
-                            Text("Restaurant \($0)")
-                                .foregroundStyle(.white)
-                                .font(.headline)
-                                .frame(width: 150, height: 200)
-                                .border(Color.gray, width:2)
-                                .cornerRadius(20)
-                                .background(.purple)
-                            
                         }
                         
                     }
@@ -135,27 +150,40 @@ struct FeedView: View {
             }.onAppear {
                 Task {
                     
+                    
                     // Auth.auth().currentUser!.uid
                     // "3Xi8IpFv9Df42WafUHjpaK5nSOd2"
-                    userRestaurantKeys = await getRestaurantsFromUID(userid: "3Xi8IpFv9Df42WafUHjpaK5nSOd2")
-//                    print("userRestaurant \(userRestaurantKeys)")
                     
-//                    let restaurantImageLinks = try await getImageURLsForRestaurants(restaurantKeys: ["boE4Ahsssqic7o5wQLI04w"])
-//                    print("restaurantImageLinks \(restaurantImageLinks)")
+                    // set up the userNetwork array to contain the user logged in and their mutuals
+                    userNetwork = await populateNetwork(forUserID: "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
+                    userNetwork.append("tGl3BsN0vST8dqsO9FpIf4jrk7r2")
                     
+                    // print(userNetwork)
+
+                    for user in userNetwork {
+                        let restKey = await getRestaurantsFromUID(userid: user)
+                        networkRestaurantKeys.append(contentsOf: restKey)
+                    }
+//                    
+//                     UNCOMMENT THIS CODE TO TEST HARD-CODED FIREBASE DATA
+//                     networkRestaurantKeys = await getRestaurantsFromUID(userid: "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
                     
-                    //  = ["http://s3-media4.fl.yelpcdn.com/bphoto/6He-NlZrAv2mDV-yg6jW3g/o.jpg"]
-                    // imageLinks = ["https://images.prismic.io/bar-louie%2F28acb893-a2eb-4542-b063-d3c0cb3eb94c_739143_495794_1518558828478.jpg"]
+                    // ADD THIS BACK IN IF NEEDED (generates array of images, doesn't use the restaurant dictionary)
+//                    for rKey in userRestaurantKeys {
+//                        let _: () = restDetailRetrieval(businessID: rKey, toRetrieve: "image_url"){ data in
+//                            imageLinks.append(data!)
+//                        }
+//                    }
                     
-                    
-                    
-                    for rKey in userRestaurantKeys {
-                        let restRetreive = try await restDetailRetrieval(businessID: rKey, toRetrieve: "image_url"){ data in
-                            imageLinks.append(data!)
+//                  // goes through all of the restaurant keys of the network and gets their imageURLs and names
+                    for rKey in networkRestaurantKeys {
+                        restDetailRetrieval(businessID: rKey, toRetrieve: "image_url") { rKeyImageURL in
+                            restDetailRetrieval(businessID: rKey, toRetrieve: "name") { rKeyName in
+                                restInfoDict[rKey] = (imageURL: rKeyImageURL ?? "", name: rKeyName ?? "")
+                            }
                         }
                     }
                     
-                    print("imageLinks \(imageLinks)")
 
                 }
 
@@ -186,46 +214,6 @@ func getRestaurantsFromUID(userid: String) async -> [String]{
     }
     
     return restaurantArray
-}
-
-
-// DELETE THIS FUNCTION LATER
-func getImageURLsForRestaurants(restaurantKeys: [String]) async throws -> [String] {
-    let apiKey = "CBz-Ykj4Kpaw9hum4DDI9hIJcRg7Q0uvtbEeAe_znKmG-HF6av3NUdQBI1OZihgG0YILrSS6KOb1ZRsoCs_HSNc4KutlGnkOKAAYw7p_MRXvdgdn4EBtwMBsxc1VZXYx"
-    let baseURL = "https://api.yelp.com/v3/businesses/"
-    
-    var imageURLs = [String]()
-    
-    for restaurantKey in restaurantKeys {
-        do {
-            let endpoint = baseURL + restaurantKey
-            guard let url = URL(string: endpoint) else {
-                imageURLs.append("")
-                continue
-            }
-            
-            var request = URLRequest(url: url)
-            request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-            
-            let (data, _) = try await URLSession.shared.data(from: url)
-            
-            let decoder = JSONDecoder()
-            let business = try decoder.decode(Business.self, from: data)
-            
-            // Access the image URL from the decoded Business model
-            if let imageURL = business.imageURL {
-                imageURLs.append(imageURL)
-            } else {
-                print("not found")
-                imageURLs.append("")
-            }
-        } catch {
-            print("Error fetching image URL for restaurant \(restaurantKey): \(error)")
-            throw error // Propagate the error
-        }
-    }
-    
-    return imageURLs
 }
 
 
