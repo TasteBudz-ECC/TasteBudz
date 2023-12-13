@@ -100,10 +100,14 @@ struct YelpApiDetailsTestView: View {
 //    }
 
 
-#Preview {
-    YelpApiDetailsTestView()
+//#Preview {
+//    YelpApiDetailsTestView()
+//}
+struct YelpApiDetailsTestView_Previews: PreviewProvider {
+    static var previews: some View {
+        YelpApiDetailsTestView()
+    }
 }
-
 
 // EXAMPLE OF OUTPUT JSON FILE
 //{
