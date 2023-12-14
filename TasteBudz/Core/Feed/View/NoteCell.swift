@@ -95,13 +95,26 @@ struct NoteCell: View {
             case .unfollow:
                 print("DEBUG: Unfollow here..")
             case .report:
+                print("DEBUG: Report here..")
+                print("isReportPopupPresented: \(isReportPopupPresented)")
                 isReportPopupPresented = true
+//                self.isReportPopupPresented.toggle()
+                print("isReportPopupPresented: \(isReportPopupPresented)")
             case .none:
                 break
             }
         })
+        .sheet(isPresented: $isReportPopupPresented) {
+            ReportPopupView(isPresented: self.$isReportPopupPresented)
+                .onDisappear() {
+//                    print("isReportPopupPresented: \(isReportPopupPresented)")
+                    self.isReportPopupPresented = false
+//                    print("isReportPopupPresented: \(isReportPopupPresented)")
+                }
+        }
         
         .foregroundColor(Color.theme.primaryText)
+//        Text("isReportPopupPresented: \(String(isReportPopupPresented))")
     }
 }
 struct NoteCell_Previews: PreviewProvider {
