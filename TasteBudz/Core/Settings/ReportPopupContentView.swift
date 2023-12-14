@@ -10,20 +10,28 @@ struct ReportPopupContentView: View {
     @State private var isReportPopupPresented = false
     var body: some View {
         VStack {
+            
+            Text("Report a Problem")
+                .font(.title)
+                .fontWeight(.bold)
+            
+            
+            Text("If you encounter any issues or have concerns, please use this feature to report them to us. Your feedback is valuable in improving our app.")
+                .foregroundColor(.gray)
+                .padding()
+
             Text("Click below to make a report:")
-            // Your other content here
             Button("Report") {
                 self.isReportPopupPresented.toggle()
-                   
+                
             }
-            .foregroundColor(.black)
+            .foregroundColor(.blue)
             .padding()
-            
-            // Your other content here
         }
         .sheet(isPresented: $isReportPopupPresented) {
             ReportPopupView(isPresented: self.$isReportPopupPresented)
         }
+        Spacer()
     }
 }
 

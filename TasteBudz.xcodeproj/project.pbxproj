@@ -599,6 +599,8 @@
 				3F500D292B1AE9F5004D96CD /* SettingsOptions.swift */,
 				3F7CA13D2B255E5C00CC1705 /* AboutView.swift */,
 				3F7CA13F2B25777D00CC1705 /* PrivacyView.swift */,
+				3F7CA13B2B25451900CC1705 /* ReportPopupView.swift */,
+				3F7CA1392B25439A00CC1705 /* ReportPopupContentView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -619,8 +621,6 @@
 				3F7E62D32B19635000B38ECC /* CircularProfileImageView.swift */,
 				3F7E62D52B1963F500B38ECC /* UserCell.swift */,
 				3F500D1E2B1AE185004D96CD /* UserListView.swift */,
-				3F7CA1392B25439A00CC1705 /* ReportPopupContentView.swift */,
-				3F7CA13B2B25451900CC1705 /* ReportPopupView.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
