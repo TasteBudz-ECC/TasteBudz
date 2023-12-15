@@ -73,7 +73,6 @@ struct FeedView: View {
 //
 //                            }
 //                        }
-                        
                     }
                 }
                 
@@ -137,6 +136,7 @@ struct FeedView: View {
                     
                      print(userNetwork)
 
+=======
                     // check for duplicates in the array of restaurants
 //                    for user in userNetwork {
 //                        let restKey = await getRestaurantsFromUID(userid: user) // creates an array of restaurants

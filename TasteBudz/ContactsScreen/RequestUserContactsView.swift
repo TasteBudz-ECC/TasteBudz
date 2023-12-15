@@ -15,115 +15,113 @@ struct RequestUserContactsView: View {
     @State private var selectedContact: ContactModel?
     @State private var selectedNumber: String?
     @State private var invitedFriendsCount: Int = 0 // Keep track of the invited friends count
-    @State private var isNavigationActive: Bool = false
+    @State var inviteCode: String = ""
     
     
     
     var body: some View {
-        VStack{
-            Text("Set up your")
-            Text("friends")
-                .font(.title2)
-                .bold()
-            Text("Invite 3 friends")
-                .foregroundColor(Color(UIColor(hex: 0x000000)))
-            //                .foregroundColor(.blue)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(Color(UIColor(hex: 0xf7b2ca)).opacity(0.5))
-                .cornerRadius(8)
-                .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-            
-            
-            ScrollView {
-                VStack {
-                    // Displays each contact
-                    ForEach(contacts) { contact in
-                        HStack {
-                            Text(contact.fullName)
-                            Spacer()
-                            
-                            // When button is clicked, an invite it sent
-                            Button(action: {
-                                var randCode = ""
-                                repeat {
-                                    randCode = generateRandomCode()
-                                } while codeExistsInFirestore(randCode)
-                                addPendingInviteCodes(randCode: randCode)
-                                contact.sendInvite(randCode: randCode)
-                                invitedFriendsCount += 1
-                            }) {
-                                Text("Invite")
-                                    .foregroundColor(Color(UIColor(hex: 0x000000)))
-                                //                            .foregroundColor(.blue)
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)
-                                    .background(Color(UIColor(hex: 0xf7b2ca)).opacity(0.5))
-                                    .cornerRadius(8)
-                                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-                            }
-                        }
-                        .padding()
-                    }
-                    
-                }
-                .onAppear {
-                    Task.init {
-                        await fetchAllContacts()
-                    }
-                    
-                }
-            }
-            
-            Text("Invited Friends: \(invitedFriendsCount)")
-                .foregroundColor(.gray)
-                .padding(.bottom, 16)
-            
-            //            Button(action: {
-            //                // Handle the action when the continue button is tapped
-            //                if invitedFriendsCount >= 3 {
-            //                    // Proceed with the app flow
-            //                    print("Continue button tapped with at least 3 invited friends")
-            //                    // Move on to the recommend restaurant page
-            //                } else {
-            //                    // Display an alert or message indicating the user to invite at least 3 friends
-            //                    print("Invite at least 3 friends to proceed")
-            //                }
-            //            }) {
-            //                Text("Continue")
-            //                    .foregroundColor(invitedFriendsCount >= 3 ? .white : .gray)
-            //                    .padding(.vertical, 8) // Adjust the vertical padding to make the button shorter
-            //                    .padding(.horizontal, 16)
-            //                    .background(invitedFriendsCount >= 3 ? Color.blue : Color.gray.opacity(0.5))
-            //                    .cornerRadius(8)
-            //            }
-            //            .padding()
-            //            .disabled(invitedFriendsCount < 3)
-            NavigationLink(destination: RecommendRestaurantView(), isActive: $isNavigationActive) {
-                EmptyView()
-            }
-            
-            Button(action: {
-                // Handle the action when the continue button is tapped
-                if invitedFriendsCount >= 3 {
-                    // Proceed with the app flow
-                    print("Continue button tapped with at least 3 invited friends")
-                    isNavigationActive = true // Activate navigation to RecommendRestaurantView
-                } else {
-                    // Display an alert or message indicating the user to invite at least 3 friends
-                    print("Invite at least 3 friends to proceed")
-                }
-            }) {
-                Text("Continue")
-                    .foregroundColor(invitedFriendsCount >= 3 ? .white : .gray)
-                    .padding(.vertical, 8)
+        NavigationView {
+            VStack{
+                Text("Set up your")
+                Text("friends")
+                    .font(.title2)
+                    .bold()
+                Text("Invite 3 friends")
+                    .foregroundColor(Color(UIColor(hex: 0x000000)))
+                //                .foregroundColor(.blue)
                     .padding(.horizontal, 16)
-                    .background(invitedFriendsCount >= 3 ? Color.blue : Color.gray.opacity(0.5))
+                    .padding(.vertical, 8)
+                    .background(Color(UIColor(hex: 0xf7b2ca)).opacity(0.5))
                     .cornerRadius(8)
+                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                
+                
+                ScrollView {
+                    VStack {
+                        // Displays each contact
+                        ForEach(contacts) { contact in
+                            HStack {
+                                Text(contact.fullName)
+                                Spacer()
+                                
+                                // When button is clicked, an invite it sent
+                                Button(action: {
+                                    if inviteCode == "" {
+                                        func generateAndCheckCode() {
+                                            inviteCode = generateRandomCode()
+                                            
+                                            codeExistsInFirestore(inviteCode) { exists in
+                                                if exists {
+                                                    // Code exists, generate a new one or handle it accordingly
+                                                    generateAndCheckCode()
+                                                } else {
+                                                    // Code doesn't exist, you can proceed
+                                                    addInviteCode(randCode: inviteCode)
+                                                    //                                                invitedFriendsCount += 1
+                                                }
+                                            }
+                                        }
+                                        
+                                        generateAndCheckCode()
+                                        
+                                    }
+                                    contact.sendInvite(randCode: inviteCode)
+                                    invitedFriendsCount += 1
+                                }) {
+                                    Text("Invite")
+                                        .foregroundColor(Color(UIColor(hex: 0x000000)))
+                                    //                            .foregroundColor(.blue)
+                                        .padding(.horizontal, 16)
+                                        .padding(.vertical, 8)
+                                        .background(Color(UIColor(hex: 0xf7b2ca)).opacity(0.5))
+                                        .cornerRadius(8)
+                                        .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                }
+                            }
+                            .padding()
+                        }
+                        
+                    }
+                    .onAppear {
+                        Task.init {
+                            await fetchAllContacts()
+                        }
+                        
+                    }
+                }
+                
+                Text("Invited Friends: \(invitedFriendsCount)")
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 16)
+                
+                //            NavigationLink(destination: RecommendRestaurantView(), isActive: $isNavigationActive) {
+                //                EmptyView()
+                //            }
+                
+                Button(action: {
+                    // Handle the action when the continue button is tapped
+                    if invitedFriendsCount >= 3 {
+                        // Proceed with the app flow
+                        print("Continue button tapped with at least 3 invited friends")
+                        
+                    } else {
+                        // Display an alert or message indicating the user to invite at least 3 friends
+                        print("Invite at least 3 friends to proceed")
+                    }
+                }) {
+                    NavigationLink(destination: RecommendRestaurantView()) {
+                        Text("Continue")
+                            .foregroundColor(invitedFriendsCount >= 3 ? .white : .gray)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                            .background(invitedFriendsCount >= 3 ? Color.blue : Color.gray.opacity(0.5))
+                            .cornerRadius(8)
+                    }
+                }
+                .padding()
+                .disabled(invitedFriendsCount < 3)
+                
             }
-            .padding()
-            .disabled(invitedFriendsCount < 3)
-            
         }
     }
     
@@ -197,23 +195,28 @@ struct RequestUserContactsView: View {
     
 }
 
-func addPendingInviteCodes(randCode : String){
+func addInviteCode(randCode : String){
+    // litao userId: tGl3BsN0vST8dqsO9FpIf4jrk7r2
     
+    let userID = String(describing: Auth.auth().currentUser?.uid.description)
+    print("randCode: \(randCode)")
+//    let userID = "ukrV23AamabqxiUkf2q0UfpLjim1"
     let db = Firestore.firestore()
     
     let inviteCode = [
-        "pendingInvites": FieldValue.arrayUnion([randCode]),
+        "inviteCode": randCode,
     ] as [String: Any]
     
     print(inviteCode)
-    print("user id: \(String(describing: Auth.auth().currentUser?.uid.description))")
+    print("user id: \(userID)")
     
     //add new data point, no error will occur, no try catch is needed in this operation with no specific document
-    db.collection("users").addDocument(data: inviteCode){ error in
+    let documentReference = db.collection("users").document(userID)
+    documentReference.setData(inviteCode, merge: true){ error in
         if let error = error {
             print("Error adding document: \(error.localizedDescription)")
         } else {
-            print("Document added successfully")
+            print("inviteCode added successfully")
         }
         
         
@@ -228,25 +231,26 @@ func generateRandomCode() -> String {
     return randCode
 }
 
-func codeExistsInFirestore(_ code: String) -> Bool {
-    var codeExists = false
-    
+
+func codeExistsInFirestore(_ code: String, completion: @escaping (Bool) -> Void) {
     let db = Firestore.firestore()
     let usersCollection = db.collection("users")
     
-    // Check if the code already exists in the "pendingInvites" array of any document in the "users" collection
-    usersCollection.whereField("pendingInvites", arrayContains: code).getDocuments { snapshot, error in
+    // Check if the code already exists in the "inviteCode" field of any document in the "users" collection
+    usersCollection.whereField("inviteCode", isEqualTo: code).getDocuments { snapshot, error in
         if let error = error {
             print("Error querying Firestore: \(error.localizedDescription)")
+            completion(false) // Assume code doesn't exist in case of an error
         } else {
             if let documents = snapshot?.documents, !documents.isEmpty {
                 // Code exists
-                codeExists = true
+                completion(true)
+            } else {
+                // Code doesn't exist
+                completion(false)
             }
         }
     }
-    
-    return codeExists
 }
 
 

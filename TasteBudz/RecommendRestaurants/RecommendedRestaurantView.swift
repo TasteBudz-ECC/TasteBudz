@@ -34,6 +34,7 @@ struct RecommendRestaurantView: View {
         
         VStack {
             Text("Recommend 2 Cheap Eats").font(.headline)
+            Text("Start by searching").font(.caption)
             TextField("Search", text: $searchTerm, onEditingChanged: { _ in
                 
             }, onCommit: {
