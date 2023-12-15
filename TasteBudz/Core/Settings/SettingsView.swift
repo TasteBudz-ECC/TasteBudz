@@ -10,22 +10,23 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject var viewModel = AccountDeletionViewModel()
     @State private var showActionSheet = false
-
+    @State private var showReauthentication = false
 
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
+                // Settings options
                 ForEach(SettingsOptions.allCases) { option in
                     NavigationLink(destination: option.destinationView) {
                         HStack {
                             Image(systemName: option.imageName)
-                            
                             Text(option.title)
                                 .font(.subheadline)
                         }
                     }
                 }
-                
+
+                // Delete Account Button
                 Button(action: {
                     self.showActionSheet = true
                 }) {
@@ -34,30 +35,23 @@ struct SettingsView: View {
                         Text("Delete Account")
                             .font(.system(size: 15))
                             .foregroundColor(.red)
-    //                        .foregroundColor(.white)
-//                            .padding()
                     }
                 }
-//                .background(Color.gray)
                 .cornerRadius(10)
                 .padding(.trailing, 20)
-                .actionSheet(isPresented: self.$showActionSheet) {
+                .actionSheet(isPresented: $showActionSheet) {
                     ActionSheet(title: Text("Delete"), message: Text("Are you sure you want to delete your account?"),
                         buttons: [
-                            .default(Text("Yes, delete my account."), action: {
-                                // Call your delete account function here
-                                self.viewModel.deleteUser()
-                                // Additional actions if needed, like logging out
-                                AuthService.shared.signOut()
-                                self.showActionSheet.toggle()
+                            .destructive(Text("Yes, delete my account."), action: {
+                                self.showReauthentication = true
                             }),
                             .cancel()
                         ])
                 }
-                
+
+                // Log Out Button
                 VStack(alignment: .leading) {
                     Divider()
-                    
                     Button("Log Out") {
                         AuthService.shared.signOut()
                     }
@@ -65,22 +59,24 @@ struct SettingsView: View {
                     .listRowSeparator(.hidden)
                     .padding(.top)
                 }
-                
-//                Spacer()
-//
-             
-//                    func logout() {
-//                        session.logout()
-//                    }
-                
-                Spacer()
-                
 
+                Spacer()
             }
             .padding()
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .foregroundColor(.black)
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(title: Text("Error"), message: Text(viewModel.errorMessage ?? "An unknown error occurred"), dismissButton: .default(Text("OK")))
+            }
+        }
+        .sheet(isPresented: $showReauthentication) {
+            // ReauthenticationView with necessary logic
+            ReauthenticationView(isPresented: $showReauthentication) {
+                Task {
+                    try await AuthService.shared.deleteUser()
+                }
+            }
         }
     }
 }

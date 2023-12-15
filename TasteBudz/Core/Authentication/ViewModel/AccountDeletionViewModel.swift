@@ -10,55 +10,55 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 
 class AccountDeletionViewModel: ObservableObject {
-    func deleteUser() {
+    @Published var showAlert = false
+    @Published var errorMessage: String?
+
+    private let firestore = Firestore.firestore()
+    private let storage = Storage.storage()
+
+    func deleteUser() async {
         guard let currentUser = Auth.auth().currentUser else {
-            print("User is not authenticated")
+            errorMessage = "User is not authenticated."
+            showAlert = true
             return
         }
-        
+
         let userId = currentUser.uid
-        
-        let firestore = Firestore.firestore()
-        let usersRef = firestore.collection("users").document(userId)
-        
-        // Begin a batched write to ensure atomicity in Firestore deletions
-        firestore.runTransaction({ (transaction, errorPointer) -> Any? in
-            transaction.deleteDocument(usersRef)
-            return nil
-        }) { (_, error) in
-            if let error = error {
-                print("Error deleting user data from Firestore: \(error.localizedDescription)")
-                return
-            }
-            
-            print("Deleted user data from Firestore")
-            
-            // Delete user images from Firebase Storage based on different paths
-            self.deleteImages(for: .profile, userId: userId)
-            self.deleteImages(for: .note, userId: userId)
-            
-            // Finally, delete the user account from Firebase Authentication
-            currentUser.delete { error in
-                if let error = error {
-                    print("Error deleting user account: \(error.localizedDescription)")
-                    return
-                }
-                
-                print("Account deleted")
-            }
+        do {
+            try await deleteFirestoreData(for: userId)
+            try await deleteStorageData(for: userId)
+            await reauthenticateAndDeleteAccount(currentUser: currentUser)
+        } catch {
+            errorMessage = "Account deletion failed: \(error.localizedDescription)"
+            showAlert = true
         }
     }
-    
-    private func deleteImages(for uploadType: UploadType, userId: String) {
-        let storageRef = Storage.storage().reference().child(uploadType == .profile ? "profile_images" : "post_images").child(userId)
-        
-        storageRef.delete { error in
-            if let error = error {
-                print("Error deleting \(uploadType) image from Storage: \(error.localizedDescription)")
-                return
-            }
-            
-            print("Deleted \(uploadType) image from Storage")
+
+    private func deleteFirestoreData(for userId: String) async throws {
+        let usersRef = firestore.collection("users").document(userId)
+        try await firestore.runTransaction { transaction, errorPointer in
+            transaction.deleteDocument(usersRef)
+        }
+    }
+
+    private func deleteStorageData(for userId: String) async throws {
+        let profileImagesRef = storage.reference().child("profile_images").child(userId)
+        let postImagesRef = storage.reference().child("post_images").child(userId)
+        try await profileImagesRef.delete()
+        try await postImagesRef.delete()
+    }
+
+    // The reauthentication process will be handled in the UI layer
+    @MainActor
+    func reauthenticateAndDeleteAccount(currentUser: FirebaseAuth.User) async {
+        // The UI layer will call this function after successful reauthentication
+        do {
+            try await currentUser.delete()
+            // Handle successful account deletion, e.g., navigate to a different view.
+        } catch {
+            errorMessage = "Error deleting user account: \(error.localizedDescription)"
+            showAlert = true
         }
     }
 }
+

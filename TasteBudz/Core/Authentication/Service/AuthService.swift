@@ -8,6 +8,13 @@
 import Firebase
 import FirebaseAuth
 
+// Define the AuthServiceError enum at the top level
+enum AuthServiceError: Error {
+    case userNotLoggedIn
+    case reauthenticationFailed
+}
+
+// AuthService class definition
 class AuthService {
     @Published var userSession: FirebaseAuth.User?
     
@@ -66,7 +73,6 @@ class AuthService {
             print("DEBUG: Failed to send email with error \(error.localizedDescription)")
             throw error
         }
-        
     }
     
     @MainActor
@@ -92,24 +98,45 @@ class AuthService {
             throw error
         }
     }
-
-        
-        // ... existing code
-
-//    func deleteAccount() async -> Bool {
-//        guard let user = Auth.auth().currentUser else { return false }
-//        guard let lastSignInDate = user.metadata.lastSignInDate else { return false }
-//        let needsReauth = !lastSignInDate.isWithinPast(minutes: 5)
-//        do {
-//            try await user?.delete()
-//            errorMessage = ""
-//        } catch {
-//            errorMessage = error.localizedDescription
-//        }
-//
-//        return false
-//    }
 }
+
+// Extend AuthService at the top level, outside of the class declaration
+extension AuthService {
+    func reauthenticate(password: String) async throws {
+        guard let currentUser = Auth.auth().currentUser,
+              let email = currentUser.email else {
+            throw AuthServiceError.userNotLoggedIn
+        }
+
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        do {
+            try await currentUser.reauthenticate(with: credential)
+        } catch {
+            throw AuthServiceError.reauthenticationFailed
+        }
+    }
+}
+
+
+//    func reauthenticate(password: String, completion: @escaping (Bool) -> Void) {
+//            guard let currentUser = Auth.auth().currentUser,
+//                  let email = currentUser.email else {
+//                completion(false)
+//                return
+//            }
+//
+//            let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+//            currentUser.reauthenticate(with: credential) { _, error in
+//                if let error = error {
+//                    print("Reauthentication failed: \(error.localizedDescription)")
+//                    completion(false)
+//                } else {
+//                    print("Reauthentication successful")
+//                    completion(true)
+//                }
+//            }
+//        }
+
 
 //extension Date {
 //    func isWithinPast(minutes: Int) -> Bool {
