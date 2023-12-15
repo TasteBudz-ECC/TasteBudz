@@ -14,8 +14,10 @@ import Foundation
 struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
     @State var userNetwork: [String] = []
-    @State var networkRestaurantKeys: [String] = []
-//    @State var imageLinks: [String] = []
+
+//   @State var imageLinks: [String] = []
+    
+   @State var networkRestaurantKeys: Set<String> = []
     @State var restInfoDict: [String: (imageURL: String, name: String)] = [:]
     
     
@@ -34,46 +36,21 @@ struct FeedView: View {
                 
                 
                 // retrieve user's recommended restaurants (yelp keys)
-//                 let userRestaurantKeys = getRestaurantsFromUID(userid: Auth.auth().currentUser??.uid)
-                
                 // retrieve user friends and mutuals recommended restaurants
                 // store these all in the same array, check for duplicates
                 
                 
                 /* get list of user's network, for each person in their network, get their restaurant keys and append them to userRestaurantKeys*/
-                
-                
+            
                 // pull the image links from yelp api using the keys
-//                 let restaurantImageLinks = getImageURLsForRestaurants(restaurantKeys: userRestaurantKeys, completion: <#T##([String?]) -> Void#>)
+
               
                 
                 // View of restaurants
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack(spacing: 20){
                         
-//                        ForEach(imageLinks, id: \.self) { link in
-//                            VStack {
-//                                //                                Text("link \(link)")
-//                                //AsyncImage(url: imageURL) { image in image
-//                                
-//                                AsyncImage(url: URL(string: link)) {image in image
-//                                    .resizable()
-//                                    .scaledToFit()
-//                                    .aspectRatio(contentMode: .fill)
-//                                    .frame(width:150, height: 200)
-//                                    .cornerRadius(20)
-//                                //
-//                                    
-//                                } placeholder: {
-//                                        ProgressView()
-//                                    }
-//                                    
-//                                    Text("Bar Louie") // insert restaurant name
-//                                    
-//                                
-//                            }
-//                        }
-                        
+                        Text("restaurants will be here")
 //                        ForEach(Array(restInfoDict.keys), id: \.self) { rest in
 //                            VStack {
 //                                let link = restInfoDict[rest]?.imageURL
@@ -96,7 +73,6 @@ struct FeedView: View {
 //
 //                            }
 //                        }
-                        
                     }
                 }
                 
@@ -151,38 +127,40 @@ struct FeedView: View {
                 Task {
                     
                     
-                    // Auth.auth().currentUser!.uid
+                    // Auth.auth().currentUser!.uid, "tGl3BsN0vST8dqsO9FpIf4jrk7r2"
                     // "3Xi8IpFv9Df42WafUHjpaK5nSOd2"
                     
                     // set up the userNetwork array to contain the user logged in and their mutuals
-                    userNetwork = await populateNetwork(forUserID: "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
-                    userNetwork.append("tGl3BsN0vST8dqsO9FpIf4jrk7r2")
+                    userNetwork = await populateNetwork(forUserID: Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
+                    userNetwork.append(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
                     
-                    // print(userNetwork)
+                     print(userNetwork)
 
+=======
+                    // check for duplicates in the array of restaurants
 //                    for user in userNetwork {
-//                        let restKey = await getRestaurantsFromUID(userid: user)
-//                        networkRestaurantKeys.append(contentsOf: restKey)
-//                    }
-//                    
-//                     UNCOMMENT THIS CODE TO TEST HARD-CODED FIREBASE DATA
-//                     networkRestaurantKeys = await getRestaurantsFromUID(userid: "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
-                    
-                    // ADD THIS BACK IN IF NEEDED (generates array of images, doesn't use the restaurant dictionary)
-//                    for rKey in userRestaurantKeys {
-//                        let _: () = restDetailRetrieval(businessID: rKey, toRetrieve: "image_url"){ data in
-//                            imageLinks.append(data!)
+//                        let restKey = await getRestaurantsFromUID(userid: user) // creates an array of restaurants
+//                        
+//                        for restaurant in restKey {
+//                            networkRestaurantKeys.insert(restaurant) // inserts into the set, doesn't insert dups
 //                        }
 //                    }
                     
+                    
+                    
 //                  // goes through all of the restaurant keys of the network and gets their imageURLs and names
-//                    for rKey in networkRestaurantKeys {
+                    
+//                    for rKey in Set(networkRestaurantKeys) {
 //                        restDetailRetrieval(businessID: rKey, toRetrieve: "image_url") { rKeyImageURL in
 //                            restDetailRetrieval(businessID: rKey, toRetrieve: "name") { rKeyName in
+////                              print(rKeyImageURL!, rKeyName!)
 //                                restInfoDict[rKey] = (imageURL: rKeyImageURL ?? "", name: rKeyName ?? "")
 //                            }
 //                        }
 //                    }
+                    
+                    print("network rest keys: \(networkRestaurantKeys)")
+                    print("restInfoDict: \(restInfoDict)")
                     
 
                 }

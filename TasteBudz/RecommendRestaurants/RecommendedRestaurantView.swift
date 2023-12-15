@@ -69,6 +69,16 @@ struct RecommendRestaurantView: View {
             
         }.padding()
     }
+    
+    // added new function to change user to false once they've gotten past this screen
+//    func setNewUserFalse() {
+//        Task {
+//            let newUserData = Firestore.firestore().collection("users").document(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
+//            try await newUserData.setData(["isNew": false], merge: true)
+//            // isNewState = false
+//            
+//        }
+//    }
 }
 
 

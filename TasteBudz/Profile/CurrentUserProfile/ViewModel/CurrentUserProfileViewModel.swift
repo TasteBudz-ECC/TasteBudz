@@ -25,7 +25,7 @@ class CurrentUserProfileViewModel: ObservableObject {
     }
     @Published var profileImage: Image?
     @Published var bio = ""
-    @Published var link = ""
+//    @Published var link = ""
     
     private var uiImage: UIImage?
     private var cancellables = Set<AnyCancellable>()
@@ -59,10 +59,10 @@ extension CurrentUserProfileViewModel {
             data["bio"] = bio
         }
         
-        if !link.isEmpty, currentUser?.link ?? "" != link {
-            currentUser?.link = link
-            data["link"] = link
-        }
+//        if !link.isEmpty, currentUser?.link ?? "" != link {
+//            currentUser?.link = link
+//            data["link"] = link
+//        }
         
         if let uiImage = uiImage {
             try await updateProfileImage(uiImage)
