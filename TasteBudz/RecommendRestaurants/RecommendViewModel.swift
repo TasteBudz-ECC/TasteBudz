@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class RecommendViewModel: ObservableObject {
+class RecommendViewModel: ObservableObject {
     @Published var businesses = [Business]()
     @Published var searchText = ""
     @Published var selectedRestaurants: Array<Business> = []
