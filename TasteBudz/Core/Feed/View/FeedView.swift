@@ -29,8 +29,10 @@ struct FeedView: View {
             VStack{
                 
                 HStack{
-                    Text("Explore Restaurant Options >>")
-                        .font(.title)
+                    Text("Explore Restaurant Options")
+                        .font(.title2)
+                        .bold()
+                    Image(systemName: "arrow.right")
                     
                 }
                 
@@ -50,7 +52,7 @@ struct FeedView: View {
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack(spacing: 20){
                         
-                        Text("restaurants will be here")
+                        Text("restaurants will be here").multilineTextAlignment(.center)
 //                        ForEach(Array(restInfoDict.keys), id: \.self) { rest in
 //                            VStack {
 //                                let link = restInfoDict[rest]?.imageURL
@@ -145,7 +147,7 @@ struct FeedView: View {
 //                            networkRestaurantKeys.insert(restaurant) // inserts into the set, doesn't insert dups
 //                        }
 //                    }
-                    
+//                    
                     
                     
 //                  // goes through all of the restaurant keys of the network and gets their imageURLs and names
