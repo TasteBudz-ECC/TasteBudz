@@ -26,13 +26,24 @@ struct FeedView: View {
     var body: some View {
         
 //        ScrollView(){
+        
             VStack{
-                
-                HStack{
-                    Text("Explore Restaurant Options >>")
-                        .font(.title)
-                    
-                }
+                VStack(alignment: .leading) {
+                                    Image("Gather_1024x1024_1")
+                                        .resizable()
+                                        .scaledToFill() // Use scaledToFill to fill the frame, cropping if needed
+                                        .frame(width: 100, height: 50) // Adjust the size as needed
+                                        .clipped()
+                                }
+                                
+                                HStack{
+                                    Text("      Scroll to Explore Restaurant Options      ")
+                                        .font(.title)
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.3)
+                                    
+                                    
+                                }
                 
                 
                 // retrieve user's recommended restaurants (yelp keys)
@@ -136,7 +147,6 @@ struct FeedView: View {
                     
                      print(userNetwork)
 
-=======
                     // check for duplicates in the array of restaurants
 //                    for user in userNetwork {
 //                        let restKey = await getRestaurantsFromUID(userid: user) // creates an array of restaurants
