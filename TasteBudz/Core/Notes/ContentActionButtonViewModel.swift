@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 @MainActor
 class ContentActionButtonViewModel: ObservableObject {
@@ -47,4 +48,25 @@ class ContentActionButtonViewModel: ObservableObject {
             self.note?.didLike = true
         }
     }
+    
+//    private func updateNoteMetadata() async throws {
+//            let activeUsersSnapshot = await Firestore.firestore().collection("users").getDocuments()
+//            let activeUserIds = activeUsersSnapshot.documents.compactMap { $0.documentID }
+//
+//            guard let note = note else { return }
+//            
+//            if !users.contains(note.authorId) {
+//                try await deleteNoteLikesAndReplies()
+//            }
+//        }
+//
+//        private func deleteNoteLikesAndReplies() async throws {
+//            guard let note = note else { return }
+//
+//            // Delete note likes
+//            try await NoteService.unlikeNote(forNote: note Note)
+//
+//            // Delete note replies
+//            try await NoteService.deleteNoteReplies(forNote: note Note)
+//        }
 }
