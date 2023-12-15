@@ -84,6 +84,7 @@
 		3F7E62F72B19D00600B38ECC /* CurrentUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E62F62B19D00600B38ECC /* CurrentUserProfileView.swift */; };
 		3F7E62FB2B19D3BD00B38ECC /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E62FA2B19D3BD00B38ECC /* ProfileHeaderView.swift */; };
 		3FBAC1172B294F4D004769A5 /* AccountDeletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAC1162B294F4D004769A5 /* AccountDeletionViewModel.swift */; };
+		3FBAC11B2B2C4373004769A5 /* ReauthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAC11A2B2C4373004769A5 /* ReauthenticationView.swift */; };
 		3FBC60772B018594001DB696 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC60762B018594001DB696 /* ProfileView.swift */; };
 		B2388E532AF58FC3009B82DE /* SwipeView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E522AF58FC3009B82DE /* SwipeView2.swift */; };
 		B2388E552AF593B2009B82DE /* ContentView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E542AF593B2009B82DE /* ContentView2.swift */; };
@@ -125,6 +126,7 @@
 		B2B48A212B2673540082076F /* NetworkViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A202B2673540082076F /* NetworkViewTest.swift */; };
 		B2B48A3A2B285C430082076F /* RestDetailRetrieval.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A392B285C430082076F /* RestDetailRetrieval.swift */; };
 		B2B48A3E2B285C740082076F /* YelpApiDetailsTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A3D2B285C740082076F /* YelpApiDetailsTestView.swift */; };
+		B2B7E3382B2BC774009C1CF6 /* GetRestDetailsFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7E3372B2BC774009C1CF6 /* GetRestDetailsFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -221,6 +223,7 @@
 		3F7E62F62B19D00600B38ECC /* CurrentUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserProfileView.swift; sourceTree = "<group>"; };
 		3F7E62FA2B19D3BD00B38ECC /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		3FBAC1162B294F4D004769A5 /* AccountDeletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeletionViewModel.swift; sourceTree = "<group>"; };
+		3FBAC11A2B2C4373004769A5 /* ReauthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticationView.swift; sourceTree = "<group>"; };
 		3FBC60762B018594001DB696 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B2388E522AF58FC3009B82DE /* SwipeView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView2.swift; sourceTree = "<group>"; };
 		B2388E542AF593B2009B82DE /* ContentView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView2.swift; sourceTree = "<group>"; };
@@ -251,6 +254,7 @@
 		B2B48A202B2673540082076F /* NetworkViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewTest.swift; sourceTree = "<group>"; };
 		B2B48A392B285C430082076F /* RestDetailRetrieval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestDetailRetrieval.swift; sourceTree = "<group>"; };
 		B2B48A3D2B285C740082076F /* YelpApiDetailsTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpApiDetailsTestView.swift; sourceTree = "<group>"; };
+		B2B7E3372B2BC774009C1CF6 /* GetRestDetailsFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRestDetailsFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -601,6 +605,7 @@
 				3F7CA13F2B25777D00CC1705 /* PrivacyView.swift */,
 				3F7CA13B2B25451900CC1705 /* ReportPopupView.swift */,
 				3F7CA1392B25439A00CC1705 /* ReportPopupContentView.swift */,
+				3FBAC11A2B2C4373004769A5 /* ReauthenticationView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -750,6 +755,7 @@
 				B2B48A202B2673540082076F /* NetworkViewTest.swift */,
 				B2B48A392B285C430082076F /* RestDetailRetrieval.swift */,
 				B2B48A3D2B285C740082076F /* YelpApiDetailsTestView.swift */,
+				B2B7E3372B2BC774009C1CF6 /* GetRestDetailsFunctions.swift */,
 			);
 			path = SwipeUIView;
 			sourceTree = "<group>";
@@ -1026,6 +1032,7 @@
 				3F7CA13E2B255E5C00CC1705 /* AboutView.swift in Sources */,
 				3F500CDE2B1AC148004D96CD /* UserRelationType.swift in Sources */,
 				3F500CC52B1AA2EB004D96CD /* ImageUploader.swift in Sources */,
+				3FBAC11B2B2C4373004769A5 /* ReauthenticationView.swift in Sources */,
 				3F500D0A2B1ADAE5004D96CD /* FeedViewModel.swift in Sources */,
 				B2388E5D2B0557FB009B82DE /* SwipeView3.swift in Sources */,
 				3F500CD02B1AAE12004D96CD /* CurrentUserProfileContentVIew.swift in Sources */,
@@ -1084,6 +1091,7 @@
 				3F500CCC2B1AA386004D96CD /* NotesButtonModifier.swift in Sources */,
 				3F7E62EC2B19B76A00B38ECC /* UserService.swift in Sources */,
 				3F7CA13C2B25451900CC1705 /* ReportPopupView.swift in Sources */,
+				B2B7E3382B2BC774009C1CF6 /* GetRestDetailsFunctions.swift in Sources */,
 				3F500CC32B1AA136004D96CD /* NoteService.swift in Sources */,
 				3F7CA1472B25835900CC1705 /* NewGatherViewViewModel.swift in Sources */,
 				B24F15ED2B214D300076DD33 /* YelpApiService.swift in Sources */,

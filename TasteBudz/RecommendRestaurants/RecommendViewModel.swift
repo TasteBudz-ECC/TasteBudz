@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class RecommendViewModel: ObservableObject {
+class RecommendViewModel: ObservableObject {
     @Published var businesses = [Business]()
     @Published var searchText = ""
     @Published var selectedRestaurants: Array<Business> = []
@@ -16,15 +16,15 @@ final class RecommendViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     
-    init() {
-        $searchText
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-            .removeDuplicates()
-            .sink { [weak self] searchTerm in
-                self?.search(searchTerm: searchTerm)
-            }
-            .store(in: &cancellables)
-    }
+//    init() {
+//        $searchText
+//            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+//            .removeDuplicates()
+//            .sink { [weak self] searchTerm in
+//                self?.search(searchTerm: searchTerm)
+//            }
+//            .store(in: &cancellables)
+//    }
     
     func search(searchTerm: String) {
         YelpApiService.live.search(searchTerm, "Chicago")

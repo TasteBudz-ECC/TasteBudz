@@ -22,6 +22,8 @@ struct ReportPopupView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
                 .fixedSize(horizontal: false, vertical: true)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
             
             Button("Submit") {
                 addReportToFirebase(desc: self.description)
@@ -37,6 +39,7 @@ struct ReportPopupView: View {
         .padding()
         .cornerRadius(10)
     }
+    
     //handlesubmitbutton() defined for when submit button is pressed
     //Goal: To send data over to Firebase
     //    private func handleSubmitButton() {

@@ -32,20 +32,20 @@ struct ContentActionButtonView: View {
                     Image(systemName: "bubble.right")
                 }
                 
-                Button {
-                    
-                } label: {
-                    Image(systemName: "arrow.rectanglepath")
-                        .resizable()
-                        .frame(width: 18, height: 16)
-                }
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "paperplane")
-                        .imageScale(.small)
-                }
+//                Button {
+//                    
+//                } label: {
+//                    Image(systemName: "arrow.rectanglepath")
+//                        .resizable()
+//                        .frame(width: 18, height: 16)
+//                }
+//                
+//                Button {
+//                    
+//                } label: {
+//                    Image(systemName: "paperplane")
+//                        .imageScale(.small)
+//                }
 
             }
             .foregroundStyle(Color.theme.primaryText)
