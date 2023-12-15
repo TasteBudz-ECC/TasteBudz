@@ -46,7 +46,8 @@ struct NotesTabView: View {
                     .onAppear { selectedTab = 4 }
                     .tag(4)
             }
-            .tint(Color.theme.primaryBackground)
+//            .tint(Color.theme.primaryBackground)
+            .tint(Color.black)
     }
 }
 

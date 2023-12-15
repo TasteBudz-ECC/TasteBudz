@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct EditProfileView: View {
-    @State private var isPrivateProfile = false
+//    @State private var isPrivateProfile = false
     @EnvironmentObject var viewModel: CurrentUserProfileViewModel
     @Environment(\.dismiss) var dismiss
     
@@ -61,20 +61,20 @@ struct EditProfileView: View {
                     
                     Divider()
                     
-                    VStack(alignment: .leading) {
-                        Text("Link")
-                            .fontWeight(.semibold)
-                        
-                        TextField("Add link...", text: $viewModel.link)
-                    }
-                    .font(.footnote)
+//                    VStack(alignment: .leading) {
+//                        Text("Link")
+//                            .fontWeight(.semibold)
+//
+//                        TextField("Add link...", text: $viewModel.link)
+//                    }
+//                    .font(.footnote)
                     
-                    Divider()
+//                    Divider()
                     
-                    Toggle("Private profile", isOn: $isPrivateProfile)
-                        .font(.footnote)
+//                    Toggle("Private profile", isOn: $isPrivateProfile)
+//                        .font(.footnote)
                     
-                    Divider()
+//                    Divider()
                     
                 }
                 

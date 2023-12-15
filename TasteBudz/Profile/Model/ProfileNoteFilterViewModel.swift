@@ -8,7 +8,7 @@
 import Foundation
 
 enum ProfileNoteFilterViewModel: Int, CaseIterable, Identifiable {
-    // more cases can be added here like if you want the profile view to have a user's liked restaurants it can go here, ex: case likedrestaurantes
+    // more cases can be added here like if you want the profile view to have a user's liked restaurants it can go here, ex: case liked Restaurants
     case notes
     case replies
     

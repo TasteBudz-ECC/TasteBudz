@@ -15,7 +15,7 @@ class AccountDeletionViewModel: ObservableObject {
             print("User is not authenticated")
             return
         }
-
+        
         let userId = currentUser.uid
         
         let firestore = Firestore.firestore()
@@ -62,4 +62,3 @@ class AccountDeletionViewModel: ObservableObject {
         }
     }
 }
-
