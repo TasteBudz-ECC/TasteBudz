@@ -16,15 +16,15 @@ final class RecommendViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     
-    init() {
-        $searchText
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-            .removeDuplicates()
-            .sink { [weak self] searchTerm in
-                self?.search(searchTerm: searchTerm)
-            }
-            .store(in: &cancellables)
-    }
+//    init() {
+//        $searchText
+//            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+//            .removeDuplicates()
+//            .sink { [weak self] searchTerm in
+//                self?.search(searchTerm: searchTerm)
+//            }
+//            .store(in: &cancellables)
+//    }
     
     func search(searchTerm: String) {
         YelpApiService.live.search(searchTerm, "Chicago")

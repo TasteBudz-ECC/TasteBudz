@@ -74,28 +74,28 @@ struct FeedView: View {
 //                            }
 //                        }
                         
-                        ForEach(Array(restInfoDict.keys), id: \.self) { rest in
-                            VStack {
-                                let link = restInfoDict[rest]?.imageURL
-                                AsyncImage(url: URL(string: link ?? "https://static.vecteezy.com/system/resources/thumbnails/002/412/377/small/coffee-cup-logo-coffee-shop-icon-design-free-vector.jpg")) {image in image // change the default link to our logo
-                                    .resizable()
-                                    .scaledToFit()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width:150, height: 200)
-                                    .cornerRadius(20)
-                                //
-
-                                } placeholder: {
-                                        ProgressView()
-                                    }
-
-                                Text(restInfoDict[rest]?.name ?? "not found")
-                                    .frame(maxWidth: 200)
-                                    // .frame(maxWidth: .infinity, alignment: .leading)
-                                    .fixedSize(horizontal: false, vertical: true)
-
-                            }
-                        }
+//                        ForEach(Array(restInfoDict.keys), id: \.self) { rest in
+//                            VStack {
+//                                let link = restInfoDict[rest]?.imageURL
+//                                AsyncImage(url: URL(string: link ?? "https://static.vecteezy.com/system/resources/thumbnails/002/412/377/small/coffee-cup-logo-coffee-shop-icon-design-free-vector.jpg")) {image in image // change the default link to our logo
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .aspectRatio(contentMode: .fill)
+//                                    .frame(width:150, height: 200)
+//                                    .cornerRadius(20)
+//                                //
+//
+//                                } placeholder: {
+//                                        ProgressView()
+//                                    }
+//
+//                                Text(restInfoDict[rest]?.name ?? "not found")
+//                                    .frame(maxWidth: 200)
+//                                    // .frame(maxWidth: .infinity, alignment: .leading)
+//                                    .fixedSize(horizontal: false, vertical: true)
+//
+//                            }
+//                        }
                         
                     }
                 }
@@ -160,10 +160,10 @@ struct FeedView: View {
                     
                     // print(userNetwork)
 
-                    for user in userNetwork {
-                        let restKey = await getRestaurantsFromUID(userid: user)
-                        networkRestaurantKeys.append(contentsOf: restKey)
-                    }
+//                    for user in userNetwork {
+//                        let restKey = await getRestaurantsFromUID(userid: user)
+//                        networkRestaurantKeys.append(contentsOf: restKey)
+//                    }
 //                    
 //                     UNCOMMENT THIS CODE TO TEST HARD-CODED FIREBASE DATA
 //                     networkRestaurantKeys = await getRestaurantsFromUID(userid: "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
@@ -176,13 +176,13 @@ struct FeedView: View {
 //                    }
                     
 //                  // goes through all of the restaurant keys of the network and gets their imageURLs and names
-                    for rKey in networkRestaurantKeys {
-                        restDetailRetrieval(businessID: rKey, toRetrieve: "image_url") { rKeyImageURL in
-                            restDetailRetrieval(businessID: rKey, toRetrieve: "name") { rKeyName in
-                                restInfoDict[rKey] = (imageURL: rKeyImageURL ?? "", name: rKeyName ?? "")
-                            }
-                        }
-                    }
+//                    for rKey in networkRestaurantKeys {
+//                        restDetailRetrieval(businessID: rKey, toRetrieve: "image_url") { rKeyImageURL in
+//                            restDetailRetrieval(businessID: rKey, toRetrieve: "name") { rKeyName in
+//                                restInfoDict[rKey] = (imageURL: rKeyImageURL ?? "", name: rKeyName ?? "")
+//                            }
+//                        }
+//                    }
                     
 
                 }
