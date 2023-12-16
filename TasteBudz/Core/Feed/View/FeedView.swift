@@ -12,6 +12,7 @@ import FirebaseFirestore
 import Foundation
 
 struct FeedView: View {
+//    @ObservedObject var restaurantFeedModel = RestaurantFeedModel()
     @StateObject var viewModel = FeedViewModel()
     @State var userNetwork: [String] = []
 

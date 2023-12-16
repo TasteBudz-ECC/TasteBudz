@@ -220,6 +220,7 @@ struct SwipeView: View {
 //                                }
 //                            }
 ////
+
         }
     }
     
@@ -260,6 +261,7 @@ struct SwipeView: View {
             }
         }.resume()
     }
+
     
     
     

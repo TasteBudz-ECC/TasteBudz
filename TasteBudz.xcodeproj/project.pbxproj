@@ -127,6 +127,7 @@
 		B2B48A3A2B285C430082076F /* RestDetailRetrieval.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A392B285C430082076F /* RestDetailRetrieval.swift */; };
 		B2B48A3E2B285C740082076F /* YelpApiDetailsTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A3D2B285C740082076F /* YelpApiDetailsTestView.swift */; };
 		B2B7E3382B2BC774009C1CF6 /* GetRestDetailsFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7E3372B2BC774009C1CF6 /* GetRestDetailsFunctions.swift */; };
+		BFEF05832B2E077300555E5E /* RestaurantFeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEF05822B2E077300555E5E /* RestaurantFeedModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -255,6 +256,7 @@
 		B2B48A392B285C430082076F /* RestDetailRetrieval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestDetailRetrieval.swift; sourceTree = "<group>"; };
 		B2B48A3D2B285C740082076F /* YelpApiDetailsTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpApiDetailsTestView.swift; sourceTree = "<group>"; };
 		B2B7E3372B2BC774009C1CF6 /* GetRestDetailsFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRestDetailsFunctions.swift; sourceTree = "<group>"; };
+		BFEF05822B2E077300555E5E /* RestaurantFeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantFeedModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				3F40AA382B18115E006DD8FA /* ContentViewOfficial.swift */,
+				BFEF05822B2E077300555E5E /* RestaurantFeedModel.swift */,
 				3F7E62E52B19AB9E00B38ECC /* ContentViewOfficialModel.swift */,
 			);
 			path = Root;
@@ -1025,6 +1028,7 @@
 				3F500CF82B1AD2F7004D96CD /* NoteActionSheetOptions.swift in Sources */,
 				3F500D0E2B1ADC18004D96CD /* ActivityRowView.swift in Sources */,
 				B2388E552AF593B2009B82DE /* ContentView2.swift in Sources */,
+				BFEF05832B2E077300555E5E /* RestaurantFeedModel.swift in Sources */,
 				3F7E62E82B19B06E00B38ECC /* LoginViewModel.swift in Sources */,
 				3F7E62D62B1963F500B38ECC /* UserCell.swift in Sources */,
 				3F500CF62B1AD1EF004D96CD /* NoteActionSheetView.swift in Sources */,
