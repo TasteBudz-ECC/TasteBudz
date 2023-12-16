@@ -57,18 +57,22 @@ struct SwipeView: View {
                 VStack(alignment: .leading) {
                     HStack{
                         if name == "N/A" {
-                            Text("Bar Louie").font(.title)
+                            Text("Bar Louie rrfiuhsdkfhsdkffidsjfjf").font(.title)
                                 .padding(.horizontal)
+                                .lineLimit(1)
                         } else {
                             Text(name).font(.title)
                                 .padding(.horizontal)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.3)
                         }
-                        
-                        if rating == -1 {
-                            StarRatingView(rating: 5, spacing: 1.0)
-                        } else {
-                            StarRatingView(rating: rating, spacing: 1.0)
-                        }
+                       
+                    }
+                    
+                    if rating == -1 {
+                        StarRatingView(rating: 5, spacing: 1.0)
+                    } else {
+                        StarRatingView(rating: rating, spacing: 1.0)
                     }
                     
                     if type == "N/A" {
@@ -84,11 +88,11 @@ struct SwipeView: View {
                     ZStack {
                         Rectangle() // grab image from yelp
                             .frame(width: 350, height: 400)
-                            .foregroundColor(Color.blue)
+                            .foregroundColor(Color.white)
                             .cornerRadius(20)
                         
-                        Text("Image")
-                            .foregroundColor(Color.white)
+//                        Text("Image")
+//                            .foregroundColor(Color.white)
                         
                         TabView {
                             ForEach(images.isEmpty ? defaultImages : images, id: \.self) { imageUrl in
@@ -162,53 +166,60 @@ struct SwipeView: View {
                 }
                 
             }
-            //        }
-            //                }.onAppear {
-            //                    Task {
-            //                        restDetailRetrievalAll(businessID: restID) { businessDetails in
-            //                            if let businessDetails = businessDetails {
-            //                                // Get name
-            //                                name = businessDetails.name ?? "N/A"
-            //                                print("Business name: \(businessDetails.name ?? "N/A")")
-            //
-            //                                // Get type
-            //                                type = businessDetails.categories?.first?.title ?? "N/A"
-            //                                print("Business type: \(businessDetails.categories?.first?.title ?? "N/A")")
-            //
-            //                                // Get images
-            //                                images = businessDetails.photos ?? []
-            //                                print("Business photos: \(businessDetails.photos ?? [])")
-            //                                if let imageURL = businessDetails.imageURL {
-            //                                    images.append(imageURL)
-            //                                } else {
-            //                                    // Handle the case where imageURL is nil
-            //                                    // You might want to provide a default image or take appropriate action
-            //                                    print("Image URL is nil for \(businessDetails.name ?? "Unknown Business")")
-            //                                }
-            //                                print("Images: \(images)")
-            //
-            //                                // Get address
-            //                                address = buildAddress(location: businessDetails.location)
-            //                                print("Business address: \(buildAddress(location: businessDetails.location))")
-            //
-            //                                // Get Rating
-            //                                rating = businessDetails.rating ?? -1
-            //                                print("Business photos: \(businessDetails.rating ?? -1)")
-            //
-            //
-            //                                // Get Hours
-            //                                hours = buildHours(hours: businessDetails.hours)
-            //                                print("Business address: \(buildHours(hours: businessDetails.hours))")
-            //
-            //                            } else {
-            //                                print("Failed to retrieve business details.")
-            //                            }
-            //                        }
-            //
-            //
-            //                    }
-            //                }
-        }
+                    
+                            }
+//        .onAppear {
+//                                Task {
+//                                    restDetailRetrievalAll(businessID: restID) { businessDetails in
+//                                        if let businessDetails = businessDetails {
+//                                            // Get name
+//                                            name = businessDetails.name ?? "N/A"
+//                                            print("Business name: \(businessDetails.name ?? "N/A")")
+//
+//                                            // Get type
+//                                            type = businessDetails.categories?.first?.title ?? "N/A"
+//                                            print("Business type: \(businessDetails.categories?.first?.title ?? "N/A")")
+//
+//                                            // Get images
+//                                            images = businessDetails.photos ?? []
+//                                            print("Business photos: \(businessDetails.photos ?? [])")
+//                                            if let imageURL = businessDetails.imageURL {
+//                                                images.append(imageURL)
+//                                            } else {
+//                                                // Handle the case where imageURL is nil
+//                                                // You might want to provide a default image or take appropriate action
+//                                                print("Image URL is nil for \(businessDetails.name ?? "Unknown Business")")
+//                                            }
+//                                            print("Images: \(images)")
+//
+//                                            // Get address
+//                                            address = buildAddress(location: businessDetails.location)
+//                                            print("Business address: \(buildAddress(location: businessDetails.location))")
+//
+//                                            // Get Rating
+//                                            rating = businessDetails.rating ?? -1
+//                                            print("Business photos: \(businessDetails.rating ?? -1)")
+//
+//
+//                                            // Get Hours
+////                                            hours = buildHours(hours: businessDetails.hours)
+////                                            print("Business address: \(buildHours(hours:
+//                                            if let formattedHours = getFormattedRestaurantHours(from: businessDetails) {
+//                                                                hours = formattedHours
+//                                                                print("Formatted Restaurant Hours:\n\(formattedHours)")
+//                                            } else {
+//                                                print("Unable to retrieve restaurant hours.")
+//                                            }
+//
+//                                        } else {
+//                                            print("Failed to retrieve business details.")
+//                                        }
+//                                    }
+//
+//
+//                                }
+//                            }
+////
         }
     }
     
