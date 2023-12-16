@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+import FirebaseAuth
+
 struct RegistrationView: View {
     @StateObject var viewModel = RegistrationViewModel()
     @Environment(\.dismiss) var dismiss
     @State private var hasSignedUp = false
     @State private var presented = false // State to manage the presentation of RequestUserContactsView
     @State private var shouldNavigate = false // State to manage navigation
+    
+    //temp State variable for the friend code input
+    @State private var inviteCode: String = ""
 
     var body: some View {
         VStack {
@@ -42,12 +48,20 @@ struct RegistrationView: View {
                             TextField("Enter your username", text: $viewModel.username)
                                 .autocapitalization(.none)
                                 .modifier(NotesTextFieldModifier())
+                            
+                            TextField("Invite Code (optional)", text: $inviteCode)
+                                .autocapitalization(.none)
+                                .modifier(NotesTextFieldModifier())
+                            
                         }
 
 
             Button {
                 Task {
                     try await signUpAndInviteContacts()
+                    
+                    // add add friend function here?
+                    // addFriendFromCode(inviteCode) if friendCode is not ""
                 }
             } label: {
                 Text(viewModel.isAuthenticating ? "" : "Sign up")
@@ -122,7 +136,50 @@ struct RegistrationView: View {
             // Handle sign up error
         }
     }
+    
+    // Function to add user and their friend from code inputted
+//    func addFriendFromCode(friendCodeInput: String) async {
+//        let db = Firestore.firestore()
+//        let friendsCollection = db.collection("friends")
+//
+//        do {
+//            // search through the "users" collection to check their code fields
+//            // if the code matches, then get that user's id
+//            // add the current user to the friends collection as primary,
+//            // add the other user to the friends collection as seconday
+//            
+//            let codeQuery = friendsCollection.whereField("friendCode", isEqualTo: friendCodeInput)
+//            let friendCodeMatch = try await codeQuery.getDocuments() // gets the user
+//            
+//            let friendsDoc = [
+//                "primary": Auth.auth().currentUser?.uid,
+//                "secondary": "tGl3BsN0vST8dqsO9FpIf4jrk7r2"//friendCodeMatch.id
+//            ]
+//            
+//            try await db.collection("friends").addDocument(data: friendsDoc as [String : Any])
+//            
+//        } catch {
+//            print("This code does not exist: \(error.localizedDescription)")
+//        }
+//    }
 
+    /* added here just for reference while creating new func
+     func addRestaurantToFirebase(restID : String, restName : String){
+         
+         let db = Firestore.firestore()
+         
+         let restDoc = [
+             "restName":restName,
+             "userID":Auth.auth().currentUser?.uid.description,
+             "restID":restID,
+         ] as [String : Any]
+         
+         print(restDoc)
+         
+         //add new data point, no error will occur, no try catch is needed in this operation with no specific document
+         db.collection("restaurants").addDocument(data: restDoc)
+     }*/
+    
     // MARK: - Form Validation
 
     var formIsValid: Bool {
