@@ -138,7 +138,6 @@ struct FeedView: View {
                     
                      print(userNetwork)
 
-=======
                     // check for duplicates in the array of restaurants
 //                    for user in userNetwork {
 //                        let restKey = await getRestaurantsFromUID(userid: user) // creates an array of restaurants
@@ -147,10 +146,10 @@ struct FeedView: View {
 //                            networkRestaurantKeys.insert(restaurant) // inserts into the set, doesn't insert dups
 //                        }
 //                    }
-//                    
                     
                     
 //                  // goes through all of the restaurant keys of the network and gets their imageURLs and names
+                    // replace this later with new function
                     
 //                    for rKey in Set(networkRestaurantKeys) {
 //                        restDetailRetrieval(businessID: rKey, toRetrieve: "image_url") { rKeyImageURL in
