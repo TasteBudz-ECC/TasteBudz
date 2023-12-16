@@ -18,12 +18,13 @@ import SwiftUI
 
 @main
 struct TasteBudzApp: App {
-    
+    @ObservedObject var restaurantFeedModel = RestaurantFeedModel()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     
     var body: some Scene {
         WindowGroup {
-            ContentViewOfficial()
+            ContentViewOfficial(restaurantFeedModel: restaurantFeedModel)
 //            RequestUserContactsView()
         }
     }

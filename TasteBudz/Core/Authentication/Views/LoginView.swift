@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @ObservedObject var restaurantFeedModel: RestaurantFeedModel
     @StateObject var viewModel = LoginViewModel()
     
     var body: some View {
@@ -103,8 +104,8 @@ extension LoginView: AuthenticationFormProtocol {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-    }
-}
+//struct LoginView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LoginView()
+//    }
+//}

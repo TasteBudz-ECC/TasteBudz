@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct NotesTabView: View {
+    
+    @ObservedObject var restaurantFeedModel: RestaurantFeedModel
     @State private var selectedTab = 0
     
     var body: some View {
             TabView(selection: $selectedTab) {
-                FeedView()
+                FeedView(restaurantFeedModel: restaurantFeedModel)
                     .tabItem {
                         Image(systemName: selectedTab == 0 ? "house.fill" : "house")
                             .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
@@ -51,8 +53,8 @@ struct NotesTabView: View {
     }
 }
 
-struct NotesTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        NotesTabView()
-    }
-}
+//struct NotesTabView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NotesTabView()
+//    }
+//}

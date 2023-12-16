@@ -275,7 +275,7 @@ struct SwipeView: View {
         let phone, displayPhone: String?
         let reviewCount: Int?
         let categories: [CategoryID]?
-        let rating: Int?
+        let rating: Double?
         let location: LocationID?
         let coordinates: CoordinatesID?
         let photos: [String]?
