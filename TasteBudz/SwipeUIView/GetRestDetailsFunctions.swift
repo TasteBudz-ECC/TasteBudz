@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 func buildAddress(location: LocationID?) -> String {
     guard let location = location else {
@@ -66,4 +67,23 @@ func formatDay(day: Int) -> String {
     // You may want to customize this based on your needs
     let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     return daysOfWeek[day]
+}
+
+struct StarRatingView: View {
+    let rating: Int
+    let spacing: CGFloat
+    
+    init(rating: Int, spacing: CGFloat = 4.0) {
+        self.rating = rating
+        self.spacing = spacing
+    }
+    
+    var body: some View {
+        HStack(spacing: spacing) {
+            ForEach(1...5, id: \.self) { index in
+                Image(systemName: index <= rating ? "star.fill" : "star")
+                    .foregroundColor(Color(UIColor(hex: 0xf7b2ca)))
+            }
+        }
+    }
 }
