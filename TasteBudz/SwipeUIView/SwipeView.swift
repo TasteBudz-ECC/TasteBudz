@@ -162,6 +162,9 @@ struct SwipeView: View {
                 }
                 
             }
+            
+            
+            
             //        }
             //                }.onAppear {
             //                    Task {
@@ -249,6 +252,7 @@ struct SwipeView: View {
             }
         }.resume()
     }
+
     
     
     
