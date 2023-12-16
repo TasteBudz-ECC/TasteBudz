@@ -156,10 +156,10 @@ struct FeedView: View {
 //                            networkRestaurantKeys.insert(restaurant) // inserts into the set, doesn't insert dups
 //                        }
 //                    }
-//                    
                     
                     
 //                  // goes through all of the restaurant keys of the network and gets their imageURLs and names
+                    // replace this later with new function
                     
 //                    for rKey in Set(networkRestaurantKeys) {
 //                        restDetailRetrieval(businessID: rKey, toRetrieve: "image_url") { rKeyImageURL in
