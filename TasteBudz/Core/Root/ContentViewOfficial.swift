@@ -12,12 +12,14 @@ import FirebaseAuth
 
 struct ContentViewOfficial: View {
     @StateObject var viewModel = ContentViewOfficialModel()
+    @ObservedObject var restaurantFeedModel: RestaurantFeedModel
+    
     var body: some View {
         Group {
             if viewModel.userSession == nil {
-                LoginView()
+                LoginView(restaurantFeedModel: restaurantFeedModel)
             } else {
-                NotesTabView()
+                NotesTabView(restaurantFeedModel: restaurantFeedModel)
             }
         }
         //            Task {
@@ -38,8 +40,8 @@ struct ContentViewOfficial: View {
 //    }
 //}
 
-struct ContentViewOfficial_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentViewOfficial()
-    }
-}
+//struct ContentViewOfficial_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentViewOfficial()
+//    }
+//}
