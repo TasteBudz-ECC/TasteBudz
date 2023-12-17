@@ -11,6 +11,8 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct RequestUserContactsView: View {
+    @ObservedObject var restaurantFeedModel: RestaurantFeedModel
+    
     @State private var contacts = [ContactModel]()
     @State private var selectedContact: ContactModel?
     @State private var selectedNumber: String?
@@ -109,7 +111,7 @@ struct RequestUserContactsView: View {
                         print("Invite at least 3 friends to proceed")
                     }
                 }) {
-                    NavigationLink(destination: RecommendRestaurantView()) {
+                    NavigationLink(destination: RecommendRestaurantView(restaurantFeedModel: restaurantFeedModel)) {
                         Text("Continue")
                             .foregroundColor(invitedFriendsCount >= 3 ? .white : .gray)
                             .padding(.vertical, 8)
@@ -253,9 +255,9 @@ func codeExistsInFirestore(_ code: String, completion: @escaping (Bool) -> Void)
     }
 }
 
-
-struct RequestUserContactsView_Previews: PreviewProvider {
-    static var previews: some View {
-        RequestUserContactsView()
-    }
-}
+//
+//struct RequestUserContactsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)
+//    }
+//}

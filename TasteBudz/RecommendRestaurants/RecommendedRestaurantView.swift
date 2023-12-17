@@ -10,7 +10,8 @@ import FirebaseAuth
 import FirebaseFirestore
 
 struct RecommendRestaurantView: View {
-    
+    @ObservedObject var restaurantFeedModel: RestaurantFeedModel
+
     @ObservedObject var viewModel = RecommendViewModel()
     @State private var searchTerm: String = ""
     
@@ -57,28 +58,31 @@ struct RecommendRestaurantView: View {
                 }
                 
             }) {
-                Text("Continue")
-                    .foregroundColor(viewModel.selectedRestaurants.count >= 2 ? .white : .gray)
-                    .padding(.vertical, 8) // Adjust the vertical padding to make the button shorter
-                    .padding(.horizontal, 16)
-                    .background(viewModel.selectedRestaurants.count >= 2 ? Color.blue : Color.gray.opacity(0.5))
-                    .cornerRadius(8)
-            }
-            .padding()
-            .disabled(viewModel.selectedRestaurants.count < 2)
-            
-        }.padding()
+                NavigationLink(destination: NotesTabView(restaurantFeedModel: restaurantFeedModel)) {
+                    
+                    Text("Continue")
+                        .foregroundColor(viewModel.selectedRestaurants.count >= 2 ? .white : .gray)
+                        .padding(.vertical, 8) // Adjust the vertical padding to make the button shorter
+                        .padding(.horizontal, 16)
+                        .background(viewModel.selectedRestaurants.count >= 2 ? Color.blue : Color.gray.opacity(0.5))
+                        .cornerRadius(8)
+                }
+                .padding()
+                .disabled(viewModel.selectedRestaurants.count < 2)
+                
+            }.padding()
+        }
+        
+        // added new function to change user to false once they've gotten past this screen
+        //    func setNewUserFalse() {
+        //        Task {
+        //            let newUserData = Firestore.firestore().collection("users").document(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
+        //            try await newUserData.setData(["isNew": false], merge: true)
+        //            // isNewState = false
+        //
+        //        }
+        //    }
     }
-    
-    // added new function to change user to false once they've gotten past this screen
-//    func setNewUserFalse() {
-//        Task {
-//            let newUserData = Firestore.firestore().collection("users").document(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
-//            try await newUserData.setData(["isNew": false], merge: true)
-//            // isNewState = false
-//            
-//        }
-//    }
 }
 
 
@@ -102,8 +106,8 @@ func addRestaurantToFirebase(restID : String, restName : String){
 //    RecommendRestaurantView()
 //}
 
-struct RecommendRestaurantView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecommendRestaurantView()
-    }
-}
+//struct RecommendRestaurantView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecommendRestaurantView(restaurantFeedModel: restaurantFeedModel)
+//    }
+//}

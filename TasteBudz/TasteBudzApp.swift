@@ -19,6 +19,7 @@ import SwiftUI
 @main
 struct TasteBudzApp: App {
     @ObservedObject var restaurantFeedModel = RestaurantFeedModel()
+    @ObservedObject var signUpModel = SignUpModel()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     
