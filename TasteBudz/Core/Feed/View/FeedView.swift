@@ -48,14 +48,14 @@ struct FeedView: View {
             }
             
             HStack{
-                Text("      Scroll to Explore Restaurant Options      ")
+                Text("  Scroll to Explore Restaurant Options")
                     .font(.title)
                     .lineLimit(1)
                     .minimumScaleFactor(0.3)
-                
+                Image(systemName: "arrow.right")
                 
             }
-            
+
             
             
             // retrieve user's recommended restaurants (yelp keys)
@@ -69,7 +69,8 @@ struct FeedView: View {
             
             
             
-            //             View of restaurants
+
+            // View of restaurants
             ScrollView(.horizontal, showsIndicators: false){
                 HStack(spacing: 20){
                     
@@ -88,6 +89,7 @@ struct FeedView: View {
                             //                                //                                    imageURL: restDict[rest]?.imageURL ?? ""
                             //                            )) {
                             
+
                             let link = restDict[rest]?.imageURL
                             //
                             AsyncImage(url: URL(string: link ?? "https://static.vecteezy.com/system/resources/thumbnails/002/412/377/small/coffee-cup-logo-coffee-shop-icon-design-free-vector.jpg")) {image in image // change the default link to our logo
@@ -96,16 +98,16 @@ struct FeedView: View {
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width:150, height: 200)
                                     .cornerRadius(20)
+                                    .shadow(radius: 2)
                                 //
                                 
                             } placeholder: {
                                 ProgressView()
                             }
                             
-                            
+     
                             Text(restDict[rest]?.name ?? "not found")
                                 .frame(maxWidth: 200)
-                            // .frame(maxWidth: .infinity, alignment: .leading)
                                 .fixedSize(horizontal: false, vertical: true)
                             
                         }
@@ -114,7 +116,6 @@ struct FeedView: View {
                     }
                 }
             }
-            
             
             // if no post yet, then have text that says "be the first post!"
             
@@ -165,25 +166,26 @@ struct FeedView: View {
             // NEW EDITS
         }.onAppear {
             Task {
+        
                 // Auth.auth().currentUser!.uid, "tGl3BsN0vST8dqsO9FpIf4jrk7r2"
                 // "3Xi8IpFv9Df42WafUHjpaK5nSOd2"
                 
-                //                // set up the userNetwork array to contain the user logged in and their mutuals
-                //                restaurantFeedModel.userNetwork = await populateNetwork(forUserID: Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
-                //                restaurantFeedModel.userNetwork.append(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
-                //
-                //                print(restaurantFeedModel.userNetwork)
-                //
-                //                // check for duplicates in the array of restaurants
-                //                for user in restaurantFeedModel.userNetwork {
-                //                    let restKey = await getRestaurantsFromUID(userid: user) // creates an array of restaurants
-                //
-                //                    for restaurant in restKey {
-                //                        restaurantFeedModel.networkRestaurantKeys.insert(restaurant) // inserts into the set, doesn't insert dups
-                //                    }
-                //                }
-                //
-                //                print(restaurantFeedModel.networkRestaurantKeys)
+//                // set up the userNetwork array to contain the user logged in and their mutuals
+//                restaurantFeedModel.userNetwork = await populateNetwork(forUserID: Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
+//                restaurantFeedModel.userNetwork.append(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
+//                
+//                print(restaurantFeedModel.userNetwork)
+//                
+//                // check for duplicates in the array of restaurants
+//                for user in restaurantFeedModel.userNetwork {
+//                    let restKey = await getRestaurantsFromUID(userid: user) // creates an array of restaurants
+//                    
+//                    for restaurant in restKey {
+//                        restaurantFeedModel.networkRestaurantKeys.insert(restaurant) // inserts into the set, doesn't insert dups
+//                    }
+//                }
+//                
+//                print(restaurantFeedModel.networkRestaurantKeys)
                 
                 if restaurantFeedModel.restDictEmpty {
                     // set up the userNetwork array to contain the user logged in and their mutuals
