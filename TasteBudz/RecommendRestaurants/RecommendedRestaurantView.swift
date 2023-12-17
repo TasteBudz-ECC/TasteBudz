@@ -52,6 +52,8 @@ struct RecommendRestaurantView: View {
                 // Handle the action when the continue button is tapped
                 // You can check the selected restaurants in the `selectedRestaurants` set
                 print("Continue button tapped with selected restaurants: \(viewModel.selectedRestaurants)")
+                print(restaurantFeedModel.isInviteCodeEmpty)
+                restaurantFeedModel.isInviteCodeEmpty = false;
                 
                 for item in viewModel.selectedRestaurants {
                     addRestaurantToFirebase(restID: item.id!, restName: item.name!)
@@ -60,7 +62,7 @@ struct RecommendRestaurantView: View {
             }) {
                 NavigationLink(destination: NotesTabView(restaurantFeedModel: restaurantFeedModel)) {
                     
-                    Text("Continue")
+                    Text("Done")
                         .foregroundColor(viewModel.selectedRestaurants.count >= 2 ? .white : .gray)
                         .padding(.vertical, 8) // Adjust the vertical padding to make the button shorter
                         .padding(.horizontal, 16)

@@ -126,6 +126,7 @@
 		B2B7E3382B2BC774009C1CF6 /* GetRestDetailsFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7E3372B2BC774009C1CF6 /* GetRestDetailsFunctions.swift */; };
 		B2B7E33C2B2EF8FF009C1CF6 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7E33B2B2EF8FE009C1CF6 /* SignUpModel.swift */; };
 		B2B7E3402B2F030F009C1CF6 /* ContactsScreenFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7E33F2B2F030F009C1CF6 /* ContactsScreenFunctions.swift */; };
+		B2B7E3482B2F3C31009C1CF6 /* InviteCodePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7E3472B2F3C31009C1CF6 /* InviteCodePopUpView.swift */; };
 		BFEF05832B2E077300555E5E /* RestaurantFeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEF05822B2E077300555E5E /* RestaurantFeedModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -254,6 +255,7 @@
 		B2B7E3372B2BC774009C1CF6 /* GetRestDetailsFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRestDetailsFunctions.swift; sourceTree = "<group>"; };
 		B2B7E33B2B2EF8FE009C1CF6 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		B2B7E33F2B2F030F009C1CF6 /* ContactsScreenFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactsScreenFunctions.swift; path = ../../../../../.Trash/ContactsScreenFunctions.swift; sourceTree = "<group>"; };
+		B2B7E3472B2F3C31009C1CF6 /* InviteCodePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCodePopUpView.swift; sourceTree = "<group>"; };
 		BFEF05822B2E077300555E5E /* RestaurantFeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantFeedModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -379,6 +381,7 @@
 				3F40AA492B1836B7006DD8FA /* FeedView.swift */,
 				3F40AA592B183EB5006DD8FA /* NoteCell.swift */,
 				3F500D092B1ADAE5004D96CD /* FeedViewModel.swift */,
+				B2B7E3472B2F3C31009C1CF6 /* InviteCodePopUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1080,6 +1083,7 @@
 				B2B48A212B2673540082076F /* NetworkViewTest.swift in Sources */,
 				3F500CD22B1AAF0E004D96CD /* NoteReplyCell.swift in Sources */,
 				3F7E62E62B19AB9E00B38ECC /* ContentViewOfficialModel.swift in Sources */,
+				B2B7E3482B2F3C31009C1CF6 /* InviteCodePopUpView.swift in Sources */,
 				B2B48A3E2B285C740082076F /* YelpApiDetailsTestView.swift in Sources */,
 				3F500CB92B1A9EF6004D96CD /* PreviewProvider.swift in Sources */,
 				3F7CA1492B25838A00CC1705 /* NGButton.swift in Sources */,
@@ -1265,7 +1269,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"TasteBudz/Preview Content\"";
-				DEVELOPMENT_TEAM = 2DN75KGK6S;
+				DEVELOPMENT_TEAM = Y8H53R9A9B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Gather;

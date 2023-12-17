@@ -69,7 +69,7 @@ struct RegistrationView: View {
                     
                 }
             } label: {
-                NavigationLink(destination: RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)){
+//                NavigationLink(destination: RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)){
                     Text(viewModel.isAuthenticating ? "" : "Sign up")
                         .foregroundColor(Color.theme.primaryBackground)
                         .modifier(NotesButtonModifier())
@@ -78,7 +78,7 @@ struct RegistrationView: View {
                                 ProgressView()
                                     .tint(Color.theme.primaryBackground)
                             }
-                        }
+//                        }
                 }
             }
             .disabled(viewModel.isAuthenticating || !formIsValid)

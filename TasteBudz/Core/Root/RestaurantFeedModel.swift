@@ -15,6 +15,7 @@ class RestaurantFeedModel: ObservableObject {
     @Published var networkRestaurantKeys: Set<String> = []
     @Published var restInfoDict: [String: (name: String, type: String, photos: [String], address: String, rating: Double, hours: String, imageURL: String)] = [:]
     @Published var restDictEmpty: Bool = true
+    @Published var isInviteCodeEmpty = true
     
     
 //// set up the userNetwork array to contain the user logged in and their mutuals
