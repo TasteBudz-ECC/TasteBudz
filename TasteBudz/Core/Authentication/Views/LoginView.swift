@@ -71,7 +71,7 @@ struct LoginView: View {
                 Divider()
                 
                 NavigationLink {
-                    RegistrationView()
+                    RegistrationView(restaurantFeedModel: restaurantFeedModel)
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     HStack(spacing: 3) {

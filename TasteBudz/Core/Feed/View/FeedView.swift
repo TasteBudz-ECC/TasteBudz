@@ -22,6 +22,7 @@ struct FeedView: View {
     @State var restRating: Double = -1
     @State var rHours: String = ""
     @State var rImageURL: String = ""
+    @State var rWebsite: String = ""
     
     
     //    @State var userNetwork: [String] = []
@@ -54,7 +55,7 @@ struct FeedView: View {
                 Image(systemName: "arrow.right")
                 
             }
-            
+
             
             
             // retrieve user's recommended restaurants (yelp keys)
@@ -68,6 +69,7 @@ struct FeedView: View {
             
             
             
+
             // View of restaurants
             ScrollView(.horizontal, showsIndicators: false){
                 HStack(spacing: 20){
@@ -77,6 +79,17 @@ struct FeedView: View {
                     
                     ForEach(Array(restDict.keys), id: \.self) { rest in
                         VStack {
+                            //                            NavigationLink(destination: SwipeView(
+                            //                                name: restDict[rest]?.name ?? "",
+                            //                                type: restDict[rest]?.type ?? "",
+                            //                                photos: restDict[rest]?.photos ?? [],
+                            //                                address: restDict[rest]?.address ?? "",
+                            //                                rating: restDict[rest]?.rating ?? -1,
+                            //                                hours: restDict[rest]?.hours ?? ""
+                            //                                //                                    imageURL: restDict[rest]?.imageURL ?? ""
+                            //                            )) {
+                            
+
                             let link = restDict[rest]?.imageURL
                             //
                             AsyncImage(url: URL(string: link ?? "https://static.vecteezy.com/system/resources/thumbnails/002/412/377/small/coffee-cup-logo-coffee-shop-icon-design-free-vector.jpg")) {image in image // change the default link to our logo
@@ -92,15 +105,14 @@ struct FeedView: View {
                                 ProgressView()
                             }
                             
-                            
-                            
-                            
-                            
+     
                             Text(restDict[rest]?.name ?? "not found")
                                 .frame(maxWidth: 200)
                                 .fixedSize(horizontal: false, vertical: true)
                             
                         }
+                        //                        }
+                        //                        .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
                     }
                 }
             }
@@ -154,8 +166,7 @@ struct FeedView: View {
             // NEW EDITS
         }.onAppear {
             Task {
-                
-                
+        
                 // Auth.auth().currentUser!.uid, "tGl3BsN0vST8dqsO9FpIf4jrk7r2"
                 // "3Xi8IpFv9Df42WafUHjpaK5nSOd2"
                 
@@ -306,6 +317,7 @@ func getRestaurantsFromUID(userid: String) async -> [String]{
     
     return restaurantArray
 }
+
 
 
 //struct FeedView_Previews: PreviewProvider {

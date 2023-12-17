@@ -86,10 +86,8 @@
 		3FBAC1172B294F4D004769A5 /* AccountDeletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAC1162B294F4D004769A5 /* AccountDeletionViewModel.swift */; };
 		3FBAC11B2B2C4373004769A5 /* ReauthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAC11A2B2C4373004769A5 /* ReauthenticationView.swift */; };
 		3FBC60772B018594001DB696 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBC60762B018594001DB696 /* ProfileView.swift */; };
-		B2388E532AF58FC3009B82DE /* SwipeView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E522AF58FC3009B82DE /* SwipeView2.swift */; };
 		B2388E552AF593B2009B82DE /* ContentView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E542AF593B2009B82DE /* ContentView2.swift */; };
 		B2388E572AFB1095009B82DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2388E562AFB1095009B82DE /* GoogleService-Info.plist */; };
-		B2388E5D2B0557FB009B82DE /* SwipeView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E5C2B0557FB009B82DE /* SwipeView3.swift */; };
 		B2388E942B060BEA009B82DE /* RequestUserContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E932B060BEA009B82DE /* RequestUserContactsView.swift */; };
 		B2388E962B0626F4009B82DE /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E952B0626F4009B82DE /* ContactModel.swift */; };
 		B2388E992B0639BC009B82DE /* PhoneNumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */; };
@@ -98,7 +96,6 @@
 		B24F15F12B214D5E0076DD33 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F02B214D5E0076DD33 /* RecommendViewModel.swift */; };
 		B24F15F32B214D860076DD33 /* RecommendedRestaurantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F22B214D860076DD33 /* RecommendedRestaurantView.swift */; };
 		B24F15F52B214D990076DD33 /* DisplayListofRestaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F42B214D990076DD33 /* DisplayListofRestaurants.swift */; };
-		B24F15F72B23DBAF0076DD33 /* ContactsScreenFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F15F62B23DBAF0076DD33 /* ContactsScreenFunctions.swift */; };
 		B2846D672AF55F20009D22DF /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2846D662AF55F20009D22DF /* SwipeView.swift */; };
 		B2A935042AF181FB006B7AD8 /* TasteBudzApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */; };
 		B2A935062AF181FB006B7AD8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A935052AF181FB006B7AD8 /* ContentView.swift */; };
@@ -127,6 +124,8 @@
 		B2B48A3A2B285C430082076F /* RestDetailRetrieval.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A392B285C430082076F /* RestDetailRetrieval.swift */; };
 		B2B48A3E2B285C740082076F /* YelpApiDetailsTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B48A3D2B285C740082076F /* YelpApiDetailsTestView.swift */; };
 		B2B7E3382B2BC774009C1CF6 /* GetRestDetailsFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7E3372B2BC774009C1CF6 /* GetRestDetailsFunctions.swift */; };
+		B2B7E33C2B2EF8FF009C1CF6 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7E33B2B2EF8FE009C1CF6 /* SignUpModel.swift */; };
+		B2B7E3402B2F030F009C1CF6 /* ContactsScreenFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7E33F2B2F030F009C1CF6 /* ContactsScreenFunctions.swift */; };
 		BFEF05832B2E077300555E5E /* RestaurantFeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEF05822B2E077300555E5E /* RestaurantFeedModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -226,10 +225,8 @@
 		3FBAC1162B294F4D004769A5 /* AccountDeletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeletionViewModel.swift; sourceTree = "<group>"; };
 		3FBAC11A2B2C4373004769A5 /* ReauthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticationView.swift; sourceTree = "<group>"; };
 		3FBC60762B018594001DB696 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		B2388E522AF58FC3009B82DE /* SwipeView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView2.swift; sourceTree = "<group>"; };
 		B2388E542AF593B2009B82DE /* ContentView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView2.swift; sourceTree = "<group>"; };
 		B2388E562AFB1095009B82DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B2388E5C2B0557FB009B82DE /* SwipeView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView3.swift; sourceTree = "<group>"; };
 		B2388E932B060BEA009B82DE /* RequestUserContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUserContactsView.swift; sourceTree = "<group>"; };
 		B2388E952B0626F4009B82DE /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberPickerView.swift; sourceTree = "<group>"; };
@@ -238,7 +235,6 @@
 		B24F15F02B214D5E0076DD33 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
 		B24F15F22B214D860076DD33 /* RecommendedRestaurantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedRestaurantView.swift; sourceTree = "<group>"; };
 		B24F15F42B214D990076DD33 /* DisplayListofRestaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayListofRestaurants.swift; sourceTree = "<group>"; };
-		B24F15F62B23DBAF0076DD33 /* ContactsScreenFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsScreenFunctions.swift; sourceTree = "<group>"; };
 		B2846D662AF55F20009D22DF /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		B2A935002AF181FB006B7AD8 /* TasteBudz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasteBudz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteBudzApp.swift; sourceTree = "<group>"; };
@@ -256,6 +252,8 @@
 		B2B48A392B285C430082076F /* RestDetailRetrieval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestDetailRetrieval.swift; sourceTree = "<group>"; };
 		B2B48A3D2B285C740082076F /* YelpApiDetailsTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpApiDetailsTestView.swift; sourceTree = "<group>"; };
 		B2B7E3372B2BC774009C1CF6 /* GetRestDetailsFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRestDetailsFunctions.swift; sourceTree = "<group>"; };
+		B2B7E33B2B2EF8FE009C1CF6 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
+		B2B7E33F2B2F030F009C1CF6 /* ContactsScreenFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactsScreenFunctions.swift; path = ../../../../../.Trash/ContactsScreenFunctions.swift; sourceTree = "<group>"; };
 		BFEF05822B2E077300555E5E /* RestaurantFeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantFeedModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -751,9 +749,7 @@
 		B2388E5B2B055783009B82DE /* SwipeUIView */ = {
 			isa = PBXGroup;
 			children = (
-				B2388E5C2B0557FB009B82DE /* SwipeView3.swift */,
 				B2846D662AF55F20009D22DF /* SwipeView.swift */,
-				B2388E522AF58FC3009B82DE /* SwipeView2.swift */,
 				B2B48A1C2B240C890082076F /* CreateNetwork.swift */,
 				B2B48A202B2673540082076F /* NetworkViewTest.swift */,
 				B2B48A392B285C430082076F /* RestDetailRetrieval.swift */,
@@ -768,8 +764,8 @@
 			children = (
 				B2388E982B0639BC009B82DE /* PhoneNumberPickerView.swift */,
 				B2388E952B0626F4009B82DE /* ContactModel.swift */,
+				B2B7E33F2B2F030F009C1CF6 /* ContactsScreenFunctions.swift */,
 				B2388E932B060BEA009B82DE /* RequestUserContactsView.swift */,
-				B24F15F62B23DBAF0076DD33 /* ContactsScreenFunctions.swift */,
 			);
 			path = ContactsScreen;
 			sourceTree = "<group>";
@@ -820,6 +816,7 @@
 				3FBC60632B018372001DB696 /* Profile */,
 				B2388E562AFB1095009B82DE /* GoogleService-Info.plist */,
 				B2A935032AF181FB006B7AD8 /* TasteBudzApp.swift */,
+				B2B7E33B2B2EF8FE009C1CF6 /* SignUpModel.swift */,
 				B2A9354F2AF1A481006B7AD8 /* AppDelegate.swift */,
 				B2A935052AF181FB006B7AD8 /* ContentView.swift */,
 				B2388E542AF593B2009B82DE /* ContentView2.swift */,
@@ -1008,11 +1005,9 @@
 			files = (
 				3FBAC1172B294F4D004769A5 /* AccountDeletionViewModel.swift in Sources */,
 				B2B48A1D2B240C890082076F /* CreateNetwork.swift in Sources */,
-				B2388E532AF58FC3009B82DE /* SwipeView2.swift in Sources */,
 				3F40AA392B18115E006DD8FA /* ContentViewOfficial.swift in Sources */,
 				B2A935502AF1A481006B7AD8 /* AppDelegate.swift in Sources */,
 				3F40AA3C2B18119F006DD8FA /* LoginView.swift in Sources */,
-				B24F15F72B23DBAF0076DD33 /* ContactsScreenFunctions.swift in Sources */,
 				B24F15F52B214D990076DD33 /* DisplayListofRestaurants.swift in Sources */,
 				3F7E62EA2B19B3A200B38ECC /* User.swift in Sources */,
 				3F500D132B1ADC92004D96CD /* ActivityModel.swift in Sources */,
@@ -1034,11 +1029,11 @@
 				3F500CF62B1AD1EF004D96CD /* NoteActionSheetView.swift in Sources */,
 				3F500CBB2B1A9F1B004D96CD /* Color.swift in Sources */,
 				3F7CA13E2B255E5C00CC1705 /* AboutView.swift in Sources */,
+				B2B7E3402B2F030F009C1CF6 /* ContactsScreenFunctions.swift in Sources */,
 				3F500CDE2B1AC148004D96CD /* UserRelationType.swift in Sources */,
 				3F500CC52B1AA2EB004D96CD /* ImageUploader.swift in Sources */,
 				3FBAC11B2B2C4373004769A5 /* ReauthenticationView.swift in Sources */,
 				3F500D0A2B1ADAE5004D96CD /* FeedViewModel.swift in Sources */,
-				B2388E5D2B0557FB009B82DE /* SwipeView3.swift in Sources */,
 				3F500CD02B1AAE12004D96CD /* CurrentUserProfileContentVIew.swift in Sources */,
 				3F500CCE2B1AA45E004D96CD /* Timestamp.swift in Sources */,
 				3F500D182B1ADDB2004D96CD /* ActivityFilterViewModel.swift in Sources */,
@@ -1092,6 +1087,7 @@
 				3F7CA13A2B25439A00CC1705 /* ReportPopupContentView.swift in Sources */,
 				3F40AA4E2B183737006DD8FA /* ExploreView.swift in Sources */,
 				3F7E62D92B19679200B38ECC /* ProfileNoteFilterViewModel.swift in Sources */,
+				B2B7E33C2B2EF8FF009C1CF6 /* SignUpModel.swift in Sources */,
 				3F500CCC2B1AA386004D96CD /* NotesButtonModifier.swift in Sources */,
 				3F7E62EC2B19B76A00B38ECC /* UserService.swift in Sources */,
 				3F7CA13C2B25451900CC1705 /* ReportPopupView.swift in Sources */,

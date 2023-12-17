@@ -10,6 +10,8 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct RegistrationView: View {
+    @ObservedObject var restaurantFeedModel: RestaurantFeedModel
+    
     @StateObject var viewModel = RegistrationViewModel()
     @Environment(\.dismiss) var dismiss
     @State private var hasSignedUp = false
@@ -46,7 +48,7 @@ struct RegistrationView: View {
                                 .modifier(NotesTextFieldModifier())
                             
                             TextField("Enter your username", text: $viewModel.username)
-                                .autocapitalization(.none)
+                        .autocapitalization(.none)
                                 .modifier(NotesTextFieldModifier())
                             
                             TextField("Invite Code (optional)", text: $inviteCode)
@@ -54,7 +56,7 @@ struct RegistrationView: View {
                                 .modifier(NotesTextFieldModifier())
                             
                         }
-
+//
 
             Button {
                 Task {
@@ -67,15 +69,17 @@ struct RegistrationView: View {
                     
                 }
             } label: {
-                Text(viewModel.isAuthenticating ? "" : "Sign up")
-                    .foregroundColor(Color.theme.primaryBackground)
-                    .modifier(NotesButtonModifier())
-                    .overlay {
-                        if viewModel.isAuthenticating {
-                            ProgressView()
-                                .tint(Color.theme.primaryBackground)
+                NavigationLink(destination: RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)){
+                    Text(viewModel.isAuthenticating ? "" : "Sign up")
+                        .foregroundColor(Color.theme.primaryBackground)
+                        .modifier(NotesButtonModifier())
+                        .overlay {
+                            if viewModel.isAuthenticating {
+                                ProgressView()
+                                    .tint(Color.theme.primaryBackground)
+                            }
                         }
-                    }
+                }
             }
             .disabled(viewModel.isAuthenticating || !formIsValid)
             .opacity(formIsValid ? 1 : 0.7)
@@ -106,7 +110,7 @@ struct RegistrationView: View {
             Text("")
                 .hidden()
                 .navigationDestination(isPresented: $shouldNavigate) {
-                    RequestUserContactsView()
+                    RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)
                     Text("") // Optionally, use hidden text for better readability or as needed
                         .hidden()
                 }
@@ -230,8 +234,8 @@ struct RegistrationView: View {
     }
 }
 
-struct RegistrationView_Previews: PreviewProvider {
-    static var previews: some View {
-        RegistrationView()
-    }
-}
+//struct RegistrationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RegistrationView(restaurantFeedModel: restaurantFeedModel)
+//    }
+//}
