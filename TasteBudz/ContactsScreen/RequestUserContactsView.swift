@@ -25,6 +25,7 @@ struct RequestUserContactsView: View {
         NavigationView {
             VStack{
                 Text("Set up your")
+                    .padding(.top, 20)
                 Text("friends")
                     .font(.title2)
                     .bold()
@@ -200,7 +201,7 @@ struct RequestUserContactsView: View {
 func addInviteCode(randCode : String){
     // litao userId: tGl3BsN0vST8dqsO9FpIf4jrk7r2
     
-    let userID = String(describing: Auth.auth().currentUser?.uid.description)
+    let userID = Auth.auth().currentUser?.uid ?? "unknown"
     print("randCode: \(randCode)")
 //    let userID = "ukrV23AamabqxiUkf2q0UfpLjim1"
     let db = Firestore.firestore()

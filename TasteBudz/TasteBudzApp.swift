@@ -27,6 +27,7 @@ struct TasteBudzApp: App {
         WindowGroup {
             ContentViewOfficial(restaurantFeedModel: restaurantFeedModel)
 //            RequestUserContactsView()
+//            InviteCodePopUpView()
         }
     }
 }
