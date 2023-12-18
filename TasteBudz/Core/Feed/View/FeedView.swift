@@ -64,14 +64,27 @@ struct FeedView: View {
     var body: some View {
         
         //        ScrollView(){
-        ZStack{
+        NavigationView{
             VStack{
-                VStack(alignment: .leading) {
+                
+                HStack {
                     Image("Gather_1024x1024_1")
                         .resizable()
                         .scaledToFill() // Use scaledToFill to fill the frame, cropping if needed
                         .frame(width: 100, height: 50) // Adjust the size as needed
                         .clipped()
+                        .padding(.horizontal)
+                    
+                    Spacer()
+                    NavigationLink(destination: RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)) {
+                        Image(systemName: "person.badge.plus")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24) // Adjust the size as needed
+                            .foregroundColor(Color(UIColor(hex: 0x1da64a)).opacity(0.5)) // Adjust the color as needed
+                            .padding()
+                        
+                    }
                 }
                 
                 HStack{
@@ -103,15 +116,6 @@ struct FeedView: View {
                         
                         //                        Text("restaurants will be here").multilineTextAlignment(.center)
                         let restDict = restaurantFeedModel.restInfoDict
-                        if restaurantFeedModel.isInviteCodeEmpty {
-                            InviteCodePopUpView(restaurantFeedModel: restaurantFeedModel)
-                                .sheet(isPresented: $showInviteCodePopUp) {
-                                    RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)
-                                }
-                                .onAppear {
-                                    self.showInviteCodePopUp = true
-                                }
-                        }
                         ForEach(Array(restDict.keys), id: \.self) { rest in
                             VStack {
                                 //                            NavigationLink(destination: SwipeView(
@@ -201,32 +205,36 @@ struct FeedView: View {
                 // NEW EDITS
             }.onAppear {
                 Task {
-                    print("isInviteCodeEmpty1: ", restaurantFeedModel.isInviteCodeEmpty)
-                    guard let currentUserUID = Auth.auth().currentUser?.uid else {
-                        // Handle user not authenticated
-                        return
-                    }
-                    print("currentUserUID ", currentUserUID)
+                    ///////////////////////////////////////////////////////////////////////////////////////////// Will delete later ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //                    print("isInviteCodeEmpty1: ", restaurantFeedModel.isInviteCodeEmpty)
+                    //                    guard let currentUserUID = Auth.auth().currentUser?.uid else {
+                    //                        // Handle user not authenticated
+                    //                        return
+                    //                    }
+                    //                    print("currentUserUID ", currentUserUID)
+                    //
+                    //                    let db = Firestore.firestore()
+                    //                    let userDocument = db.collection("user").document(currentUserUID)
+                    //
+                    //                    DispatchQueue.main.async {
+                    //                        userDocument.getDocument { document, error in
+                    //                            if let error = error {
+                    //                                print("Error getting user document: \(error.localizedDescription)")
+                    //                                return
+                    //                            }
+                    //
+                    //                            if let inviteCode = document?.get("inviteCode") as? String {
+                    //                                // Check if inviteCode is empty
+                    //                                print("inviteCodeisEmpty2: ", inviteCode.isEmpty)
+                    //                                restaurantFeedModel.isInviteCodeEmpty = inviteCode.isEmpty
+                    //                            }
+                    //                        }
+                    //                    }
+                    //
+                    //                    print("isInviteCodeEmpty3: ", restaurantFeedModel.isInviteCodeEmpty)
+                    ///////////////////////////////////////////////////////////////////////////////////////////// Will delete later ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     
-                    let db = Firestore.firestore()
-                    let userDocument = db.collection("user").document(currentUserUID)
                     
-                    DispatchQueue.main.async {
-                        userDocument.getDocument { document, error in
-                            if let error = error {
-                                print("Error getting user document: \(error.localizedDescription)")
-                                return
-                            }
-                            
-                            if let inviteCode = document?.get("inviteCode") as? String {
-                                // Check if inviteCode is empty
-                                print("inviteCodeisEmpty2: ", inviteCode.isEmpty)
-                                restaurantFeedModel.isInviteCodeEmpty = inviteCode.isEmpty
-                            }
-                        }
-                    }
-                    
-                    print("isInviteCodeEmpty3: ", restaurantFeedModel.isInviteCodeEmpty)
                     // Auth.auth().currentUser!.uid, "tGl3BsN0vST8dqsO9FpIf4jrk7r2"
                     // "3Xi8IpFv9Df42WafUHjpaK5nSOd2"
                     
@@ -348,16 +356,19 @@ struct FeedView: View {
                     
                 }
             }
-            if restaurantFeedModel.isInviteCodeEmpty {
-                    InviteCodePopUpView(restaurantFeedModel: restaurantFeedModel)
-                        .sheet(isPresented: $showInviteCodePopUp) {
-                            RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)
-                        }
-                        .onAppear {
-                            self.showInviteCodePopUp = true
-                        }
-                }
-            }
+            ///////////////////////////////////////////////////////////////////////////////////////////// Will delete later //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //            if restaurantFeedModel.isInviteCodeEmpty {
+            //                    InviteCodePopUpView(restaurantFeedModel: restaurantFeedModel)
+            //                        .sheet(isPresented: $showInviteCodePopUp) {
+            //                            RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)
+            //                        }
+            //                        .onAppear {
+            //                            self.showInviteCodePopUp = true
+            //                        }
+            //                }
+            //            }
+            ///////////////////////////////////////////////////////////////////////////////////////////// Will delete later //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
     }
 }
 

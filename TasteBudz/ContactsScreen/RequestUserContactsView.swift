@@ -101,29 +101,34 @@ struct RequestUserContactsView: View {
                 //                EmptyView()
                 //            }
                 
-                Button(action: {
-                    // Handle the action when the continue button is tapped
-                    if invitedFriendsCount >= 3 {
-                        // Proceed with the app flow
-                        print("Continue button tapped with at least 3 invited friends")
-                        
-                    } else {
-                        // Display an alert or message indicating the user to invite at least 3 friends
-                        print("Invite at least 3 friends to proceed")
-                    }
-                }) {
-                    NavigationLink(destination: RecommendRestaurantView(restaurantFeedModel: restaurantFeedModel)) {
-                        Text("Continue")
-                            .foregroundColor(invitedFriendsCount >= 3 ? .white : .gray)
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 16)
-                            .background(invitedFriendsCount >= 3 ? Color.blue : Color.gray.opacity(0.5))
-                            .cornerRadius(8)
-                    }
-                }
-                .padding()
-                .disabled(invitedFriendsCount < 3)
                 
+                
+                ///////////////////////////////////////////////////////////////////////////////////////////// Use this if this is part of the signup process ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//                Button(action: {
+//                    // Handle the action when the continue button is tapped
+//                    if invitedFriendsCount >= 3 {
+//                        // Proceed with the app flow
+//                        print("Continue button tapped with at least 3 invited friends")
+//                        
+//                    } else {
+//                        // Display an alert or message indicating the user to invite at least 3 friends
+//                        print("Invite at least 3 friends to proceed")
+//                    }
+//                }) {
+//                    NavigationLink(destination: RecommendRestaurantView(restaurantFeedModel: restaurantFeedModel)) {
+//                        Text("Continue")
+//                            .foregroundColor(invitedFriendsCount >= 3 ? .white : .gray)
+//                            .padding(.vertical, 8)
+//                            .padding(.horizontal, 16)
+//                            .background(invitedFriendsCount >= 3 ? Color.blue : Color.gray.opacity(0.5))
+//                            .cornerRadius(8)
+//                    }
+//                }
+//                .padding()
+//                .disabled(invitedFriendsCount < 3)
+                ///////////////////////////////////////////////////////////////////////////////////////////// Use this if this is part of the signup process ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             }
         }
     }
