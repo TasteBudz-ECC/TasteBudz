@@ -21,7 +21,9 @@ class UserContentListViewModel: ObservableObject {
     }
     
     func fetchUserNotes() async throws {
-        var userNotes = try await NoteService.fetchUserNotes(uid: user.id)
+        guard let userId = user.id else { return }
+
+        var userNotes = try await NoteService.fetchUserNotes(uid: userId)
         
         for i in 0 ..< userNotes.count {
             userNotes[i].user = self.user

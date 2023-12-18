@@ -25,69 +25,70 @@ class CurrentUserProfileViewModel: ObservableObject {
     }
     @Published var profileImage: Image?
     @Published var bio = ""
-//    @Published var link = ""
     
     private var uiImage: UIImage?
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
-        
+    
     init() {
-        setupSubcribers()
+        UserService.shared.setupRealtimeUpdates()
+        setupSubscribers()
         loadUserData()
     }
-}
+    
+    // MARK: - User Data
 
-// MARK: - User Data
-
-extension CurrentUserProfileViewModel {
     func loadUserData() {
-        self.bio = currentUser?.bio ?? ""
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        
         Task {
-            UserService.shared.currentUser?.stats = try await UserService.fetchUserStats(uid: currentUid)
+            currentUser = await UserService.shared.currentUser
+            bio = currentUser?.bio ?? ""
         }
     }
-    
+
     func updateUserData() async throws {
-        guard let user = currentUser else { return }
-        var data: [String: String] = [:]
-        
-        if !bio.isEmpty, user.bio ?? "" != bio {
-            currentUser?.bio = bio
+        guard let userId = currentUser?.id else { return }
+        var data: [String: Any] = [:]
+
+        if !bio.isEmpty, currentUser?.bio ?? "" != bio {
             data["bio"] = bio
         }
-        
-//        if !link.isEmpty, currentUser?.link ?? "" != link {
-//            currentUser?.link = link
-//            data["link"] = link
-//        }
-        
+
         if let uiImage = uiImage {
-            try await updateProfileImage(uiImage)
-            data["profileImageUrl"] = currentUser?.profileImageUrl
+            let imageUrl = try await ImageUploader.uploadImage(image: uiImage, type: .profile)
+            data["profileImageUrl"] = imageUrl
         }
-        
-        try await FirestoreConstants.UserCollection.document(user.id).updateData(data)
+
+        try await UserService.shared.updateUserProfile(userId: userId, data: data)
+        // Update currentUser after successful update
+        currentUser = try await UserService.fetchUser(withUid: userId)
     }
-}
+//    func refreshUserData() async {
+//        currentUser = await UserService.shared.currentUser
+//            // This will update the user's friends and friend network counts if they have changed
+//        }
+//
+//        // Call this method when you know there's been a change in the user's friends or friend network
+//        func updateFriendshipData() async {
+//            await refreshUserData()
+//        }
 
-// MARK: - Subscribers
+    // MARK: - Subscribers
 
-extension CurrentUserProfileViewModel {
-    
     @MainActor
-    private func setupSubcribers() {
-        UserService.shared.$currentUser.sink { [weak self] user in
-            self?.currentUser = user
-        }.store(in: &cancellables)
+    private func setupSubscribers() {
+        UserService.shared.$currentUser
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                self?.currentUser = user
+                self?.bio = user?.bio ?? ""
+                // Load profile image from URL if needed
+            }
+            .store(in: &cancellables)
     }
-}
 
-// MARK: - Image Loading
+    // MARK: - Image Loading
 
-extension CurrentUserProfileViewModel {
     func loadImage(fromItem item: PhotosPickerItem?) async {
         guard let item = item else { return }
         
@@ -98,7 +99,7 @@ extension CurrentUserProfileViewModel {
     }
     
     func updateProfileImage(_ uiImage: UIImage) async throws {
-        let imageUrl = try? await ImageUploader.uploadImage(image: uiImage, type: .profile)
+        let imageUrl = try await ImageUploader.uploadImage(image: uiImage, type: .profile)
         currentUser?.profileImageUrl = imageUrl
     }
 }

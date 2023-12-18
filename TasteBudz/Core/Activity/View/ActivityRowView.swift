@@ -18,11 +18,15 @@ struct ActivityRowView: View {
             return "Added you"
         case .reply:
             return "Replied to one of your gatherings"
+        case .friendAdded:
+            return "Is now your friend"
+        case .friendNetworkUpdated:
+            return "Is a friend of one of your friends"
         }
     }
     
-    private var isFollowed: Bool {
-        return model.user?.isFollowed ?? false
+    private var isFriends: Bool {
+        return model.user?.isFriends ?? false
     }
     
     var body: some View {
@@ -55,12 +59,12 @@ struct ActivityRowView: View {
                 
                 Spacer()
                 
-                if model.type == .follow {
+                if model.type == .friendAdded {
                     Button {
                         
                     } label: {
-                        Text(isFollowed ? "Following" : "Follow")
-                            .foregroundStyle(isFollowed ? Color(.systemGray4) : Color.theme.primaryText)
+                        Text(isFriends ? "Friend" : "Add Friend")
+                            .foregroundStyle(isFriends ? Color(.systemGray4) : Color.theme.primaryText)
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .frame(width: 100, height: 32)

@@ -86,22 +86,23 @@ struct NoteCell: View {
         }
         .onChange(of: selectedNoteAction, perform: { newValue in
             switch newValue {
-            case .block:
-                print("DEBUG: Block user here..")
-            case .hide:
-                print("DEBUG: Hide thread here..")
-            case .mute:
-                print("DEBUG: Mute notes here..")
-            case .unfollow:
-                print("DEBUG: Unfollow here..")
-            case .report:
-                print("DEBUG: Report here..")
-                print("isReportPopupPresented: \(isReportPopupPresented)")
-                isReportPopupPresented = true
+                        case .unfriend:
+                            print("DEBUG: Unfriend user here..")
+//                        case .hide:
+//                            print("DEBUG: Hide thread here..")
+//                        case .mute:
+//                            print("DEBUG: Mute notes here..")
+                        case .addFriend:
+                            print("DEBUG: Friend here..")
+                        case .report:
+                        print("DEBUG: Report here..")
+                        print("isReportPopupPresented: \(isReportPopupPresented)")
+                        isReportPopupPresented = true
 //                self.isReportPopupPresented.toggle()
-                print("isReportPopupPresented: \(isReportPopupPresented)")
-            case .none:
-                break
+                        print("isReportPopupPresented: \(isReportPopupPresented)")
+                        case .none:
+                            break
+                
             }
         })
         .sheet(isPresented: $isReportPopupPresented) {

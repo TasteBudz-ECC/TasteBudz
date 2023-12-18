@@ -5,7 +5,7 @@
 //  Created by student on 12/1/23.
 //
 
-import Foundation
+import SwiftUI
 import Firebase
 
 @MainActor
@@ -15,33 +15,32 @@ class NoteDetailsViewModel: ObservableObject {
     
     init(note: Note) {
         self.note = note
-        setNoteUserIfNecessary()
-        Task { try await fetchNoteReplies() }
+        Task { await updateReplies() }
     }
     
-    private func setNoteUserIfNecessary() {
-        guard note.user == nil else { return }
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        
-        if note.ownerUid == currentUid {
-            note.user = UserService.shared.currentUser
+    private func updateReplies() async {
+        do {
+            let fetchedReplies = try await NoteService.fetchNoteReplies(forNote: note)
+            await withThrowingTaskGroup(of: Void.self, body: { group in
+                for reply in fetchedReplies {
+                    group.addTask {
+                        try await self.processReply(reply)
+                    }
+                }
+            })
+        } catch {
+            print("Error fetching replies: \(error)")
         }
     }
     
-    func fetchNoteReplies() async throws {
-        self.replies = try await NoteService.fetchNoteReplies(forNote: note)
-        
-        await withThrowingTaskGroup(of: Void.self, body: { group in
-            for reply in replies {
-                group.addTask { try await self.fetchUserData(forReply: reply) }
+    private func processReply(_ reply: NoteReply) async throws {
+        do {
+            let user = try await UserService.fetchUser(withUid: reply.noteReplyOwnerUid)
+            await MainActor.run {
+                self.replies.append(reply)
             }
-        })
-    }
-    
-    private func fetchUserData(forReply reply: NoteReply) async throws {
-        guard let replyIndex = replies.firstIndex(where: { $0.id == reply.id }) else { return }
-        
-        async let user = UserService.fetchUser(withUid: reply.noteReplyOwnerUid)
-        self.replies[replyIndex].replyUser = try await user
+        } catch {
+            print("User not found or inactive, skipping reply.")
+        }
     }
 }

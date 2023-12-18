@@ -10,43 +10,38 @@ import SwiftUI
 struct NoteActionSheetView: View {
     let note: Note
     @State private var height: CGFloat = 200
-    @State private var isFollowed = false
+    @State private var isFriends = false
     @Binding var selectedAction: NoteActionSheetOptions?
     
     var body: some View {
         List {
             Section {
-                if isFollowed {
-                    NoteActionSheetRowView(option: .unfollow, selectedAction: $selectedAction)
+                if isFriends {
+                    NoteActionSheetRowView(option: .unfriend, selectedAction: $selectedAction)
+                } else {
+                    NoteActionSheetRowView(option: .addFriend, selectedAction: $selectedAction)
                 }
                 
-                NoteActionSheetRowView(option: .mute, selectedAction: $selectedAction)
+                NoteActionSheetRowView(option: .report, selectedAction: $selectedAction)
             }
             
-            Section {
-                NoteActionSheetRowView(option: .report, selectedAction: $selectedAction)
-                    .foregroundColor(.red)
-                
-                if !isFollowed {
-                    NoteActionSheetRowView(option: .block, selectedAction: $selectedAction)
-                        .foregroundColor(.red)
-                }
-            }
+//            Section {
+//                NoteActionSheetRowView(option: .block, selectedAction: $selectedAction)
+//                    .foregroundColor(.red)
+//            }
         }
-        
         .onAppear {
             Task {
                 if let user = note.user {
-                    let isFollowed = await UserService.checkIfUserIsFollowed(user)
-                    self.isFollowed = isFollowed
-                    height += isFollowed ? 32 : 0
+                    self.isFriends = await UserService.shared.checkIfUserIsFriends(user)
+                    self.height += self.isFriends ? 32 : 0
                 }
             }
         }
         .presentationDetents([.height(height)])
         .presentationDragIndicator(.visible)
         .cornerRadius(10)
-        .font(.footnote) //
+        .font(.footnote)
     }
 }
 
@@ -72,6 +67,6 @@ struct NoteActionSheetRowView: View {
 
 struct NoteActionSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteActionSheetView(note: dev.note, selectedAction: .constant(.unfollow))
+        NoteActionSheetView(note: dev.note, selectedAction: .constant(.unfriend))
     }
 }

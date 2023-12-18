@@ -17,15 +17,16 @@ class ContentActionButtonViewModel: ObservableObject {
         switch contentType {
         case .note(let note):
             self.note = note
-            Task { try await checkIfUserLikedNote() }
+            Task { await checkNoteAndUserStatus() }
             
         case .reply(let reply):
             self.reply = reply
+            // If needed, add similar logic for replies
         }
     }
     
     func likeNote() async throws {
-        guard let note = note else { return }
+        guard let note = note, await isUserActive(uid: note.ownerUid) else { return }
         
         try await NoteService.likeNote(note)
         self.note?.didLike = true
@@ -33,40 +34,35 @@ class ContentActionButtonViewModel: ObservableObject {
     }
     
     func unlikeNote() async throws {
-        guard let note = note else { return }
+        guard let note = note, await isUserActive(uid: note.ownerUid) else { return }
 
         try await NoteService.unlikeNote(note)
         self.note?.didLike = false
         self.note?.likes -= 1
     }
     
-    func checkIfUserLikedNote() async throws {
+    private func checkNoteAndUserStatus() async {
         guard let note = note else { return }
 
-        let didLike = try await NoteService.checkIfUserLikedNote(note)
-        if didLike {
-            self.note?.didLike = true
+        do {
+            let didLike = try await NoteService.checkIfUserLikedNote(note)
+            let userIsActive = await isUserActive(uid: note.ownerUid)
+            if didLike && userIsActive {
+                self.note?.didLike = true
+            }
+        } catch {
+            print("Error checking if user liked note: \(error)")
+            // Handle the error appropriately
         }
     }
     
-//    private func updateNoteMetadata() async throws {
-//            let activeUsersSnapshot = await Firestore.firestore().collection("users").getDocuments()
-//            let activeUserIds = activeUsersSnapshot.documents.compactMap { $0.documentID }
-//
-//            guard let note = note else { return }
-//            
-//            if !users.contains(note.authorId) {
-//                try await deleteNoteLikesAndReplies()
-//            }
-//        }
-//
-//        private func deleteNoteLikesAndReplies() async throws {
-//            guard let note = note else { return }
-//
-//            // Delete note likes
-//            try await NoteService.unlikeNote(forNote: note Note)
-//
-//            // Delete note replies
-//            try await NoteService.deleteNoteReplies(forNote: note Note)
-//        }
+    private func isUserActive(uid: String) async -> Bool {
+        do {
+            _ = try await UserService.fetchUser(withUid: uid)
+            return true
+        } catch {
+            print("User not found or inactive")
+            return false
+        }
+    }
 }

@@ -120,9 +120,9 @@ extension NoteService {
     private static func updateUserFeedsAfterPost(noteId: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let followersSnapshot = try await FirestoreConstants.FollowersCollection.document(uid).collection("user-followers").getDocuments()
+        let friendsSnapshot = try await FirestoreConstants.FriendsCollection.document(uid).collection("friends").getDocuments()
         
-        for document in followersSnapshot.documents {
+        for document in friendsSnapshot.documents {
             try await FirestoreConstants
                 .UserCollection
                 .document(document.documentID)

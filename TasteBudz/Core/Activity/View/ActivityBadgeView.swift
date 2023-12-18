@@ -15,6 +15,10 @@ struct ActivityBadgeView: View {
         case .like: return Color.theme.pink
         case .follow: return Color.theme.purple
         case .reply: return Color(.systemBlue)
+        case .friendAdded:
+            return Color(.systemBlue)
+        case .friendNetworkUpdated:
+            return Color(.systemRed)
         }
     }
     
@@ -23,6 +27,10 @@ struct ActivityBadgeView: View {
         case .like: return "heart.fill"
         case .follow: return "person.fill"
         case .reply: return "arrowshape.turn.up.backward.fill"
+        case .friendAdded:
+            return "person.2"
+        case .friendNetworkUpdated:
+            return "person.3"
         }
     }
     

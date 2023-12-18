@@ -18,7 +18,7 @@ struct ActivityModel: Identifiable, Codable, Hashable {
     
     var user: User?
     var note: Note?
-    var isFollowed: Bool?
+    var isFriends: Bool?
     
     var id: String {
         return activityModelId ?? NSUUID().uuidString

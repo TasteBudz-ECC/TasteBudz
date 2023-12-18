@@ -12,90 +12,98 @@ import FirebaseFirestore
 class ActivityViewModel: ObservableObject {
     @Published var notifications = [ActivityModel]()
     @Published var isLoading = false
-    
     @Published var selectedFilter: ActivityFilterViewModel = .all {
-        didSet {
-            switch selectedFilter {
-            case .all:
-                self.notifications = temp
-            case .replies:
-                temp = notifications
-                self.notifications = notifications.filter({ $0.type == .reply })
-            }
-        }
+        didSet { updateFilteredNotifications() }
     }
-    
-    private var temp = [ActivityModel]()
-    
+
+    private var allNotifications = [ActivityModel]()
+
     init() {
-        Task { try await updateNotifications() }
+        Task { await updateNotifications() }
     }
-    
-    private func fetchNotificationData() async throws {
+
+    private func fetchNotificationData() async {
         self.isLoading = true
-        self.notifications = try await ActivityService.fetchUserActivity()
+        do {
+            let fetchedNotifications = try await ActivityService.fetchUserActivity()
+            self.allNotifications = fetchedNotifications
+            updateFilteredNotifications()
+        } catch {
+            // Handle errors appropriately
+            print("Error fetching notifications: \(error)")
+        }
         self.isLoading = false
     }
-    
-    private func updateNotifications() async throws {
-        try await fetchNotificationData()
-        
+
+    private func updateNotifications() async {
+        await fetchNotificationData()
+
         await withThrowingTaskGroup(of: Void.self, body: { group in
-            for notification in notifications {
-                group.addTask { try await self.updateNotificationMetadata(notification: notification) }
+            for notification in allNotifications {
+                group.addTask {
+                    try? await self.updateNotificationMetadata(notification: notification)
+                }
             }
         })
     }
-    
-//    private func updateNotificationMetadata(notification: ActivityModel) async throws {
-//        guard let indexOfNotification = notifications.firstIndex(where: { $0.id == notification.id }) else { return }
-//
-//        async let notificationUser = try await UserService.fetchUser(withUid: notification.senderUid)
-//        var user = try await notificationUser
-//
-//        if notification.type == .follow {
-//            async let isFollowed = await UserService.checkIfUserIsFollowedWithUid(notification.senderUid)
-//            user.isFollowed = await isFollowed
-//        }
-//
-//        self.notifications[indexOfNotification].user = user
-//
-//        if let noteId = notification.noteId {
-//            async let noteSnapshot = await FirestoreConstants.NotesCollection.document(noteId).getDocument()
-//            self.notifications[indexOfNotification].note = try? await noteSnapshot.data(as: Note.self)
-//        }
-//    }
+
     private func updateNotificationMetadata(notification: ActivityModel) async throws {
-        // Fetch active user IDs from Firestore (replace this with your actual logic)
         let activeUsersSnapshot = try await Firestore.firestore().collection("users").getDocuments()
         let activeUserIds = activeUsersSnapshot.documents.compactMap { $0.documentID }
 
         guard let indexOfNotification = notifications.firstIndex(where: { $0.id == notification.id }) else { return }
 
         if activeUserIds.contains(notification.senderUid) {
-            // User is active, proceed with updating metadata
-            async let notificationUser = try await UserService.fetchUser(withUid: notification.senderUid)
-            var user = try await notificationUser
+            var notificationUser = try await UserService.fetchUser(withUid: notification.senderUid)
 
-            if notification.type == .follow {
-                async let isFollowed = await UserService.checkIfUserIsFollowedWithUid(notification.senderUid)
-                user.isFollowed = await isFollowed
+            switch notification.type {
+            case .friendAdded:
+                let isFriends = await UserService.shared.checkIfUserIsFriends(notificationUser)
+                notificationUser.isFriends = isFriends
+
+            case .friendNetworkUpdated:
+                let isInFriendNetwork = await UserService.shared.isUserInFriendNetwork(notificationUser)
+                notificationUser.isInFriendNetwork = isInFriendNetwork
+
+            default:
+                break
             }
 
-            self.notifications[indexOfNotification].user = user
+            self.notifications[indexOfNotification].user = notificationUser
 
             if let noteId = notification.noteId {
-                async let noteSnapshot = await FirestoreConstants.NotesCollection.document(noteId).getDocument()
-                self.notifications[indexOfNotification].note = try? await noteSnapshot.data(as: Note.self)
+                let noteSnapshot = try await FirestoreConstants.NotesCollection.document(noteId).getDocument()
+                self.notifications[indexOfNotification].note = try? noteSnapshot.data(as: Note.self)
             }
         } else {
-            // Remove notification if the user is not active
             self.notifications.remove(at: indexOfNotification)
-            // Decrement the index to properly handle removal
-//             indexOfNotification -= 1 // Uncomment if needed in your implementation
+        }
+    }
+
+    private func updateFilteredNotifications() {
+        switch selectedFilter {
+        case .all:
+            self.notifications = allNotifications
+        case .replies:
+            self.notifications = allNotifications.filter({ $0.type == .reply })
+        case .friends:
+            self.notifications = allNotifications.filter({ $0.type == .friendAdded })
+        case .friendNetwork:
+            self.notifications = allNotifications.filter({ $0.type == .friendNetworkUpdated })
         }
     }
 }
+
+
+// Ensure you have these cases in your ActivityFilterViewModel
+//enum ActivityFilterViewModel {
+//    case all
+//    case replies
+//    case friends
+//    case friendNetwork
+//    // Other cases if needed
+//}
+
 
 
 

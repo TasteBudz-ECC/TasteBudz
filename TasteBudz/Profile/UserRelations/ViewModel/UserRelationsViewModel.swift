@@ -6,67 +6,68 @@
 //
 
 import Foundation
+import FirebaseFirestore
+import Firebase
 
 @MainActor
 class UserRelationsViewModel: ObservableObject {
     @Published var users = [User]()
     @Published var currentStatString: String = ""
-    @Published var selectedFilter: UserRelationType = .followers {
+    @Published var selectedFilter: UserRelationType = .friends {
         didSet { updateRelationData() }
     }
     
     private let user: User
-    private var followers = [User]()
-    private var following = [User]()
-    
+    private var friends = [User]()
+    private var friendNetwork = [User]()
+
     init(user: User) {
         self.user = user
-        Task { try await fetchUserFollowers() }
-        Task { try await fetchUserFollowing() }
+        Task { await fetchUserRelations() }
     }
     
-    private func fetchUserFollowers() async throws {
-        let followers = try await UserService.fetchUserFollowers(uid: user.id)
-        self.followers = await checkIfUsersAreFollowed(followers)
-        self.updateRelationData()
+    private func fetchUserRelations() {
+        guard let userId = UserService.shared.currentUser?.id else { return }
+        Task { await fetchUserFriendsAndNetwork(userId: userId) }
     }
-    
-    private func fetchUserFollowing() async throws {
-        var following = try await UserService.fetchUserFollowing(uid: user.id)
-        
-        if user.isCurrentUser {
-            for i in 0 ..< following.count {
-                following[i].isFollowed = true
-            }
+
+    private func fetchUserFriendsAndNetwork(userId: String) async {
+        do {
+            async let fetchedFriends = UserService.shared.fetchUserFriends(userId) // Removed the label
+            async let fetchedNetwork = UserService.shared.fetchUserFriendNetwork(userId) // Removed the label
+
+            self.friends = try await fetchedFriends
+            self.friendNetwork = try await fetchedNetwork
+            updateRelationData()
+        } catch {
+            print("Error fetching user relations: \(error)")
+            // Consider how to handle and communicate this error
         }
-        
-        self.following = following
-        guard !user.isCurrentUser else { return }
-        self.following = await checkIfUsersAreFollowed(following)
     }
-    
-   private func updateRelationData() {
+
+
+    private func updateRelationData() {
         switch selectedFilter {
-        case .followers:
-            self.users = followers
-            self.currentStatString = "\(user.stats?.followersCount ?? 0) followers"
-        case .following:
-            self.users = following
-            self.currentStatString = "\(user.stats?.followingCount ?? 0) following"
+        case .friends:
+            self.users = friends
+        case .friendNetwork:
+            self.users = friendNetwork
         }
+        self.currentStatString = "\(self.users.count) \(selectedFilter.title.lowercased())"
     }
-    
-    private func checkIfUsersAreFollowed(_ users: [User]) async -> [User] {
-        var result = users
-        
-        for i in 0 ..< result.count {
-            let user = result[i]
-            
-            let isFollowed = await UserService.checkIfUserIsFollowed(user)
-            result[i].isFollowed = isFollowed
+
+    private func fetchUsers(with ids: [String]) async throws -> [User] {
+        try await withThrowingTaskGroup(of: User?.self) { group in
+            for id in ids {
+                group.addTask { try? await UserService.fetchUser(withUid: id) }
+            }
+            var fetchedUsers = [User]()
+            for try await user in group {
+                if let user = user {
+                    fetchedUsers.append(user)
+                }
+            }
+            return fetchedUsers
         }
-        
-        return result
     }
 }
-

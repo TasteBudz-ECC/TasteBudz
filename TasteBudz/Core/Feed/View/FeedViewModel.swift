@@ -40,8 +40,13 @@ class FeedViewModel: ObservableObject {
                 group.addTask { return try await NoteService.fetchNote(noteId: id) }
             }
 
+//            for try await note in group {
+//                notes.append(try await fetchNoteUserData(note: note))
+//            }
+            // Call this function within your fetchNotes method after fetching each note
             for try await note in group {
-                notes.append(try await fetchNoteUserData(note: note))
+                let updatedNote = try await fetchNoteUserData(note: note)
+                notes.append(updatedNote)
             }
 
             self.notes = notes.sorted(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() })
@@ -75,5 +80,27 @@ class FeedViewModel: ObservableObject {
             return []
         }
     }
+    private func updateNoteMetadata(note: Note) async throws {
+        // Fetch active user data
+        let userSnapshot = try await Firestore.firestore().collection("users").document(note.ownerUid).getDocument()
+        guard let user = try? userSnapshot.data(as: User.self) else { return }
+
+        // Update note with user data
+        var updatedNote = note
+        updatedNote.user = user
+
+//        // Fetch restaurant details if any
+//        if let restaurantId = note.restaurantId {
+//            let restaurantSnapshot = try await Firestore.firestore().collection("restaurants").document(restaurantId).getDocument()
+//            updatedNote.restaurant = try? await restaurantSnapshot.data(as: Restaurant.self)
+//        }
+
+        // Update the notes array
+        if let index = notes.firstIndex(where: { $0.id == note.id }) {
+            notes[index] = updatedNote
+        }
+    }
+
+    // Make sure to call `updateNoteMetadata` for each note after fetching them
 
 }

@@ -11,6 +11,8 @@ enum ActivityType: Int, CaseIterable, Identifiable, Codable {
     case like
     case reply
     case follow
+    case friendAdded
+    case friendNetworkUpdated
     
     var id: Int { return self.rawValue }
 }

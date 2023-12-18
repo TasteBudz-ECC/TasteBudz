@@ -20,7 +20,7 @@ struct ExploreView: View {
                     }
             }
             .refreshable {
-                        Task { try await viewModel.fetchUsers() }
+                Task { try await viewModel.fetchUsers() }
                         }
             .overlay {
                 if viewModel.isLoading {

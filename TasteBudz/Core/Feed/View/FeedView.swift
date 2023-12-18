@@ -160,10 +160,12 @@ struct FeedView: View {
                     // "3Xi8IpFv9Df42WafUHjpaK5nSOd2"
                     
                     // set up the userNetwork array to contain the user logged in and their mutuals
-                    restaurantFeedModel.userNetwork = await populateNetwork(forUserID: Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
-                    restaurantFeedModel.userNetwork.append(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
                     
-                    print(restaurantFeedModel.userNetwork)
+                    
+//                    restaurantFeedModel.userNetwork = await populateNetwork(forUserID: Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
+//                    restaurantFeedModel.userNetwork.append(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
+//                    
+//                    print(restaurantFeedModel.userNetwork)
 
                     // check for duplicates in the array of restaurants
                     for user in restaurantFeedModel.userNetwork {
@@ -293,6 +295,6 @@ func getRestaurantsFromUID(userid: String) async -> [String]{
 
 //struct FeedView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        FeedView()
+//        FeedView(restaurantFeedModel: ()
 //    }
 //}

@@ -66,3 +66,9 @@ struct UserRelationsView_Previews: PreviewProvider {
         UserRelationsView(user: dev.user)
     }
 }
+//
+//struct UserRelationsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UserRelationsView(user: dev.user)
+//    }
+//}
