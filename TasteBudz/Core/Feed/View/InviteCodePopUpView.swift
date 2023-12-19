@@ -70,7 +70,7 @@ struct InviteCodePopUpView: View {
                     .padding()
             }
             .sheet(isPresented: $isSheetPresented) {
-                RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)
+                RequestUserContactsView()
             }
             
             Spacer()

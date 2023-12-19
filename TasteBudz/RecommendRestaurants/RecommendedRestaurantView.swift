@@ -15,6 +15,8 @@ struct RecommendRestaurantView: View {
     @ObservedObject var viewModel = RecommendViewModel()
     @State private var searchTerm: String = ""
     
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         //        NavigationView {
         //            List {
@@ -52,27 +54,29 @@ struct RecommendRestaurantView: View {
                 // Handle the action when the continue button is tapped
                 // You can check the selected restaurants in the `selectedRestaurants` set
                 print("Continue button tapped with selected restaurants: \(viewModel.selectedRestaurants)")
-                print(restaurantFeedModel.isInviteCodeEmpty)
-                restaurantFeedModel.isInviteCodeEmpty = false;
+//                print(restaurantFeedModel.isInviteCodeEmpty)
+//                restaurantFeedModel.isInviteCodeEmpty = false;
                 
                 for item in viewModel.selectedRestaurants {
                     addRestaurantToFirebase(restID: item.id!, restName: item.name!)
                 }
-                
+                presentationMode.wrappedValue.dismiss()
             }) {
-                NavigationLink(destination: NotesTabView(restaurantFeedModel: restaurantFeedModel)) {
+//                NavigationLink(destination: FeedView(restaurantFeedModel: restaurantFeedModel)) {
                     
                     Text("Done")
-                        .foregroundColor(viewModel.selectedRestaurants.count >= 2 ? .white : .gray)
+//                        .foregroundColor(viewModel.selectedRestaurants.count >= 2 ? .white : .gray)
+                        .foregroundColor(.white)
                         .padding(.vertical, 8) // Adjust the vertical padding to make the button shorter
                         .padding(.horizontal, 16)
-                        .background(viewModel.selectedRestaurants.count >= 2 ? Color.blue : Color.gray.opacity(0.5))
+                        .background(.blue)
+//                        .background(viewModel.selectedRestaurants.count >= 2 ? Color.blue : Color.gray.opacity(0.5))
                         .cornerRadius(8)
                 }
                 .padding()
-                .disabled(viewModel.selectedRestaurants.count < 2)
+//                .disabled(viewModel.selectedRestaurants.count < 2)
                 
-            }.padding()
+//            }.padding()
         }
         
         // added new function to change user to false once they've gotten past this screen
@@ -94,7 +98,7 @@ func addRestaurantToFirebase(restID : String, restName : String){
     
     let restDoc = [
         "restName":restName,
-        "userID":Auth.auth().currentUser?.uid.description,
+        "userID":Auth.auth().currentUser?.uid.description as Any,
         "restID":restID,
     ] as [String : Any]
     

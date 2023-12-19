@@ -28,8 +28,23 @@ struct UserListView: View {
                 }
                 
             }
-            .navigationTitle("Search")
-            .padding(.top)
+            .navigationBarItems(trailing:
+                            NavigationLink(destination: RequestUserContactsView()) {
+                                HStack {
+//                                    navigationTitle("Search")
+//                                    Text("Search").font(.title)
+//                                        .padding(.leading)
+                                    Spacer()
+                                    Image(systemName: "person.badge.plus")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundColor(Color(UIColor(hex: 0x1da64a)).opacity(0.5))
+                                        .padding()
+                                }
+                            }
+                        )
+                        .padding(.top)
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer)
     }

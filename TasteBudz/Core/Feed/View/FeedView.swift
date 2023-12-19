@@ -36,30 +36,30 @@ struct FeedView: View {
     //
     
     @State var showInviteCodePopUp = false
-
-//    func checkInviteCode() {
-//        guard let currentUserUID = Auth.auth().currentUser?.uid else {
-//            // Handle user not authenticated
-//            return
-//        }
-//        print("currentUserUID ", currentUserUID)
-//        
-//        let db = Firestore.firestore()
-//        let userDocument = db.collection("user").document(currentUserUID)
-//        
-//        userDocument.getDocument { document, error in
-//            if let error = error {
-//                print("Error getting user document: \(error.localizedDescription)")
-//                return
-//            }
-//            
-//            if let inviteCode = document?.get("inviteCode") as? String {
-//                // Check if inviteCode is empty
-//                print("inviteCode.isEmpty ", inviteCode.isEmpty)
-//                isInviteCodeEmpty = inviteCode.isEmpty
-//            }
-//        }
-//    }
+    
+    //    func checkInviteCode() {
+    //        guard let currentUserUID = Auth.auth().currentUser?.uid else {
+    //            // Handle user not authenticated
+    //            return
+    //        }
+    //        print("currentUserUID ", currentUserUID)
+    //
+    //        let db = Firestore.firestore()
+    //        let userDocument = db.collection("user").document(currentUserUID)
+    //
+    //        userDocument.getDocument { document, error in
+    //            if let error = error {
+    //                print("Error getting user document: \(error.localizedDescription)")
+    //                return
+    //            }
+    //
+    //            if let inviteCode = document?.get("inviteCode") as? String {
+    //                // Check if inviteCode is empty
+    //                print("inviteCode.isEmpty ", inviteCode.isEmpty)
+    //                isInviteCodeEmpty = inviteCode.isEmpty
+    //            }
+    //        }
+    //    }
     
     var body: some View {
         
@@ -76,8 +76,8 @@ struct FeedView: View {
                         .padding(.horizontal)
                     
                     Spacer()
-                    NavigationLink(destination: RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)) {
-                        Image(systemName: "person.badge.plus")
+                    NavigationLink(destination: RecommendRestaurantView(restaurantFeedModel: restaurantFeedModel)) {
+                        Image(systemName: "fork.knife")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24) // Adjust the size as needed
@@ -118,40 +118,40 @@ struct FeedView: View {
                         let restDict = restaurantFeedModel.restInfoDict
                         ForEach(Array(restDict.keys), id: \.self) { rest in
                             VStack {
-                                //                            NavigationLink(destination: SwipeView(
-                                //                                name: restDict[rest]?.name ?? "",
-                                //                                type: restDict[rest]?.type ?? "",
-                                //                                photos: restDict[rest]?.photos ?? [],
-                                //                                address: restDict[rest]?.address ?? "",
-                                //                                rating: restDict[rest]?.rating ?? -1,
-                                //                                hours: restDict[rest]?.hours ?? ""
-                                //                                //                                    imageURL: restDict[rest]?.imageURL ?? ""
-                                //                            )) {
-                                
-                                
-                                let link = restDict[rest]?.imageURL
-                                //
-                                AsyncImage(url: URL(string: link ?? "https://static.vecteezy.com/system/resources/thumbnails/002/412/377/small/coffee-cup-logo-coffee-shop-icon-design-free-vector.jpg")) {image in image // change the default link to our logo
-                                        .resizable()
-                                        .scaledToFit()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width:150, height: 200)
-                                        .cornerRadius(20)
-                                        .shadow(radius: 2)
-                                    //
+//                                NavigationLink(destination: SwipeView(
+//                                    name: restDict[rest]?.name ?? "",
+//                                    type: restDict[rest]?.type ?? "",
+//                                    photos: restDict[rest]?.photos ?? [],
+//                                    address: restDict[rest]?.address ?? "",
+//                                    rating: restDict[rest]?.rating ?? -1,
+//                                    hours: restDict[rest]?.hours ?? ""
+//                                    //                                    imageURL: restDict[rest]?.imageURL ?? ""
+//                                )) {
                                     
-                                } placeholder: {
-                                    ProgressView()
+                                    
+                                    let link = restDict[rest]?.imageURL
+                                    //
+                                    AsyncImage(url: URL(string: link ?? "https://static.vecteezy.com/system/resources/thumbnails/002/412/377/small/coffee-cup-logo-coffee-shop-icon-design-free-vector.jpg")) {image in image // change the default link to our logo
+                                            .resizable()
+                                            .scaledToFit()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width:150, height: 200)
+                                            .cornerRadius(20)
+                                            .shadow(radius: 2)
+                                        //
+                                        
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    
+                                    
+                                    Text(restDict[rest]?.name ?? "not found")
+                                        .frame(maxWidth: 200)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                    
                                 }
-                                
-                                
-                                Text(restDict[rest]?.name ?? "not found")
-                                    .frame(maxWidth: 200)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                
-                            }
-                            //                        }
-                            //                        .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
+//                            }
+//                            .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
                         }
                     }
                 }
@@ -187,7 +187,7 @@ struct FeedView: View {
                     .navigationDestination(for: Note.self, destination: { note in
                         NoteDetailsView(note: note)
                     })
-                    .navigationTitle("Notes")
+                    .navigationTitle("Gatherings")
                     .navigationBarTitleDisplayMode(.inline)
                     //                    .toolbar {
                     //                        ToolbarItem(placement: .navigationBarTrailing) {

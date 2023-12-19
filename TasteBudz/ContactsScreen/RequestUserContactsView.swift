@@ -11,7 +11,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct RequestUserContactsView: View {
-    @ObservedObject var restaurantFeedModel: RestaurantFeedModel
+//    @ObservedObject var restaurantFeedModel: RestaurantFeedModel
     
     @State private var contacts = [ContactModel]()
     @State private var selectedContact: ContactModel?
@@ -25,18 +25,18 @@ struct RequestUserContactsView: View {
         NavigationView {
             VStack{
                 Text("Set up your")
-                    .padding(.top, 20)
+//                    .padding(.top, 20)
                 Text("friends")
                     .font(.title2)
                     .bold()
-                Text("Invite 3 friends")
-                    .foregroundColor(Color(UIColor(hex: 0x000000)))
-                //                .foregroundColor(.blue)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(Color(UIColor(hex: 0xf7b2ca)).opacity(0.5))
-                    .cornerRadius(8)
-                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+//                Text("Invite 3 friends")
+//                    .foregroundColor(Color(UIColor(hex: 0x000000)))
+//                //                .foregroundColor(.blue)
+//                    .padding(.horizontal, 16)
+//                    .padding(.vertical, 8)
+//                    .background(Color(UIColor(hex: 0xf7b2ca)).opacity(0.5))
+//                    .cornerRadius(8)
+//                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 
                 
                 ScrollView {
@@ -50,23 +50,30 @@ struct RequestUserContactsView: View {
                                 // When button is clicked, an invite it sent
                                 Button(action: {
                                     if inviteCode == "" {
-                                        func generateAndCheckCode() {
-                                            inviteCode = generateRandomCode()
-                                            
-                                            codeExistsInFirestore(inviteCode) { exists in
-                                                if exists {
-                                                    // Code exists, generate a new one or handle it accordingly
-                                                    generateAndCheckCode()
-                                                } else {
-                                                    // Code doesn't exist, you can proceed
-                                                    addInviteCode(randCode: inviteCode)
-                                                    //                                                invitedFriendsCount += 1
+                                        currentUserHasCode(inviteCode) { hasCode in
+                                            if hasCode {
+                                                // The user already has a code, handle it accordingly
+                                                print("User already has a code")
+                                            } else {
+                                                func generateAndCheckCode() {
+                                                    inviteCode = generateRandomCode()
+                                                    
+                                                    codeExistsInFirestore(inviteCode) { exists in
+                                                        if exists {
+                                                            // Code exists, generate a new one or handle it accordingly
+                                                            generateAndCheckCode()
+                                                        } else {
+                                                            // Code doesn't exist, you can proceed
+                                                            addInviteCode(randCode: inviteCode)
+                                                            //                                                invitedFriendsCount += 1
+                                                        }
+                                                    }
+                                                    
                                                 }
+                                                
+                                                generateAndCheckCode()
                                             }
                                         }
-                                        
-                                        generateAndCheckCode()
-                                        
                                     }
                                     contact.sendInvite(randCode: inviteCode)
                                     invitedFriendsCount += 1
@@ -93,9 +100,9 @@ struct RequestUserContactsView: View {
                     }
                 }
                 
-                Text("Invited Friends: \(invitedFriendsCount)")
-                    .foregroundColor(.gray)
-                    .padding(.bottom, 16)
+//                Text("Invited Friends: \(invitedFriendsCount)")
+//                    .foregroundColor(.gray)
+//                    .padding(.bottom, 16)
                 
                 //            NavigationLink(destination: RecommendRestaurantView(), isActive: $isNavigationActive) {
                 //                EmptyView()
@@ -243,9 +250,38 @@ func generateRandomCode() -> String {
 func codeExistsInFirestore(_ code: String, completion: @escaping (Bool) -> Void) {
     let db = Firestore.firestore()
     let usersCollection = db.collection("users")
+    let userID = Auth.auth().currentUser?.uid ?? "unknown"
     
     // Check if the code already exists in the "inviteCode" field of any document in the "users" collection
-    usersCollection.whereField("inviteCode", isEqualTo: code).getDocuments { snapshot, error in
+    usersCollection
+        .whereField("inviteCode", isEqualTo: code)
+//        .whereField("userID", isEqualTo: userID)
+        .getDocuments { snapshot, error in
+        if let error = error {
+            print("Error querying Firestore: \(error.localizedDescription)")
+            completion(false) // Assume code doesn't exist in case of an error
+        } else {
+            if let documents = snapshot?.documents, !documents.isEmpty {
+                // Code exists
+                completion(true)
+            } else {
+                // Code doesn't exist
+                completion(false)
+            }
+        }
+    }
+}
+
+func currentUserHasCode(_ code: String, completion: @escaping (Bool) -> Void) {
+    let db = Firestore.firestore()
+    let usersCollection = db.collection("users")
+    let userID = Auth.auth().currentUser?.uid ?? "unknown"
+    
+    // Check if the code already exists in the "inviteCode" field of any document in the "users" collection
+    usersCollection
+        .whereField("inviteCode", isEqualTo: code)
+        .whereField("userID", isEqualTo: userID)
+        .getDocuments { snapshot, error in
         if let error = error {
             print("Error querying Firestore: \(error.localizedDescription)")
             completion(false) // Assume code doesn't exist in case of an error

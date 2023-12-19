@@ -110,7 +110,7 @@ struct RegistrationView: View {
             Text("")
                 .hidden()
                 .navigationDestination(isPresented: $shouldNavigate) {
-                    RequestUserContactsView(restaurantFeedModel: restaurantFeedModel)
+                    RequestUserContactsView()
                     Text("") // Optionally, use hidden text for better readability or as needed
                         .hidden()
                 }
