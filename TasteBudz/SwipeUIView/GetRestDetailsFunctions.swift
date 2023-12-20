@@ -112,10 +112,10 @@ func formatMilitaryTimeTo12Hour(time: String) -> String {
 }
 
 struct StarRatingView: View {
-    let rating: Int
+    let rating: Double
     let spacing: CGFloat
     
-    init(rating: Int, spacing: CGFloat = 4.0) {
+    init(rating: Double, spacing: CGFloat = 4.0) {
         self.rating = rating
         self.spacing = spacing
     }
@@ -123,7 +123,7 @@ struct StarRatingView: View {
     var body: some View {
         HStack(spacing: spacing) {
             ForEach(1...5, id: \.self) { index in
-                Image(systemName: index <= rating ? "star.fill" : "star")
+                Image(systemName: index <= Int(rating) ? "star.fill" : "star")
                     .foregroundColor(Color(UIColor(hex: 0xf7b2ca)))
             }
         }

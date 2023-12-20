@@ -26,7 +26,7 @@ struct CreateNoteView: View {
                         Text(user?.username ?? "")
                             .fontWeight(.semibold)
                         
-                        TextField("Start a thread...", text: $viewModel.caption, axis: .vertical)
+                        TextField("Start a gathering...", text: $viewModel.caption, axis: .vertical)
                     }
                     .font(.footnote)
                     

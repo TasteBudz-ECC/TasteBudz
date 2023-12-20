@@ -13,6 +13,7 @@ import Foundation
 
 struct FeedView: View {
     @ObservedObject var restaurantFeedModel: RestaurantFeedModel
+    //    @ObservedObject var registrationViewModel: RegistrationViewModel
     
     @StateObject var viewModel = FeedViewModel()
     @State var rName: String = ""
@@ -23,6 +24,8 @@ struct FeedView: View {
     @State var rHours: String = ""
     @State var rImageURL: String = ""
     @State var rWebsite: String = ""
+    @State private var showingSheet = false
+    @State private var selectedRest:RestaurantInfo?
     
     
     //    @State var userNetwork: [String] = []
@@ -111,50 +114,126 @@ struct FeedView: View {
                 
                 
                 // View of restaurants
-                ScrollView(.horizontal, showsIndicators: false){
-                    HStack(spacing: 20){
-                        
-                        //                        Text("restaurants will be here").multilineTextAlignment(.center)
+                //                ScrollView(.horizontal, showsIndicators: false){
+                //                    HStack(spacing: 20){
+                //
+                //                        //                        Text("restaurants will be here").multilineTextAlignment(.center)
+                //                        let restDict = restaurantFeedModel.restInfoDict
+                //                        ForEach(Array(restDict.keys), id: \.self) { rest in
+                //                            VStack {
+                ////                                NavigationLink(destination: SwipeView(
+                ////                                    name: restDict[rest]?.name ?? "",
+                ////                                    type: restDict[rest]?.type ?? "",
+                ////                                    photos: restDict[rest]?.photos ?? [],
+                ////                                    address: restDict[rest]?.address ?? "",
+                ////                                    rating: restDict[rest]?.rating ?? -1,
+                ////                                    hours: restDict[rest]?.hours ?? ""
+                ////                                    //                                    imageURL: restDict[rest]?.imageURL ?? ""
+                ////                                )) {
+                //
+                //
+                //                                    let link = restDict[rest]?.imageURL
+                //                                    //
+                //                                    AsyncImage(url: URL(string: link ?? "https://static.vecteezy.com/system/resources/thumbnails/002/412/377/small/coffee-cup-logo-coffee-shop-icon-design-free-vector.jpg")) {image in image // change the default link to our logo
+                //                                            .resizable()
+                //                                            .scaledToFit()
+                //                                            .aspectRatio(contentMode: .fill)
+                //                                            .frame(width:150, height: 200)
+                //                                            .cornerRadius(20)
+                //                                            .shadow(radius: 2)
+                //                                            .sheet(isPresented: $showingSheet) {
+                //                                                        // Content of the sheet
+                //                                                SwipeView(
+                //                                                                                    name: restDict[rest]?.name ?? "",
+                //                                                                                    type: restDict[rest]?.type ?? "",
+                //                                                                                    photos: restDict[rest]?.photos ?? [],
+                //                                                                                    address: restDict[rest]?.address ?? "",
+                //                                                                                    rating: restDict[rest]?.rating ?? -1,
+                //                                                                                    hours: restDict[rest]?.hours ?? ""
+                //                                                    )
+                //                                                    }
+                //                                        //
+                //
+                //                                    } placeholder: {
+                //                                        ProgressView()
+                //                                    }
+                //
+                //
+                //                                    Text(restDict[rest]?.name ?? "not found")
+                //                                        .frame(maxWidth: 200)
+                //                                        .fixedSize(horizontal: false, vertical: true)
+                //
+                //                                }
+                ////                            }
+                ////                            .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
+                //                        }
+                //                    }
+                //                }
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
                         let restDict = restaurantFeedModel.restInfoDict
-                        ForEach(Array(restDict.keys), id: \.self) { rest in
+                        
+                        
+                        ForEach(Array(restDict)) { value in
                             VStack {
-//                                NavigationLink(destination: SwipeView(
-//                                    name: restDict[rest]?.name ?? "",
-//                                    type: restDict[rest]?.type ?? "",
-//                                    photos: restDict[rest]?.photos ?? [],
-//                                    address: restDict[rest]?.address ?? "",
-//                                    rating: restDict[rest]?.rating ?? -1,
-//                                    hours: restDict[rest]?.hours ?? ""
-//                                    //                                    imageURL: restDict[rest]?.imageURL ?? ""
-//                                )) {
+                                NavigationLink(destination: SwipeView(
+                                    name: value.name ?? "",
+                                    type: value.type ?? "",
+                                    address: value.address ?? "",
+                                    rating: value.rating ?? -1,
+                                    hours: value.hours ?? "",
+                                    photos: value.photos ?? []
+                                )) {
+                                    let link = value.imageURL
                                     
-                                    
-                                    let link = restDict[rest]?.imageURL
-                                    //
-                                    AsyncImage(url: URL(string: link ?? "https://static.vecteezy.com/system/resources/thumbnails/002/412/377/small/coffee-cup-logo-coffee-shop-icon-design-free-vector.jpg")) {image in image // change the default link to our logo
+                                    AsyncImage(url: URL(string: link /*?? "https://static.vecteezy.com/system/resources/thumbnails/002/412/377/small/coffee-cup-logo-coffee-shop-icon-design-free-vector.jpg"*/)) { image in
+                                        image
                                             .resizable()
                                             .scaledToFit()
                                             .aspectRatio(contentMode: .fill)
-                                            .frame(width:150, height: 200)
+                                            .frame(width: 150, height: 200)
                                             .cornerRadius(20)
                                             .shadow(radius: 2)
-                                        //
+                                        //                                        .onTapGesture {
+                                        //                                            selectedRest = value
+                                        //                                            showingSheet = true
+                                        //                                            print("value.name tap: ", selectedRest!.name)
+                                        //                                        }
                                         
                                     } placeholder: {
                                         ProgressView()
+                                        //                                }.sheet(isPresented: $showingSheet) {
+                                        //
+                                        //                                    // Content of the sheet
+                                        //                                    SwipeView(
+                                        //                                        name: selectedRest!.name,
+                                        //                                        type: selectedRest!.type,
+                                        //                                        address: selectedRest!.address,
+                                        //                                        rating: selectedRest!.rating,
+                                        //                                        hours: selectedRest!.hours,
+                                        //                                        photos: selectedRest!.photos
+                                        ////                                                website: value.website
+                                        //
+                                        //
+                                        //                                    ).onAppear {
+                                        //                                        print("value.name: ", selectedRest!.name)
+                                        //                                        print("value.type: ", selectedRest!.type)
+                                        //                                        print("value.photos on appear: ", selectedRest!.photos)
+                                        //                                    }
                                     }
                                     
                                     
-                                    Text(restDict[rest]?.name ?? "not found")
-                                        .frame(maxWidth: 200)
-                                        .fixedSize(horizontal: false, vertical: true)
-                                    
                                 }
-//                            }
-//                            .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
+                                .buttonStyle(PlainButtonStyle())
+                                Text(value.name)
+                                    .frame(maxWidth: 200)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
                         }
                     }
                 }
+                
                 
                 // if no post yet, then have text that says "be the first post!"
                 
@@ -205,6 +284,13 @@ struct FeedView: View {
                 // NEW EDITS
             }.onAppear {
                 Task {
+                    ///////////////////////////////////////////////////////////////////////////////////////////// Registration invite code  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //                    if $registrationViewModel.inviteCode != "" {
+                    //                        await addFriendFromCode(friendCodeInput: $registrationViewModel.inviteCode)
+                    //                        $registrationViewModel.inviteCode = ""
+                    //                    }
+                    ///////////////////////////////////////////////////////////////////////////////////////////// Registration invite code  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    
                     ///////////////////////////////////////////////////////////////////////////////////////////// Will delete later ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //                    print("isInviteCodeEmpty1: ", restaurantFeedModel.isInviteCodeEmpty)
                     //                    guard let currentUserUID = Auth.auth().currentUser?.uid else {
@@ -324,7 +410,9 @@ struct FeedView: View {
                                     print("Failed to retrieve business details. \(rKey)")
                                 }
                                 // for each restaurant, create a dictionary for it
-                                restaurantFeedModel.restInfoDict[rKey] = (name: rName, type: rType, photos: rPhotos, address: rAddress, rating: restRating, hours: rHours, imageURL: rImageURL)
+                                DispatchQueue.main.async {
+                                    restaurantFeedModel.restInfoDict.append(RestaurantInfo(name: rName, type: rType, address: rAddress, rating: restRating, hours: rHours, photos: rPhotos, imageURL: rImageURL))
+                                }
                             }
                         }
                         restaurantFeedModel.restDictEmpty = false
@@ -403,6 +491,8 @@ func getRestaurantsFromUID(userid: String) async -> [String]{
 
 //struct FeedView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        FeedView()
+//        @ObservedObject var restaurantFeedModel: RestaurantFeedModel
+//
+//        FeedView(restaurantFeedModel:restaurantFeedModel)
 //    }
 //}

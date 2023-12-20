@@ -13,7 +13,7 @@ import FirebaseAuth
 class RestaurantFeedModel: ObservableObject {
     @Published var userNetwork: [String] = []
     @Published var networkRestaurantKeys: Set<String> = []
-    @Published var restInfoDict: [String: (name: String, type: String, photos: [String], address: String, rating: Double, hours: String, imageURL: String)] = [:]
+    @Published var restInfoDict: [RestaurantInfo] = []
     @Published var restDictEmpty: Bool = true
     @Published var isInviteCodeEmpty = true
     
@@ -45,3 +45,14 @@ class RestaurantFeedModel: ObservableObject {
 }
 
 
+struct RestaurantInfo: Identifiable {
+    let id = UUID()
+    
+    var name: String
+    var type: String
+    var address: String
+    var rating: Double
+    var hours: String
+    var photos: [String]
+    var imageURL: String
+}

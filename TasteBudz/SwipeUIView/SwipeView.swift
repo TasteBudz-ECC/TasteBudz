@@ -31,13 +31,13 @@ import SwiftUI
 struct SwipeView: View {
 //    var restDict: (name: String, type: String, photos: [String], address: String, rating: Double, hours: String, imageURL: String)
     //    @State var restaurant: Restaurant?
-    @State var name: String
-    @State var type: String
-    @State var address: String
-    @State var rating: Int
-    @State var hours: String
-    @State var photos: [String]
-    @State var website: String
+    var name: String
+    var type: String
+    var address: String
+    var rating: Double
+   var hours: String
+    var photos: [String]
+//    @State var website: String
     let defaultImages: [String] = [
         "https://media-cdn.tripadvisor.com/media/photo-s/08/90/b5/19/bar-louie.jpg",
         "https://cdn.vox-cdn.com/thumbor/SAj88pWQK1Q0XsOtgliyoux1YFY=/0x0:3745x2507/1200x800/filters:focal(1574x955:2172x1553)/cdn.vox-cdn.com/uploads/chorus_image/image/66206647/167139659.jpg.0.jpg",
@@ -113,10 +113,12 @@ struct SwipeView: View {
                         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                         .onAppear {
                             if photos.isEmpty {
+                                print("running2")
                                 print(defaultImages[0])
                                 print(defaultImages[1])
                                 print(defaultImages[2])
                             } else {
+                                print("running1")
                                 print(photos[0])
                                 print(photos[1])
                                 print(photos[2])
@@ -166,12 +168,12 @@ struct SwipeView: View {
                     }
                     Text("Read more on Yelp").foregroundColor(Color.gray)
 //                        .padding()
-                    if let websiteURL = URL(string: website), !website.isEmpty {
-                                            Link("Website", destination: websiteURL)
-                                                .foregroundColor(.blue)
-                                                .padding()
-                                                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
-                                        }
+//                    if let websiteURL = URL(string: website), !website.isEmpty {
+//                                            Link("Website", destination: websiteURL)
+//                                                .foregroundColor(.blue)
+//                                                .padding()
+//                                                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
+//                                        }
                 }
                 
             }
