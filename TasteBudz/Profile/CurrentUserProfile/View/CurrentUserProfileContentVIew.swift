@@ -19,6 +19,7 @@ struct CurrentUserProfileContentView: View {
     @StateObject var viewModel = CurrentUserProfileViewModel()
     @State private var selectedThreadFilter: ProfileNoteFilterViewModel = .notes
     @State private var sheetConfig: CurrentUserProfileSheetConfig?
+    @State private var inviteCode = ""
     
     private var user: User? {
         return viewModel.currentUser
@@ -88,7 +89,7 @@ struct CurrentUserProfileContentView: View {
                     Button {
                         
                     } label: {
-                        Text("Share Profile")
+                        Text("InviteCode: \(inviteCode)")
                             .foregroundStyle(Color.theme.primaryText)
                             .font(.subheadline)
                             .fontWeight(.semibold)
@@ -97,6 +98,11 @@ struct CurrentUserProfileContentView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color(.systemGray4), lineWidth: 1)
                             }
+                    }
+                    .onAppear {
+                        currentUserHasCode { userInviteCode in
+                            inviteCode = userInviteCode ?? ""
+                        }
                     }
                 }
                 

@@ -69,7 +69,7 @@ struct ContactModel: Identifiable {
     func sendInvites(to number: String, randCode: String) {
 
         
-        let sms: String = "sms:\(number)&body=try this with me and add me using my code \(randCode) [link to download Gather app]"
+        let sms: String = "sms:\(number)&body=try this with me and add me using my code \(randCode) https://apps.apple.com/us/app/gather-connect-meet-eat/id6474153349"
         let strURL: String = sms.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         
         UIApplication.shared.open(URL.init(string: strURL)!, options: [:], completionHandler: nil)
