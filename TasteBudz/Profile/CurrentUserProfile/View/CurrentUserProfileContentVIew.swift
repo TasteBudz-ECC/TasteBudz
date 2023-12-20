@@ -58,7 +58,7 @@ struct CurrentUserProfileContentView: View {
                         Button {
                             sheetConfig = .userRelations
                         } label: {
-                            Text("\(viewModel.currentUser?.stats?.followersCount ?? 0) followers")
+                            Text("\(viewModel.currentUser?.stats?.friendsCount ?? 0) friends")
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                         }

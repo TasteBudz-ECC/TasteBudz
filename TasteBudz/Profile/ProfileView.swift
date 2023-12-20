@@ -17,8 +17,8 @@ struct ProfileView: View {
         self._viewModel = StateObject(wrappedValue: UserProfileViewModel(user: user))
     }
     
-    private var isFollowed: Bool {
-        return viewModel.user.isFollowed ?? false
+    private var isFriend: Bool {
+        return viewModel.user.isFriends ?? false
     }
     
     private var user: User {
@@ -47,11 +47,10 @@ struct ProfileView: View {
                         Button {
                             showUserRelationSheet.toggle()
                         } label: {
-                            Text("\(user.stats?.followersCount ?? 0) followers")
+                            Text("\(user.stats?.friendsCount ?? 0) friends")
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                         }
-
                     }
                     
                     Spacer()
@@ -60,17 +59,17 @@ struct ProfileView: View {
                 }
                 
                 Button {
-                    handleFollowTapped()
+                    handleFriendTapped()
                 } label: {
-                    Text(isFollowed ? "Following" : "Follow")
+                    Text(isFriend ? "Remove Friend" : "Add Friend")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(isFollowed ? Color.theme.primaryText : Color.theme.primaryBackground)
+                        .foregroundColor(isFriend ? Color.theme.primaryText : Color.theme.primaryBackground)
                         .frame(width: 352, height: 32)
-                        .background(isFollowed ? Color.theme.primaryBackground : Color.theme.primaryText)
+                        .background(isFriend ? Color.theme.primaryBackground : Color.theme.primaryText)
                         .cornerRadius(8)
                         .overlay {
-                            if isFollowed {
+                            if isFriend {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color(.systemGray4), lineWidth: 1)
                             }
@@ -90,12 +89,12 @@ struct ProfileView: View {
         .padding(.horizontal)
     }
     
-    func handleFollowTapped() {
+    func handleFriendTapped() {
         Task {
-            if isFollowed {
-                try await viewModel.unfollow()
+            if isFriend {
+                try await viewModel.removeFriend()
             } else {
-                try await viewModel.follow()
+                try await viewModel.addFriend()
             }
         }
     }

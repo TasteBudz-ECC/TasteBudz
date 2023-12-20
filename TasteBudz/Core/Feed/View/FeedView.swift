@@ -371,9 +371,6 @@ struct FeedView: View {
         }
     }
 }
-
-
-
 //// function to get restaurant yelp keys from the user's recommended
 func getRestaurantsFromUID(userid: String) async -> [String]{
     let fs = Firestore.firestore()

@@ -11,62 +11,64 @@ import Foundation
 class UserRelationsViewModel: ObservableObject {
     @Published var users = [User]()
     @Published var currentStatString: String = ""
-    @Published var selectedFilter: UserRelationType = .followers {
+    @Published var selectedFilter: UserRelationType = .friends {
         didSet { updateRelationData() }
     }
     
     private let user: User
-    private var followers = [User]()
-    private var following = [User]()
+    private var friends = [User]()
+    private var friendNetwork = [User]()
     
     init(user: User) {
         self.user = user
-        Task { try await fetchUserFollowers() }
-        Task { try await fetchUserFollowing() }
+        Task { try await fetchUserFriends() }
+        Task { try await fetchUserFriendNetwork() }
     }
     
-    private func fetchUserFollowers() async throws {
-        let followers = try await UserService.fetchUserFollowers(uid: user.id)
-        self.followers = await checkIfUsersAreFollowed(followers)
+    private func fetchUserFriends() async throws {
+        let friendIDs = try await UserService.shared.fetchFirstDegreeFriends(forUserID: user.id)
+        self.friends = try await fetchUsers(from: friendIDs)
         self.updateRelationData()
     }
     
-    private func fetchUserFollowing() async throws {
-        var following = try await UserService.fetchUserFollowing(uid: user.id)
-        
-        if user.isCurrentUser {
-            for i in 0 ..< following.count {
-                following[i].isFollowed = true
-            }
-        }
-        
-        self.following = following
-        guard !user.isCurrentUser else { return }
-        self.following = await checkIfUsersAreFollowed(following)
+    private func fetchUserFriendNetwork() async throws {
+        let friendNetworkIDs = try await UserService.fetchSecondDegreeFriends(forUserID: user.id)
+        self.friendNetwork = try await fetchUsers(from: friendNetworkIDs)
+        self.updateRelationData()
     }
     
-   private func updateRelationData() {
+    private func updateRelationData() {
         switch selectedFilter {
-        case .followers:
-            self.users = followers
-            self.currentStatString = "\(user.stats?.followersCount ?? 0) followers"
-        case .following:
-            self.users = following
-            self.currentStatString = "\(user.stats?.followingCount ?? 0) following"
+        case .friends:
+            self.users = friends
+            self.currentStatString = "\(friends.count) friends"
+        case .friendNetwork:
+            self.users = friendNetwork
+            self.currentStatString = "\(friendNetwork.count) in friend network"
         }
     }
-    
-    private func checkIfUsersAreFollowed(_ users: [User]) async -> [User] {
-        var result = users
-        
-        for i in 0 ..< result.count {
-            let user = result[i]
-            
-            let isFollowed = await UserService.checkIfUserIsFollowed(user)
-            result[i].isFollowed = isFollowed
+
+    private func fetchUsers(from ids: Set<String>) async throws -> [User] {
+        var users = [User]()
+        for id in ids {
+            let user = try await UserService.fetchUser(withUid: id)
+            users.append(user)
         }
-        
-        return result
+        return users
     }
 }
+
+//enum UserRelationType: Int, CaseIterable, Identifiable {
+//    case friends
+//    case friendNetwork
+//    
+//    var title: String {
+//        switch self {
+//        case .friends: return "Friends"
+//        case .friendNetwork: return "Friend Network"
+//        }
+//    }
+//    
+//    var id: Int { return self.rawValue }
+//}
 

@@ -120,16 +120,29 @@ extension NoteService {
     private static func updateUserFeedsAfterPost(noteId: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let followersSnapshot = try await FirestoreConstants.FollowersCollection.document(uid).collection("user-followers").getDocuments()
+        // Fetch first-degree friends
+        let firstDegreeFriends = try await UserService.shared.fetchFirstDegreeFriends(forUserID: uid)
         
-        for document in followersSnapshot.documents {
+        // Set to keep track of all unique users who need feed updates (to avoid duplicates)
+        var usersToUpdate = Set(firstDegreeFriends)
+        
+        // Fetch second-degree friends
+        for friendID in firstDegreeFriends {
+            let secondDegreeFriends = try await UserService.fetchSecondDegreeFriends(forUserID: friendID)
+            usersToUpdate.formUnion(secondDegreeFriends)
+        }
+        
+        // Update each user's feed
+        for userID in usersToUpdate {
             try await FirestoreConstants
                 .UserCollection
-                .document(document.documentID)
+                .document(userID)
                 .collection("user-feed")
                 .document(noteId).setData([:])
         }
         
+        // Update the user's own feed
         try await FirestoreConstants.UserCollection.document(uid).collection("user-feed").document(noteId).setData([:])
     }
 }
+
