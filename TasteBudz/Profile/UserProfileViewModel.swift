@@ -23,29 +23,42 @@ class UserProfileViewModel: ObservableObject {
             async let stats = try await UserService.fetchUserStats(uid: user.id)
             self.user.stats = try await stats
 
-            async let isFollowed = await checkIfUserIsFollowed()
-            self.user.isFollowed = await isFollowed
+            async let isFriend = await checkIfUserIsFriend()
+            self.user.isFriends = await isFriend
         }
     }
 }
 
-// MARK: - Following
+// MARK: - Friends Management
 
 extension UserProfileViewModel {
-    func follow() async throws {
-        try await UserService.shared.follow(uid: user.id)
-        self.user.isFollowed = true
-        self.user.stats?.followersCount += 1
+    func addFriend() async throws {
+        try await UserService.shared.addFriend(uid: user.id)
+        self.user.isFriends = true
+        // Update the current user's friend count
+        await updateUserStats()
     }
     
-    func unfollow() async throws {
-        try await UserService.shared.unfollow(uid: user.id)
-        self.user.isFollowed = false
-        self.user.stats?.followersCount -= 1
+    func removeFriend() async throws {
+        try await UserService.shared.removeFriend(uid: user.id)
+        self.user.isFriends = false
+        // Update the current user's friend count
+        await updateUserStats()
     }
     
-    func checkIfUserIsFollowed() async -> Bool {
-        return await UserService.checkIfUserIsFollowed(user)
+    func checkIfUserIsFriend() async -> Bool {
+        return await UserService.shared.checkIfUserIsFriend(uid: user.id)
+    }
+
+    private func updateUserStats() async {
+        do {
+            let updatedStats = try await UserService.fetchUserStats(uid: user.id)
+            DispatchQueue.main.async {
+                self.user.stats = updatedStats
+            }
+        } catch {
+            // Handle error
+        }
     }
 }
 

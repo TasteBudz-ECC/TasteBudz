@@ -10,7 +10,7 @@ import Foundation
 enum ActivityType: Int, CaseIterable, Identifiable, Codable {
     case like
     case reply
-    case follow
+    case friend
     
     var id: Int { return self.rawValue }
 }

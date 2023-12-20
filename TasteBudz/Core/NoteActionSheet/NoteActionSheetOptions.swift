@@ -8,24 +8,24 @@
 import Foundation
 
 enum NoteActionSheetOptions {
-    case unfollow
-    case mute
-    case hide
+//    case unfriend
+//    case mute
+//    case hide
     case report
-    case block
+//    case block
     
     var title: String {
         switch self {
-        case .unfollow:
-            return "Unfollow"
-        case .mute:
-            return "Mute"
-        case .hide:
-            return "Hide"
+//        case .unfriend:
+//            return "Unfriend"
+//        case .mute:
+//            return "Mute"
+//        case .hide:
+//            return "Hide"
         case .report:
             return "Report"
-        case .block:
-            return "Block"
+//        case .block:
+//            return "Block"
         }
     }
 }
