@@ -29,15 +29,15 @@ import SwiftUI
 //}
 
 struct SwipeView: View {
-//    var restDict: (name: String, type: String, photos: [String], address: String, rating: Double, hours: String, imageURL: String)
+    //    var restDict: (name: String, type: String, photos: [String], address: String, rating: Double, hours: String, imageURL: String)
     //    @State var restaurant: Restaurant?
     var name: String
     var type: String
     var address: String
     var rating: Double
-   var hours: String
+    var hours: String
     var photos: [String]
-//    @State var website: String
+    var website: String
     let defaultImages: [String] = [
         "https://media-cdn.tripadvisor.com/media/photo-s/08/90/b5/19/bar-louie.jpg",
         "https://cdn.vox-cdn.com/thumbor/SAj88pWQK1Q0XsOtgliyoux1YFY=/0x0:3745x2507/1200x800/filters:focal(1574x955:2172x1553)/cdn.vox-cdn.com/uploads/chorus_image/image/66206647/167139659.jpg.0.jpg",
@@ -67,13 +67,15 @@ struct SwipeView: View {
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.3)
                         }
-                       
+                        
                     }
                     
                     if rating == -1 {
                         StarRatingView(rating: 5, spacing: 1.0)
+                            .padding()
                     } else {
                         StarRatingView(rating: rating, spacing: 1.0)
+                            .padding()
                     }
                     
                     if type == "N/A" {
@@ -92,8 +94,8 @@ struct SwipeView: View {
                             .foregroundColor(Color.white)
                             .cornerRadius(20)
                         
-//                        Text("Image")
-//                            .foregroundColor(Color.white)
+                        //                        Text("Image")
+                        //                            .foregroundColor(Color.white)
                         
                         TabView {
                             ForEach(photos.isEmpty ? defaultImages : photos, id: \.self) { imageUrl in
@@ -166,242 +168,243 @@ struct SwipeView: View {
                             
                         }
                     }
-                    Text("Read more on Yelp").foregroundColor(Color.gray)
-//                        .padding()
-//                    if let websiteURL = URL(string: website), !website.isEmpty {
-//                                            Link("Website", destination: websiteURL)
-//                                                .foregroundColor(.blue)
-//                                                .padding()
-//                                                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
-//                                        }
+                    if let websiteURL = URL(string: website), !website.isEmpty {
+                        Link("Read more on Yelp", destination: websiteURL)
+                            .foregroundColor(Color(UIColor(hex: 0x000000)))
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .background(Color(UIColor(hex: 0xf7b2ca)).opacity(0.5))
+                            .cornerRadius(8)
+                            .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    }
                 }
                 
             }
-                    
-                            }
-//        .onAppear {
-//                                Task {
-//                                    restDetailRetrievalAll(businessID: restID) { businessDetails in
-//                                        if let businessDetails = businessDetails {
-//                                            // Get name
-//                                            name = businessDetails.name ?? "N/A"
-//                                            print("Business name: \(businessDetails.name ?? "N/A")")
-//
-//                                            // Get type
-//                                            type = businessDetails.categories?.first?.title ?? "N/A"
-//                                            print("Business type: \(businessDetails.categories?.first?.title ?? "N/A")")
-//
-//                                            // Get images
-//                                            images = businessDetails.photos ?? []
-//                                            print("Business photos: \(businessDetails.photos ?? [])")
-//                                            if let imageURL = businessDetails.imageURL {
-//                                                images.append(imageURL)
-//                                            } else {
-//                                                // Handle the case where imageURL is nil
-//                                                // You might want to provide a default image or take appropriate action
-//                                                print("Image URL is nil for \(businessDetails.name ?? "Unknown Business")")
-//                                            }
-//                                            print("Images: \(images)")
-//
-//                                            // Get address
-//                                            address = buildAddress(location: businessDetails.location)
-//                                            print("Business address: \(buildAddress(location: businessDetails.location))")
-//
-//                                            // Get Rating
-//                                            rating = businessDetails.rating ?? -1
-//                                            print("Business photos: \(businessDetails.rating ?? -1)")
-//
-//
-//                                            // Get Hours
-////                                            hours = buildHours(hours: businessDetails.hours)
-////                                            print("Business address: \(buildHours(hours:
-//                                            if let formattedHours = getFormattedRestaurantHours(from: businessDetails) {
-//                                                                hours = formattedHours
-//                                                                print("Formatted Restaurant Hours:\n\(formattedHours)")
-//                                            } else {
-//                                                print("Unable to retrieve restaurant hours.")
-//                                            }
-//
-//                                        } else {
-//                                            print("Failed to retrieve business details.")
-//                                        }
-//                                    }
-//
-//
-//                                }
-//                            }
-////
-
+            
         }
+        //        .onAppear {
+        //                                Task {
+        //                                    restDetailRetrievalAll(businessID: restID) { businessDetails in
+        //                                        if let businessDetails = businessDetails {
+        //                                            // Get name
+        //                                            name = businessDetails.name ?? "N/A"
+        //                                            print("Business name: \(businessDetails.name ?? "N/A")")
+        //
+        //                                            // Get type
+        //                                            type = businessDetails.categories?.first?.title ?? "N/A"
+        //                                            print("Business type: \(businessDetails.categories?.first?.title ?? "N/A")")
+        //
+        //                                            // Get images
+        //                                            images = businessDetails.photos ?? []
+        //                                            print("Business photos: \(businessDetails.photos ?? [])")
+        //                                            if let imageURL = businessDetails.imageURL {
+        //                                                images.append(imageURL)
+        //                                            } else {
+        //                                                // Handle the case where imageURL is nil
+        //                                                // You might want to provide a default image or take appropriate action
+        //                                                print("Image URL is nil for \(businessDetails.name ?? "Unknown Business")")
+        //                                            }
+        //                                            print("Images: \(images)")
+        //
+        //                                            // Get address
+        //                                            address = buildAddress(location: businessDetails.location)
+        //                                            print("Business address: \(buildAddress(location: businessDetails.location))")
+        //
+        //                                            // Get Rating
+        //                                            rating = businessDetails.rating ?? -1
+        //                                            print("Business photos: \(businessDetails.rating ?? -1)")
+        //
+        //
+        //                                            // Get Hours
+        ////                                            hours = buildHours(hours: businessDetails.hours)
+        ////                                            print("Business address: \(buildHours(hours:
+        //                                            if let formattedHours = getFormattedRestaurantHours(from: businessDetails) {
+        //                                                                hours = formattedHours
+        //                                                                print("Formatted Restaurant Hours:\n\(formattedHours)")
+        //                                            } else {
+        //                                                print("Unable to retrieve restaurant hours.")
+        //                                            }
+        //
+        //                                        } else {
+        //                                            print("Failed to retrieve business details.")
+        //                                        }
+        //                                    }
+        //
+        //
+        //                                }
+        //                            }
+        ////
+        
     }
-    
-    
+}
+
+
 //    struct SwipeView_Previews: PreviewProvider {
 //        static var previews: some View {
 //            SwipeView(restID: "tR5DolsS4iOwfx070lENSw")
 //        }
 //    }
-    
-    
-    func restDetailRetrievalAll(businessID: String, completion: @escaping (BusinessDetails?) -> Void) {
-        print("businessID: \(businessID)")
-        let endpoint = URL(string: "https://api.yelp.com/v3/businesses/\(businessID)")!
-        
-        var request = URLRequest(url: endpoint)
-        request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-                completion(nil)
-                return
-            }
-            
-            if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    let businessDetails = try decoder.decode(BusinessDetails.self, from: data)
-                    print(businessDetails)
-                    completion(businessDetails)
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                    completion(nil)
-                }
-            } else {
-                completion(nil)
-            }
-        }.resume()
-    }
 
+
+func restDetailRetrievalAll(businessID: String, completion: @escaping (BusinessDetails?) -> Void) {
+    print("businessID: \(businessID)")
+    let endpoint = URL(string: "https://api.yelp.com/v3/businesses/\(businessID)")!
     
+    var request = URLRequest(url: endpoint)
+    request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
     
-    
-    
-    // MARK: - Business
-    struct BusinessDetails: Codable {
-        let id, alias, name: String?
-        let imageURL: String?
-        let isClaimed, isClosed: Bool?
-        let url: String?
-        let phone, displayPhone: String?
-        let reviewCount: Int?
-        let categories: [CategoryID]?
-        let rating: Double?
-        let location: LocationID?
-        let coordinates: CoordinatesID?
-        let photos: [String]?
-        let price: String?
-        let hours: [Hour]?
-        let transactions: [String]?
-        
-        //    init() {
-        //            self.id = ""
-        //            self.alias = ""
-        //            self.name = ""
-        //            self.imageURL = ""
-        //            self.isClaimed = false
-        //            self.isClosed = false
-        //            self.url = ""
-        //            self.phone = ""
-        //            self.displayPhone = ""
-        //            self.reviewCount = 0
-        //            self.categories = []
-        //            self.rating = 0
-        //            self.location = LocationID(address1: "", address2: "", address3: "", city: "", zipCode: "", country: "", state: "", displayAddress: [], crossStreets: "")
-        //            self.coordinates = CoordinatesID(latitude: 0.0, longitude: 0.0)
-        //            self.photos = []
-        //            self.price = ""
-        //            self.hours = []
-        //            self.transactions = []
-        //        }
-        
-        enum CodingKeys: String, CodingKey {
-            case id, alias, name
-            case imageURL = "image_url"
-            case isClaimed = "is_claimed"
-            case isClosed = "is_closed"
-            case url, phone
-            case displayPhone = "display_phone"
-            case reviewCount = "review_count"
-            case categories, rating, location, coordinates, photos, price, hours, transactions
+    URLSession.shared.dataTask(with: request) { (data, response, error) in
+        if let error = error {
+            print("Error: \(error)")
+            completion(nil)
+            return
         }
-    }
-    
-    // MARK: - Category
-    struct CategoryID: Codable {
-        let alias, title: String?
-    }
-    
-    // MARK: - Coordinates
-    struct CoordinatesID: Codable {
-        let latitude, longitude: Double?
         
-        //    init(latitude: Double? = nil, longitude: Double? = nil) {
-        //            self.latitude = latitude
-        //            self.longitude = longitude
-        //        }
-    }
-    
-    // MARK: - Hour
-    struct Hour: Codable {
-        let hourOpen: [Open]?
-        let hoursType: String?
-        let isOpenNow: Bool?
-        
-        enum CodingKeys: String, CodingKey {
-            case hourOpen = "open"
-            case hoursType = "hours_type"
-            case isOpenNow = "is_open_now"
+        if let data = data {
+            do {
+                let decoder = JSONDecoder()
+                let businessDetails = try decoder.decode(BusinessDetails.self, from: data)
+                print(businessDetails)
+                completion(businessDetails)
+            } catch {
+                print("Error decoding JSON: \(error)")
+                completion(nil)
+            }
+        } else {
+            completion(nil)
         }
-    }
+    }.resume()
+}
+
+
+
+
+
+// MARK: - Business
+struct BusinessDetails: Codable {
+    let id, alias, name: String?
+    let imageURL: String?
+    let isClaimed, isClosed: Bool?
+    let url: String?
+    let phone, displayPhone: String?
+    let reviewCount: Int?
+    let categories: [CategoryID]?
+    let rating: Double?
+    let location: LocationID?
+    let coordinates: CoordinatesID?
+    let photos: [String]?
+    let price: String?
+    let hours: [Hour]?
+    let transactions: [String]?
     
-    // MARK: - Open
-    struct Open: Codable {
-        let isOvernight: Bool?
-        let start, end: String?
-        let day: Int?
-        
-        enum CodingKeys: String, CodingKey {
-            case isOvernight = "is_overnight"
-            
-            case start, end, day
-        }
-    }
+    //    init() {
+    //            self.id = ""
+    //            self.alias = ""
+    //            self.name = ""
+    //            self.imageURL = ""
+    //            self.isClaimed = false
+    //            self.isClosed = false
+    //            self.url = ""
+    //            self.phone = ""
+    //            self.displayPhone = ""
+    //            self.reviewCount = 0
+    //            self.categories = []
+    //            self.rating = 0
+    //            self.location = LocationID(address1: "", address2: "", address3: "", city: "", zipCode: "", country: "", state: "", displayAddress: [], crossStreets: "")
+    //            self.coordinates = CoordinatesID(latitude: 0.0, longitude: 0.0)
+    //            self.photos = []
+    //            self.price = ""
+    //            self.hours = []
+    //            self.transactions = []
+    //        }
     
-    // MARK: - Location
-    struct LocationID: Codable {
-        let address1, address2, address3, city: String?
-        let zipCode, country, state: String?
-        let displayAddress: [String]?
-        let crossStreets: String?
-        
-        //    init(
-        //            address1: String? = nil,
-        //            address2: String? = nil,
-        //            address3: String? = nil,
-        //            city: String? = nil,
-        //            zipCode: String? = nil,
-        //            country: String? = nil,
-        //            state: String? = nil,
-        //            displayAddress: [String]? = nil,
-        //            crossStreets: String? = nil
-        //        ) {
-        //            self.address1 = address1
-        //            self.address2 = address2
-        //            self.address3 = address3
-        //            self.city = city
-        //            self.zipCode = zipCode
-        //            self.country = country
-        //            self.state = state
-        //            self.displayAddress = displayAddress
-        //            self.crossStreets = crossStreets
-        //        }
-        
-        enum CodingKeys: String, CodingKey {
-            case address1, address2, address3, city
-            case zipCode = "zip_code"
-            case country, state
-            case displayAddress = "display_address"
-            case crossStreets = "cross_streets"
-        }
+    enum CodingKeys: String, CodingKey {
+        case id, alias, name
+        case imageURL = "image_url"
+        case isClaimed = "is_claimed"
+        case isClosed = "is_closed"
+        case url, phone
+        case displayPhone = "display_phone"
+        case reviewCount = "review_count"
+        case categories, rating, location, coordinates, photos, price, hours, transactions
     }
+}
+
+// MARK: - Category
+struct CategoryID: Codable {
+    let alias, title: String?
+}
+
+// MARK: - Coordinates
+struct CoordinatesID: Codable {
+    let latitude, longitude: Double?
+    
+    //    init(latitude: Double? = nil, longitude: Double? = nil) {
+    //            self.latitude = latitude
+    //            self.longitude = longitude
+    //        }
+}
+
+// MARK: - Hour
+struct Hour: Codable {
+    let hourOpen: [Open]?
+    let hoursType: String?
+    let isOpenNow: Bool?
+    
+    enum CodingKeys: String, CodingKey {
+        case hourOpen = "open"
+        case hoursType = "hours_type"
+        case isOpenNow = "is_open_now"
+    }
+}
+
+// MARK: - Open
+struct Open: Codable {
+    let isOvernight: Bool?
+    let start, end: String?
+    let day: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case isOvernight = "is_overnight"
+        
+        case start, end, day
+    }
+}
+
+// MARK: - Location
+struct LocationID: Codable {
+    let address1, address2, address3, city: String?
+    let zipCode, country, state: String?
+    let displayAddress: [String]?
+    let crossStreets: String?
+    
+    //    init(
+    //            address1: String? = nil,
+    //            address2: String? = nil,
+    //            address3: String? = nil,
+    //            city: String? = nil,
+    //            zipCode: String? = nil,
+    //            country: String? = nil,
+    //            state: String? = nil,
+    //            displayAddress: [String]? = nil,
+    //            crossStreets: String? = nil
+    //        ) {
+    //            self.address1 = address1
+    //            self.address2 = address2
+    //            self.address3 = address3
+    //            self.city = city
+    //            self.zipCode = zipCode
+    //            self.country = country
+    //            self.state = state
+    //            self.displayAddress = displayAddress
+    //            self.crossStreets = crossStreets
+    //        }
+    
+    enum CodingKeys: String, CodingKey {
+        case address1, address2, address3, city
+        case zipCode = "zip_code"
+        case country, state
+        case displayAddress = "display_address"
+        case crossStreets = "cross_streets"
+    }
+}

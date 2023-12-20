@@ -49,34 +49,46 @@ struct RequestUserContactsView: View {
                                 
                                 // When button is clicked, an invite it sent
                                 Button(action: {
-                                    if inviteCode == "" {
-                                        currentUserHasCode(inviteCode) { hasCode in
-                                            if hasCode {
+                                    currentUserHasCode() { userInviteCode in
+                                            if userInviteCode != "" {
                                                 // The user already has a code, handle it accordingly
-                                                print("User already has a code")
+                                                inviteCode = userInviteCode!
+                                                print("User already has a code: \(userInviteCode ?? "")")
+                                                print("inviteCode7 ", inviteCode)
+
+                                                contact.sendInvite(randCode: inviteCode)
+                                                print("inviteCode6 ", inviteCode)
+
+                                                invitedFriendsCount += 1
                                             } else {
+                                                // User doesn't have a code, generate one
                                                 func generateAndCheckCode() {
+                                                    print("inviteCode1 ", inviteCode)
                                                     inviteCode = generateRandomCode()
-                                                    
+                                                    print("inviteCode2 ", inviteCode)
                                                     codeExistsInFirestore(inviteCode) { exists in
                                                         if exists {
                                                             // Code exists, generate a new one or handle it accordingly
                                                             generateAndCheckCode()
+                                                            print("inviteCode3 ", inviteCode)
                                                         } else {
                                                             // Code doesn't exist, you can proceed
                                                             addInviteCode(randCode: inviteCode)
-                                                            //                                                invitedFriendsCount += 1
+                                                            print("inviteCode4 ", inviteCode)
+                                                            contact.sendInvite(randCode: inviteCode)
+                                                            invitedFriendsCount += 1
                                                         }
                                                     }
                                                     
                                                 }
                                                 
                                                 generateAndCheckCode()
+                                                print("inviteCode5 ", inviteCode)
                                             }
                                         }
-                                    }
-                                    contact.sendInvite(randCode: inviteCode)
-                                    invitedFriendsCount += 1
+//                                    print("inviteCode5 ", inviteCode)
+//                                    contact.sendInvite(randCode: inviteCode)
+//                                    invitedFriendsCount += 1
                                 }) {
                                     Text("Invite")
                                         .foregroundColor(Color(UIColor(hex: 0x000000)))
@@ -272,30 +284,31 @@ func codeExistsInFirestore(_ code: String, completion: @escaping (Bool) -> Void)
     }
 }
 
-func currentUserHasCode(_ code: String, completion: @escaping (Bool) -> Void) {
+func currentUserHasCode(completion: @escaping (String?) -> Void) {
     let db = Firestore.firestore()
     let usersCollection = db.collection("users")
     let userID = Auth.auth().currentUser?.uid ?? "unknown"
     
-    // Check if the code already exists in the "inviteCode" field of any document in the "users" collection
+    // Check if the "inviteCode" field exists for the current user
     usersCollection
-        .whereField("inviteCode", isEqualTo: code)
-        .whereField("userID", isEqualTo: userID)
-        .getDocuments { snapshot, error in
-        if let error = error {
-            print("Error querying Firestore: \(error.localizedDescription)")
-            completion(false) // Assume code doesn't exist in case of an error
-        } else {
-            if let documents = snapshot?.documents, !documents.isEmpty {
-                // Code exists
-                completion(true)
+        .document(userID)
+        .getDocument { snapshot, error in
+            if let error = error {
+                print("Error querying Firestore: \(error.localizedDescription)")
+                completion(nil) // Assume code doesn't exist in case of an error
             } else {
-                // Code doesn't exist
-                completion(false)
+                if let inviteCode = snapshot?.get("inviteCode") as? String {
+                    // Code exists
+                    completion(inviteCode)
+                } else {
+                    // Code doesn't exist
+                    completion("")
+                }
             }
         }
-    }
 }
+
+
 
 //
 //struct RequestUserContactsView_Previews: PreviewProvider {
