@@ -39,7 +39,7 @@ struct UserListView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 24, height: 24)
-                                        .foregroundColor(Color(red:205/255, green:125/255, blue:245/255)).opacity(0.5)
+                                        .foregroundColor(Color(red:205/255, green:125/255, blue:245/255))
                                         .padding()
                                 }
                             }

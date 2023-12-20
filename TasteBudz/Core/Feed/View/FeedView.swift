@@ -381,7 +381,7 @@ struct FeedView: View {
                     if restaurantFeedModel.restDictEmpty {
                         // set up the userNetwork array to contain the user logged in and their mutuals
                         restaurantFeedModel.userNetwork = await populateNetwork(forUserID: Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
-                        restaurantFeedModel.userNetwork.append(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
+                        restaurantFeedModel.userNetwork.insert(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
                         
                         print("user network:", restaurantFeedModel.userNetwork)
                         

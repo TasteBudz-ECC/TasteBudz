@@ -11,7 +11,7 @@ import FirebaseAuth
 
 
 class RestaurantFeedModel: ObservableObject {
-    @Published var userNetwork: [String] = []
+    @Published var userNetwork: Set<String> = []
     @Published var networkRestaurantKeys: Set<String> = []
     @Published var restInfoDict: [RestaurantInfo] = []
     @Published var restDictEmpty: Bool = true
