@@ -86,6 +86,21 @@ struct CurrentUserProfileContentView: View {
                             }
                     }
                     
+
+//                    Button {
+//                        
+//                    } label: {
+//                        Text("Share Profile")
+//                            .foregroundStyle(Color.theme.primaryText)
+//                            .font(.subheadline)
+//                            .fontWeight(.semibold)
+//                            .frame(width: 175, height: 32)
+//                            .overlay {
+//                                RoundedRectangle(cornerRadius: 10)
+//                                    .stroke(Color(.systemGray4), lineWidth: 1)
+//                            }
+//                    }
+
                     Button {
                         
                     } label: {
@@ -104,6 +119,7 @@ struct CurrentUserProfileContentView: View {
                             inviteCode = userInviteCode ?? ""
                         }
                     }
+
                 }
                 
                 if let user = user {

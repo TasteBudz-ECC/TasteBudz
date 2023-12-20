@@ -14,10 +14,10 @@
             filePath = "TasteBudz/Core/Feed/View/FeedView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "FeedView"
+            landmarkType = "14">
             <Locations>
                <Location
                   uuid = "74064EA0-DDFA-4CA2-BA62-2FB9432FA684 - 161c4f62b1e072cb"
@@ -77,10 +77,10 @@
             filePath = "TasteBudz/RecommendRestaurants/RecommendedRestaurantView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "previews"
-            landmarkType = "24">
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "addRestaurantToFirebase(restID:restName:)"
+            landmarkType = "9">
             <Locations>
                <Location
                   uuid = "07179A9E-6922-4EB2-B6BE-D2C4759FBB37 - 2506c7abf9cdc896"
@@ -125,10 +125,10 @@
             filePath = "TasteBudz/RecommendRestaurants/RecommendedRestaurantView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "RecommendRestaurantView_Previews"
-            landmarkType = "14">
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "addRestaurantToFirebase(restID:restName:)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
