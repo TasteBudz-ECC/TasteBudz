@@ -15,6 +15,7 @@ class RegistrationViewModel: ObservableObject {
     @Published var isAuthenticating = false
     @Published var showAlert = false
     @Published var authError: AuthError?
+    @Published var inviteCode: String = ""
     
     @MainActor
     func createUser() async throws {

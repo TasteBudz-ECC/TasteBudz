@@ -19,7 +19,6 @@ struct RegistrationView: View {
     @State private var shouldNavigate = false // State to manage navigation
     
     //temp State variable for the friend code input
-    @State private var inviteCode: String = ""
 
     var body: some View {
         VStack {
@@ -51,7 +50,7 @@ struct RegistrationView: View {
                         .autocapitalization(.none)
                                 .modifier(NotesTextFieldModifier())
                             
-                            TextField("Invite Code (optional)", text: $inviteCode)
+                            TextField("Invite Code (optional)", text: $viewModel.inviteCode)
                                 .autocapitalization(.none)
                                 .modifier(NotesTextFieldModifier())
                             
@@ -62,10 +61,10 @@ struct RegistrationView: View {
                 Task {
                     try await signUpAndInviteContacts()
                     
-                    // add add friend function here?
-                    if inviteCode != "" {
-                        await addFriendFromCode(friendCodeInput: inviteCode)
-                    }
+//                    // add add friend function here?
+//                    if $viewModel.inviteCode != "" {
+//                        await addFriendFromCode(friendCodeInput: $viewModel.inviteCode)
+//                    }
                     
                 }
             } label: {
@@ -171,35 +170,6 @@ struct RegistrationView: View {
 //    }
 
         
-    func addFriendFromCode(friendCodeInput: String) async  {
-        // search through the "users" collection to check their code fields
-        // if the code matches, then get that user's id
-        // add the current user to the friends collection as primary,
-        // add the other user to the friends collection as seconday
-        
-        do {
-            let db = Firestore.firestore()
-            let friendsCollection = db.collection("friends")
-            
-            let codeQuery = friendsCollection.whereField("friendCode", isEqualTo: friendCodeInput)
-            let friendCodeMatch = try await codeQuery.getDocuments() // gets the user document
-            
-            guard let friendDocument = friendCodeMatch.documents.first else {
-                        print("No user found with the provided friend code.")
-                        return
-                    }
-            // Create a friendship document with the current user as "primary" and the matched user as "secondary"
-            let friendsDoc: [String: Any] = [
-                "primary": Auth.auth().currentUser?.uid ?? "", // Using nil coalescing operator to handle optional
-                "secondary": friendDocument.documentID
-            ]
-            
-            try await db.collection("friends").addDocument(data: friendsDoc as [String : Any])
-        } catch {
-            
-            print("This code does not exist: \(error.localizedDescription)")
-        }
-    }
             
             
         
@@ -239,3 +209,33 @@ struct RegistrationView: View {
 //        RegistrationView(restaurantFeedModel: restaurantFeedModel)
 //    }
 //}
+
+func addFriendFromCode(friendCodeInput: String) async  {
+    // search through the "users" collection to check their code fields
+    // if the code matches, then get that user's id
+    // add the current user to the friends collection as primary,
+    // add the other user to the friends collection as seconday
+    
+    do {
+        let db = Firestore.firestore()
+        let friendsCollection = db.collection("friends")
+        
+        let codeQuery = friendsCollection.whereField("friendCode", isEqualTo: friendCodeInput)
+        let friendCodeMatch = try await codeQuery.getDocuments() // gets the user document
+        
+        guard let friendDocument = friendCodeMatch.documents.first else {
+                    print("No user found with the provided friend code.")
+                    return
+                }
+        // Create a friendship document with the current user as "primary" and the matched user as "secondary"
+        let friendsDoc: [String: Any] = [
+            "primary": Auth.auth().currentUser?.uid ?? "", // Using nil coalescing operator to handle optional
+            "secondary": friendDocument.documentID
+        ]
+        
+        try await db.collection("friends").addDocument(data: friendsDoc as [String : Any])
+    } catch {
+        
+        print("This code does not exist: \(error.localizedDescription)")
+    }
+}
