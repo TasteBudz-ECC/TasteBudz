@@ -72,8 +72,10 @@ struct SwipeView: View {
                     
                     if rating == -1 {
                         StarRatingView(rating: 5, spacing: 1.0)
+                            .padding()
                     } else {
                         StarRatingView(rating: rating, spacing: 1.0)
+                            .padding()
                     }
                     
                     if type == "N/A" {

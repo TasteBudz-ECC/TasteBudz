@@ -66,16 +66,29 @@ struct ContactModel: Identifiable {
     
     
     // Function to send invite to chosen phone number
-    func sendInvites(to number: String, randCode: String) {
-
-        
-        let sms: String = "sms:\(number)&body=try this with me and add me using my code \(randCode) [link to download Gather app]"
-        let strURL: String = sms.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        
-        UIApplication.shared.open(URL.init(string: strURL)!, options: [:], completionHandler: nil)
-        print("Sending invite to \(fullName) at \(number)")
-        // Add code, that pops up to messages and allow user to send an automated message
-    }
+//    func sendInvites(to number: String, randCode: String) {
+//
+//        
+//        let sms: String = "sms:\(number)&body=try this with me and add me using my code \(randCode) [link to download Gather app]"
+//        let strURL: String = sms.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+//        
+//        UIApplication.shared.open(URL.init(string: strURL)!, options: [:], completionHandler: nil)
+//        print("Sending invite to \(fullName) at \(number)")
+//        // Add code, that pops up to messages and allow user to send an automated message
+//    }
     
+    func sendInvites(to number: String, randCode: String) {
+        let appStoreLink = "https://apps.apple.com/us/app/gather-connect-meet-eat/id6474153349"
+        
+        let message = "Try this app with me and add me using my code \(randCode)! Download the Gather app here: \(appStoreLink)"
+        
+        if let encodedMessage = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let smsURL = URL(string: "sms:\(number)&body=\(encodedMessage)") {
+            UIApplication.shared.open(smsURL, options: [:], completionHandler: nil)
+            print("Sending invite to \(fullName) at \(number)")
+            // Add code that pops up to messages and allows the user to send an automated message
+        }
+    }
+
     
 }

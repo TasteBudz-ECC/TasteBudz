@@ -28,6 +28,7 @@ struct FeedView: View {
     @State private var selectedRest:RestaurantInfo?
     
     
+    
     //    @State var userNetwork: [String] = []
     
     
@@ -84,7 +85,7 @@ struct FeedView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24) // Adjust the size as needed
-                            .foregroundColor(Color(UIColor(hex: 0x1da64a)).opacity(0.5)) // Adjust the color as needed
+                            .foregroundColor(Color(red:205/255, green:125/255, blue:245/255))/*(UIColor(hex: 0x1da64a)).opacity(0.5)*/ // Adjust the color as needed
                             .padding()
                         
                     }
@@ -174,9 +175,44 @@ struct FeedView: View {
                     HStack(spacing: 20) {
                         let restDict = restaurantFeedModel.restInfoDict
                         
+                        NavigationLink(destination: RecommendRestaurantView(restaurantFeedModel: restaurantFeedModel)) {
+                            
+                            VStack {
+                                ZStack{
+//                                    RoundedRectangle(cornerRadius:20)
+////                                        .scaledToFit()
+////                                        .aspectRatio(contentMode: .fill)
+//                                        .frame(width: 150, height: 200)
+//                                        .foregroundColor(Color(red:200/255, green: 200/255, blue: 200/255))
+//                                        .shadow(radius: 2)
+                                    
+                                    Image("restaurant stock image")
+                                        .resizable()
+                                        .scaledToFill() // Use scaledToFill to fill the frame, cropping if needed
+                                        .frame(width: 150, height: 200) // Adjust the size as needed
+                                        .clipped()
+                                        .cornerRadius(20)
+                                        .padding(.horizontal)
+                                        .shadow(radius: 2)
+                                        .opacity(0.5)
+                                    
+                                    
+                                    Image(systemName: "plus")
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Color.black)
+                                    
+                                }
+                                    
+                                Text("Add restaurants!")
+                                    .foregroundColor(Color.black)
+                                
+                            }
+                        }
+                        
                         
                         ForEach(Array(restDict)) { value in
                             VStack {
+                                
                                 NavigationLink(destination: SwipeView(
                                     name: value.name ?? "",
                                     type: value.type ?? "",
@@ -346,7 +382,7 @@ struct FeedView: View {
                         restaurantFeedModel.userNetwork = await populateNetwork(forUserID: Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
                         restaurantFeedModel.userNetwork.append(Auth.auth().currentUser?.uid ?? "tGl3BsN0vST8dqsO9FpIf4jrk7r2")
                         
-                        print(restaurantFeedModel.userNetwork)
+                        print("user network:", restaurantFeedModel.userNetwork)
                         
                         // check for duplicates in the array of restaurants
                         for user in restaurantFeedModel.userNetwork {
@@ -368,15 +404,15 @@ struct FeedView: View {
                                     //                            if let businessDetails = await restDetailRetrievalAll(businessID: rKey) {
                                     // Get name
                                     rName = businessDetails.name ?? "N/A"
-                                    print("Business name: \(businessDetails.name ?? "N/A")")
+                                    // print("Business name: \(businessDetails.name ?? "N/A")")
                                     
                                     // Get type
                                     rType = businessDetails.categories?.first?.title ?? "N/A"
-                                    print("Business type: \(businessDetails.categories?.first?.title ?? "N/A")")
+                                    //print("Business type: \(businessDetails.categories?.first?.title ?? "N/A")")
                                     
                                     // Get photos
                                     rPhotos = businessDetails.photos ?? []
-                                    print("Business photos: \(businessDetails.photos ?? [])")
+//                                    print("Business photos: \(businessDetails.photos ?? [])")
                                     if let imageURL = businessDetails.imageURL {
                                         rPhotos.append(imageURL)
                                     } else {
@@ -387,17 +423,17 @@ struct FeedView: View {
                                     
                                     // Get address
                                     rAddress = buildAddress(location: businessDetails.location)
-                                    print("Business address: \(buildAddress(location: businessDetails.location))")
+//                                    print("Business address: \(buildAddress(location: businessDetails.location))")
                                     
                                     // Get Rating
                                     restRating = businessDetails.rating ?? -1
-                                    print("Business photos: \(businessDetails.rating ?? -1)")
+//                                    print("Business photos: \(businessDetails.rating ?? -1)")
                                     
                                     
                                     // Get Hours
                                     if let formattedHours = getFormattedRestaurantHours(from: businessDetails) {
                                         rHours = formattedHours
-                                        print("Formatted Restaurant Hours:\n\(formattedHours)")
+//                                        print("Formatted Restaurant Hours:\n\(formattedHours)")
                                     } else {
                                         print("Unable to retrieve restaurant hours.")
                                     }

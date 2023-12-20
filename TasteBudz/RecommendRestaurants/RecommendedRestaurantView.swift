@@ -38,14 +38,20 @@ struct RecommendRestaurantView: View {
         VStack {
             Text("Recommend 2 Cheap Eats").font(.headline)
             Text("Start by searching").font(.caption)
-            TextField("Search", text: $searchTerm, onEditingChanged: { _ in
-                
-            }, onCommit: {
-                viewModel.search(searchTerm: $searchTerm.wrappedValue)
-                print("search term: \(searchTerm)")
-                
-            }).textFieldStyle(RoundedBorderTextFieldStyle())
+            HStack {
+                TextField("Search", text: $searchTerm, onEditingChanged: { _ in
+                    
+                }, onCommit: {
+                    viewModel.search(searchTerm: $searchTerm.wrappedValue)
+                    print("search term: \(searchTerm)")
+                    
+                }).textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            .background(Color.gray.opacity(0.3))
+            .cornerRadius(10)
             
+        
             
             DisplayListofRestaurants(viewModel: viewModel)
             
