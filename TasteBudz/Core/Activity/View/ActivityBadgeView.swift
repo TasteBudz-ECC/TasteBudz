@@ -13,7 +13,7 @@ struct ActivityBadgeView: View {
     private var badgeColor: Color {
         switch type {
         case .like: return Color.theme.pink
-        case .follow: return Color.theme.purple
+        case .friend: return Color.theme.purple
         case .reply: return Color(.systemBlue)
         }
     }
@@ -21,7 +21,7 @@ struct ActivityBadgeView: View {
     private var badgeImageName: String {
         switch type {
         case .like: return "heart.fill"
-        case .follow: return "person.fill"
+        case .friend: return "person.fill"
         case .reply: return "arrowshape.turn.up.backward.fill"
         }
     }
@@ -48,6 +48,6 @@ struct ActivityBadgeView: View {
 
 struct ActivityBadgeView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityBadgeView(type: .follow)
+        ActivityBadgeView(type: .friend)
     }
 }

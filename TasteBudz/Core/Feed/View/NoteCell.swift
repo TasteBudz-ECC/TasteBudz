@@ -86,14 +86,14 @@ struct NoteCell: View {
         }
         .onChange(of: selectedNoteAction, perform: { newValue in
             switch newValue {
-            case .block:
-                print("DEBUG: Block user here..")
-            case .hide:
-                print("DEBUG: Hide thread here..")
-            case .mute:
-                print("DEBUG: Mute notes here..")
-            case .unfollow:
-                print("DEBUG: Unfollow here..")
+//            case .block:
+//                print("DEBUG: Block user here..")
+//            case .hide:
+//                print("DEBUG: Hide thread here..")
+//            case .mute:
+//                print("DEBUG: Mute notes here..")
+//            case .unfollow:
+//                print("DEBUG: Unfollow here..")
             case .report:
                 print("DEBUG: Report here..")
                 print("isReportPopupPresented: \(isReportPopupPresented)")

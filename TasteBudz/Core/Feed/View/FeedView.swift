@@ -219,7 +219,8 @@ struct FeedView: View {
                                     address: value.address ?? "",
                                     rating: value.rating ?? -1,
                                     hours: value.hours ?? "",
-                                    photos: value.photos ?? []
+                                    photos: value.photos ?? [],
+                                    website: value.website
                                 )) {
                                     let link = value.imageURL
                                     
@@ -442,12 +443,16 @@ struct FeedView: View {
                                     rImageURL = businessDetails.imageURL ?? ""
                                     print("Image URL: \(businessDetails.imageURL ?? "N/A")")
                                     
+                                    // Get website url
+                                    rWebsite = businessDetails.url ?? ""
+                                    print("Wesbite URL: \(businessDetails.url ?? "N/A")")
+                                    
                                 } else {
                                     print("Failed to retrieve business details. \(rKey)")
                                 }
                                 // for each restaurant, create a dictionary for it
                                 DispatchQueue.main.async {
-                                    restaurantFeedModel.restInfoDict.append(RestaurantInfo(name: rName, type: rType, address: rAddress, rating: restRating, hours: rHours, photos: rPhotos, imageURL: rImageURL))
+                                    restaurantFeedModel.restInfoDict.append(RestaurantInfo(name: rName, type: rType, address: rAddress, rating: restRating, hours: rHours, photos: rPhotos, imageURL: rImageURL, website: rWebsite))
                                 }
                             }
                         }
@@ -495,9 +500,6 @@ struct FeedView: View {
         }
     }
 }
-
-
-
 //// function to get restaurant yelp keys from the user's recommended
 func getRestaurantsFromUID(userid: String) async -> [String]{
     let fs = Firestore.firestore()

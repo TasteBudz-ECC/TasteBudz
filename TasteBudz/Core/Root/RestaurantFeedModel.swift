@@ -55,4 +55,5 @@ struct RestaurantInfo: Identifiable {
     var hours: String
     var photos: [String]
     var imageURL: String
+    var website: String
 }

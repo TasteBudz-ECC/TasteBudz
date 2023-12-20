@@ -19,6 +19,7 @@ struct CurrentUserProfileContentView: View {
     @StateObject var viewModel = CurrentUserProfileViewModel()
     @State private var selectedThreadFilter: ProfileNoteFilterViewModel = .notes
     @State private var sheetConfig: CurrentUserProfileSheetConfig?
+    @State private var inviteCode = ""
     
     private var user: User? {
         return viewModel.currentUser
@@ -58,7 +59,7 @@ struct CurrentUserProfileContentView: View {
                         Button {
                             sheetConfig = .userRelations
                         } label: {
-                            Text("\(viewModel.currentUser?.stats?.followersCount ?? 0) followers")
+                            Text("\(viewModel.currentUser?.stats?.friendsCount ?? 0) friends")
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                         }
@@ -85,6 +86,7 @@ struct CurrentUserProfileContentView: View {
                             }
                     }
                     
+
 //                    Button {
 //                        
 //                    } label: {
@@ -98,6 +100,26 @@ struct CurrentUserProfileContentView: View {
 //                                    .stroke(Color(.systemGray4), lineWidth: 1)
 //                            }
 //                    }
+
+                    Button {
+                        
+                    } label: {
+                        Text("InviteCode: \(inviteCode)")
+                            .foregroundStyle(Color.theme.primaryText)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .frame(width: 175, height: 32)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color(.systemGray4), lineWidth: 1)
+                            }
+                    }
+                    .onAppear {
+                        currentUserHasCode { userInviteCode in
+                            inviteCode = userInviteCode ?? ""
+                        }
+                    }
+
                 }
                 
                 if let user = user {

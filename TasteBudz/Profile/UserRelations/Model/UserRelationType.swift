@@ -8,13 +8,13 @@
 import Foundation
 
 enum UserRelationType: Int, CaseIterable, Identifiable {
-    case followers
-    case following
+    case friends
+    case friendNetwork
     
     var title: String {
         switch self {
-        case .followers: return "Followers"
-        case .following: return "Following"
+        case .friends: return "Friends"
+        case .friendNetwork: return "Mutuals"
         }
     }
     

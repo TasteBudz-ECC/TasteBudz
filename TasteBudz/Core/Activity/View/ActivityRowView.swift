@@ -14,15 +14,15 @@ struct ActivityRowView: View {
         switch model.type {
         case .like:
             return model.note?.caption ?? ""
-        case .follow:
+        case .friend:
             return "Added you"
         case .reply:
             return "Replied to one of your gatherings"
         }
     }
     
-    private var isFollowed: Bool {
-        return model.user?.isFollowed ?? false
+    private var isFriends: Bool {
+        return model.user?.isFriends ?? false
     }
     
     var body: some View {
@@ -55,12 +55,12 @@ struct ActivityRowView: View {
                 
                 Spacer()
                 
-                if model.type == .follow {
+                if model.type == .friend {
                     Button {
                         
                     } label: {
-                        Text(isFollowed ? "Following" : "Follow")
-                            .foregroundStyle(isFollowed ? Color(.systemGray4) : Color.theme.primaryText)
+                        Text(isFriends ? "Friend" : "Add Friend")
+                            .foregroundStyle(isFriends ? Color(.systemGray4) : Color.theme.primaryText)
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .frame(width: 100, height: 32)

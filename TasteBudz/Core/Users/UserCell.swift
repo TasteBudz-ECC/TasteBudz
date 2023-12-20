@@ -10,8 +10,8 @@ import SwiftUI
 struct UserCell: View {
     let user: User
     
-    private var isFollowed: Bool {
-        return user.isFollowed ?? false
+    private var isFriends: Bool {
+        return user.isFriends ?? false
     }
     
     var body: some View {
@@ -33,8 +33,8 @@ struct UserCell: View {
                     Button {
                         
                     } label: {
-                        Text(isFollowed ? "Following" : "Follow")
-                            .foregroundStyle(isFollowed ? Color(.systemGray4) : Color.theme.primaryText)
+                        Text(isFriends ? "Friend" : "Add Friend")
+                            .foregroundStyle(isFriends ? Color(.systemGray4) : Color.theme.primaryText)
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .frame(width: 100, height: 32)

@@ -17,7 +17,11 @@ struct User: Identifiable, Codable {
     var bio: String?
     var link: String?
     var stats: UserStats?
-    var isFollowed: Bool?
+//    var isFollowed: Bool? old code
+    // new code
+    var isFriends: Bool?
+    var isInFriendNetwork: Bool?
+    // to here
     let id: String
     
     var isCurrentUser: Bool {
@@ -26,8 +30,13 @@ struct User: Identifiable, Codable {
 }
 
 struct UserStats: Codable {
-    var followersCount: Int
-    var followingCount: Int
+// old code: 
+//    var followersCount: Int
+//    var followingCount: Int
+    // new code:
+    var friendsCount: Int
+    var friendNetworkCount: Int
+    // to here
     var notesCount: Int
 }
 

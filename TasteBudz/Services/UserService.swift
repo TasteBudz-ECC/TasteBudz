@@ -15,7 +15,7 @@ class UserService {
     
     static let shared = UserService()
     private static let userCache = NSCache<NSString, NSData>()
-
+    
     
     @MainActor
     func fetchCurrentUser() async throws {
@@ -48,141 +48,247 @@ class UserService {
         let users = snapshot.documents.compactMap({ try? $0.data(as: User.self) })
         return users.filter({ $0.id != uid })
     }
-}
-
-// MARK: - Following
-
-extension UserService {
+    
+    // MARK: - Friends Management
     @MainActor
-    func follow(uid: String) async throws {
+    func addFriend(uid: String) async throws {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
-        async let _ = try await FirestoreConstants
-            .FollowingCollection
+        // Add friend to 'friends' collection
+        try await FirestoreConstants
+            .FriendsCollection
             .document(currentUid)
-            .collection("user-following")
+            .collection("user-friends")
             .document(uid)
             .setData([:])
         
-        async let _ = try await FirestoreConstants
-            .FollowersCollection
-            .document(uid)
-            .collection("user-followers")
-            .document(currentUid)
-            .setData([:])
-        
-        ActivityService.uploadNotification(toUid: uid, type: .follow)
-        
-        currentUser?.stats?.followingCount += 1
-        
-        async let _ = try await updateUserFeedAfterFollow(followedUid: uid)
+        // Update current user's stats
+        currentUser?.stats?.friendsCount += 1
+        await updateUserNetwork(forUserID: currentUid)
     }
     
     @MainActor
-    func unfollow(uid: String) async throws {
+    func removeFriend(uid: String) async throws {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
-        async let _ = try await FirestoreConstants
-            .FollowingCollection
+        // Remove friend from 'friends' collection
+        try await FirestoreConstants
+            .FriendsCollection
             .document(currentUid)
-            .collection("user-following")
+            .collection("user-friends")
             .document(uid)
-            .delete()
-
-        async let _ = try await FirestoreConstants
-            .FollowersCollection
-            .document(uid)
-            .collection("user-followers")
-            .document(currentUid)
             .delete()
         
-        currentUser?.stats?.followingCount -= 1
-        async let _ = try await ActivityService.deleteNotification(toUid: uid, type: .follow)
-        async let _ = try await updateUserFeedAfterUnfollow(unfollowedUid: uid)
+        // Update current user's stats
+        currentUser?.stats?.friendsCount -= 1
+        await updateUserNetwork(forUserID: currentUid)
     }
     
-    static func checkIfUserIsFollowedWithUid(_ uid: String) async -> Bool {
+    func checkIfUserIsFriend(uid: String) async -> Bool {
         guard let currentUid = Auth.auth().currentUser?.uid else { return false }
-        let collection = FirestoreConstants.FollowingCollection.document(currentUid).collection("user-following")
-        guard let snapshot = try? await collection.document(uid).getDocument() else { return false }
-        return snapshot.exists
+        let snapshot = try? await FirestoreConstants
+            .FriendsCollection
+            .document(currentUid)
+            .collection("user-friends")
+            .document(uid)
+            .getDocument()
+        return snapshot?.exists ?? false
+    }
+    static func checkIfUserIsFriendWithUid(_ uid: String) async -> Bool {
+            guard let currentUid = Auth.auth().currentUser?.uid else { return false }
+            let collection = FirestoreConstants.FriendsCollection.document(currentUid).collection("user-friends")
+            guard let snapshot = try? await collection.document(uid).getDocument() else { return false }
+            return snapshot.exists
+        }
+    // MARK: - Check Second Degree Connection
+    
+    @MainActor
+    func isUserInSecondDegreeNetwork(ofUserID userID: String, checkUserID: String) async -> Bool {
+        do {
+            let firstDegreeFriends = try await UserService.shared.fetchFirstDegreeFriends(forUserID: userID)
+            
+            // If the checkUserID is already a first-degree friend, return false.
+            if firstDegreeFriends.contains(checkUserID) {
+                return false
+            }
+            
+            let secondDegreeFriends = try await UserService.fetchSecondDegreeFriends(forUserID: userID)
+            
+            // Check if the checkUserID is within the second-degree network.
+            return secondDegreeFriends.contains(checkUserID)
+        } catch {
+            // Handle error or return false
+            return false
+        }
+    }
+    // MARK: - Network Management
+    
+    func fetchFirstDegreeFriends(forUserID userID: String) async -> Set<String> {
+        let db = Firestore.firestore()
+        let friendsCollection = db.collection("friends").document(userID).collection("user-friends")
+        let snapshot = try? await friendsCollection.getDocuments()
+        let friends = snapshot?.documents.map { $0.documentID } ?? []
+
+        return Set(friends)
     }
     
-    static func checkIfUserIsFollowed(_ user: User) async -> Bool {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return false }
-        let collection = FirestoreConstants.FollowingCollection.document(currentUid).collection("user-following")
-        guard let snapshot = try? await collection.document(user.id).getDocument() else { return false }
-        return snapshot.exists
+    // Use an instance of UserService to call the instance method
+    static func fetchSecondDegreeFriends(forUserID userID: String) async throws -> Set<String> {
+        let serviceInstance = UserService()
+        var secondDegreeFriends = Set<String>()
+        let firstDegreeFriends = try await serviceInstance.fetchFirstDegreeFriends(forUserID: userID)
+
+        try await withThrowingTaskGroup(of: Result<Set<String>, Error>.self) { group in
+            for friendID in firstDegreeFriends {
+                group.addTask {
+                    do {
+                        let friends = try await serviceInstance.fetchFirstDegreeFriends(forUserID: friendID)
+                        return .success(friends)
+                    } catch {
+                        return .failure(error)
+                    }
+                }
+            }
+            for try await result in group {
+                switch result {
+                case .success(let friendSet):
+                    secondDegreeFriends.formUnion(friendSet)
+                case .failure(let error):
+                    throw error
+                }
+            }
+        }
+        // Exclude the current user and first-degree friends
+        secondDegreeFriends.remove(userID)
+        secondDegreeFriends.subtract(firstDegreeFriends)
+        return secondDegreeFriends
     }
+
+
+    
+    @MainActor
+    func updateUserNetwork(forUserID userID: String) async {
+        do {
+            let firstDegreeFriends = try await UserService.shared.fetchFirstDegreeFriends(forUserID: userID)
+            let secondDegreeFriends = try await UserService.fetchSecondDegreeFriends(forUserID: userID)
+            
+            DispatchQueue.main.async {
+                self.currentUser?.stats?.friendsCount = firstDegreeFriends.count
+                self.currentUser?.stats?.friendNetworkCount = firstDegreeFriends.count + secondDegreeFriends.count
+            }
+        } catch {
+            // Handle errors appropriately
+            print("User network not updated")
+        }
+    }
+    // MARK: - Feed Updates
+    
+    func updateUserFeedAfterAddingFriend(addedFriendUid: String) async throws {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        // Add User 2's posts to current user's feed
+        try await addFriendPostsToFeed(currentUserId: currentUid, friendId: addedFriendUid)
+        
+        // Fetch User 2's first-degree UserService.friends
+        let firstDegreeFriends = await fetchFirstDegreeFriends(forUserID: addedFriendUid)
+        
+        // Add posts of User 2's friends to current user's feed
+        for friendId in firstDegreeFriends {
+            try await addFriendPostsToFeed(currentUserId: currentUid, friendId: friendId)
+        }
+    }
+    
+    func addFriendPostsToFeed(currentUserId: String, friendId: String) async throws {
+        let friendNotesCollection = Firestore.firestore().collection("notes").whereField("ownerUid", isEqualTo: friendId)
+        let notesSnapshot = try await friendNotesCollection.getDocuments()
+        
+        for document in notesSnapshot.documents {
+            let noteData = document.data()
+            try await Firestore.firestore().collection("users").document(currentUserId).collection("feed").document(document.documentID).setData(noteData)
+        }
+    }
+    func updateUserFeedAfterRemovingFriend(removedFriendUid: String) async throws {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        // Remove User 2's posts from current user's feed
+        try await removeFriendPostsFromFeed(currentUserId: currentUid, friendId: removedFriendUid)
+        
+        // Fetch User 2's first-degree UserService.friends
+        let firstDegreeFriends = await fetchFirstDegreeFriends(forUserID: removedFriendUid)
+        
+        // Remove posts of User 2's friends from current user's feed
+        for friendId in firstDegreeFriends {
+            try await removeFriendPostsFromFeed(currentUserId: currentUid, friendId: friendId)
+        }
+    }
+    
+    func removeFriendPostsFromFeed(currentUserId: String, friendId: String) async throws {
+        let userFeedCollection = Firestore.firestore().collection("users").document(currentUserId).collection("feed")
+        let notesSnapshot = try await userFeedCollection.whereField("ownerUid", isEqualTo: friendId).getDocuments()
+        
+        for document in notesSnapshot.documents {
+            try await document.reference.delete()
+        }
+//        func checkIfUserIsFriend(uid: String) async -> Bool {
+//                guard let currentUid = Auth.auth().currentUser?.uid else { return false }
+//                let collection = FirestoreConstants.FriendsCollection.document(currentUid).collection("user-friends")
+//                guard let snapshot = try? await collection.document(uid).getDocument() else { return false }
+//                return snapshot.exists
+//            }
+
+//        func checkIfUserIsFriend(_ user: User) async -> Bool {
+//                guard let currentUid = Auth.auth().currentUser?.uid else { return false }
+//                let collection = FirestoreConstants.FriendsCollection.document(currentUid).collection("user-friends")
+//                guard let snapshot = try? await collection.document(user.id).getDocument() else { return false }
+//                return snapshot.exists
+//            }
+    }
+    
+    //    static func fetchSecondDegreeFriends(forUserID userID: String) async throws -> Set<String> {
+    //        var secondDegreeFriends = Set<String>()
+    //        let firstDegreeFriends = try await fetchFirstDegreeFriends(forUserID: userID)
+    //
+    //        try await withThrowingTaskGroup(of: Result<Set<String>, Error>.self) { group in
+    //            for friendID in firstDegreeFriends {
+    //                group.addTask {
+    //                    do {
+    //                        let friends = try await fetchFirstDegreeFriends(forUserID: friendID)
+    //                        return .success(friends)
+    //                    } catch {
+    //                        return .failure(error)
+    //                    }
+    //                }
+    //            }
+    //
+    //            for try await result in group {
+    //                switch result {
+    //                case .success(let friendSet):
+    //                    secondDegreeFriends.formUnion(friendSet)
+    //                case .failure(let error):
+    //                    // Handle or propagate the error
+    //                    throw error
+    //                }
+    //            }
+    //        }
+    //
+    //        secondDegreeFriends.subtract(firstDegreeFriends)
+    //        return secondDegreeFriends
+    //    }
     
     static func fetchUserStats(uid: String) async throws -> UserStats {
-        async let followingSnapshot = try await FirestoreConstants.FollowingCollection.document(uid).collection("user-following").getDocuments()
-        let following = try await followingSnapshot.count
-        
-        async let followerSnapshot = try await FirestoreConstants.FollowersCollection.document(uid).collection("user-followers").getDocuments()
-        let followers = try await followerSnapshot.count
-        
-        async let notesSnapshot = try await FirestoreConstants.NotesCollection.whereField("ownerUid", isEqualTo: uid).getDocuments()
-        let notesCount = try await notesSnapshot.count
-        
-        return .init(followersCount: followers, followingCount: following, notesCount: notesCount)
-    }
-        
-    static func fetchUserFollowers(uid: String) async throws -> [User] {
-        let snapshot = try await FirestoreConstants
-            .FollowersCollection
-            .document(uid)
-            .collection("user-followers")
-            .getDocuments()
-        
-        return try await fetchUsers(snapshot)
-
-    }
-    
-    static func fetchUserFollowing(uid: String) async throws -> [User] {
-        let snapshot = try await FirestoreConstants
-            .FollowingCollection
-            .document(uid)
-            .collection("user-following")
-            .getDocuments()
-        
-        return try await fetchUsers(snapshot)
-    }
-}
-
-// MARK: Feed Updates
-
-extension UserService {
-    func updateUserFeedAfterFollow(followedUid: String) async throws {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        let notesSnapshot = try await FirestoreConstants.NotesCollection.whereField("ownerUid", isEqualTo: followedUid).getDocuments()
-        
-        for document in notesSnapshot.documents {
-            try await FirestoreConstants
-                .UserCollection
-                .document(currentUid)
-                .collection("user-feed")
-                .document(document.documentID)
-                .setData([:])
-        }
-    }
-    
-    func updateUserFeedAfterUnfollow(unfollowedUid: String) async throws {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        let notesSnapshot = try await FirestoreConstants.NotesCollection.whereField("ownerUid", isEqualTo: unfollowedUid).getDocuments()
-        
-        for document in notesSnapshot.documents {
-            try await FirestoreConstants
-                .UserCollection
-                .document(currentUid)
-                .collection("user-feed")
-                .document(document.documentID)
-                .delete()
+        do {
+            let friendsCount = try await UserService.shared.fetchFirstDegreeFriends(forUserID: uid).count
+            let friendNetworkCount = try await fetchSecondDegreeFriends(forUserID: uid).count
+            let notesSnapshot = try await FirestoreConstants.NotesCollection.whereField("ownerUid", isEqualTo: uid).getDocuments()
+            let notesCount = notesSnapshot.count
+            
+            return .init(friendsCount: friendsCount, friendNetworkCount: friendNetworkCount, notesCount: notesCount)
+        } catch {
+            // Propagate the error
+            throw error
         }
     }
 }
-
-// MARK: - Helpers
 
 extension UserService {
     private static func fetchUsers(_ snapshot: QuerySnapshot?) async throws -> [User] {
@@ -197,4 +303,3 @@ extension UserService {
         return users
     }
 }
-
