@@ -39,7 +39,7 @@ struct AboutView: View {
                 FAQItemView(question: "What is the advantage of recommending friends to the app?",
                             answer: "Recommending friends helps maintain a familiar atmosphere within the app. It ensures that connections are made within your social circles, fostering a comfortable environment for exploring new restaurants.")
                 
-                FAQItemView(question: "Why is recommending two restaurants a requirement?",
+                FAQItemView(question: "Why should I recommend two restaurants?",
                             answer: "Recommending restaurants not only helps expand our database of affordable dining options but also encourages users to actively participate in creating and sharing their favorite places to eat.")
                 
                 FAQItemView(question: "What happens after recommending friends and two restaurants?",

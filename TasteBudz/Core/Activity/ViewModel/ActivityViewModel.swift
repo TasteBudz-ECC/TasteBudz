@@ -30,7 +30,15 @@ class ActivityViewModel: ObservableObject {
     init() {
         Task { try await updateNotifications() }
     }
-    
+//    // Refresh data function
+//        func refreshData() async {
+//            do {
+//                try await updateNotifications()
+//            } catch {
+//                print("Error while refreshing data: \(error)")
+//            }
+//        }
+//
     private func fetchNotificationData() async throws {
         self.isLoading = true
         self.notifications = try await ActivityService.fetchUserActivity()

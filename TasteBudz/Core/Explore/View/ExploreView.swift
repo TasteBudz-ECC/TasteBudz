@@ -17,11 +17,14 @@ struct ExploreView: View {
                 UserListView(viewModel: viewModel)
                     .navigationDestination(for: User.self) { user in
                         ProfileView(user: user)
+                            .navigationDestination(for: Note.self, destination: { note in
+                                NoteDetailsView(note: note)
+                            })
                     }
             }
             .refreshable {
-                        Task { try await viewModel.fetchUsers() }
-                        }
+                Task { try await viewModel.fetchUsers() }
+            }
             .overlay {
                 if viewModel.isLoading {
                     ProgressView()

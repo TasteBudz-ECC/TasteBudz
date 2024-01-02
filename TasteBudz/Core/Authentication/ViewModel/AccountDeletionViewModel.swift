@@ -5,6 +5,7 @@
 //  Created by student on 12/12/23.
 //
 import Firebase
+import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
