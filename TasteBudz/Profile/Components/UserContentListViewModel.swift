@@ -58,7 +58,7 @@ class UserContentListViewModel: ObservableObject {
     func noContentText(filter: ProfileNoteFilterViewModel) -> String {
         let name = user.isCurrentUser ? "You" : user.username
         let nextWord = user.isCurrentUser ? "haven't" : "hasn't"
-        let contentType = filter == .notes ? "notes" : "replies"
+        let contentType = filter == .notes ? "gatherings" : "replies"
         
         return "\(name) \(nextWord) posted any \(contentType) yet."
     }

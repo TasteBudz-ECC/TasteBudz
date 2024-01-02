@@ -13,16 +13,16 @@ struct ActivityBadgeView: View {
     private var badgeColor: Color {
         switch type {
         case .like: return Color.theme.pink
-        case .friend: return Color.theme.purple
         case .reply: return Color(.systemBlue)
+        case .friend: return Color.theme.purple
         }
     }
     
     private var badgeImageName: String {
         switch type {
         case .like: return "heart.fill"
-        case .friend: return "person.fill"
         case .reply: return "arrowshape.turn.up.backward.fill"
+        case .friend: return "person.fill"
         }
     }
     

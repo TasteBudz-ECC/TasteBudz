@@ -13,11 +13,12 @@ struct ActivityRowView: View {
     private var activityMessage: String {
         switch model.type {
         case .like:
-            return model.note?.caption ?? ""
-        case .friend:
-            return "Added you"
+            return "Liked one of your gathering post"
+//            return model.note?.caption ??
         case .reply:
             return "Replied to one of your gatherings"
+        case .friend:
+            return "Added you"
         }
     }
     

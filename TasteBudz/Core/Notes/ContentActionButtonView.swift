@@ -33,7 +33,7 @@ struct ContentActionButtonView: View {
                 }
                 
 //                Button {
-//                    
+//
 //                } label: {
 //                    Image(systemName: "arrow.rectanglepath")
 //                        .resizable()
@@ -41,6 +41,7 @@ struct ContentActionButtonView: View {
 //                }
 //                
 //                Button {
+                // button to consider adding for messaging feature!
 //                    
 //                } label: {
 //                    Image(systemName: "paperplane")

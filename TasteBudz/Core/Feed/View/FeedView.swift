@@ -92,7 +92,7 @@ struct FeedView: View {
                 }
                 
                 HStack{
-                    Text("  Scroll to Explore Restaurant Options")
+                    Text("  Scroll to Explore Restaurant Recomendations")
                         .font(.title)
                         .lineLimit(1)
                         .minimumScaleFactor(0.3)

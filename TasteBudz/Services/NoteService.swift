@@ -115,17 +115,17 @@ extension NoteService {
 }
 
 // MARK: - Feed Updates
-
+// old version
 extension NoteService {
     private static func updateUserFeedsAfterPost(noteId: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        
+
         // Fetch first-degree friends
         let firstDegreeFriends = try await UserService.shared.fetchFirstDegreeFriends(forUserID: uid)
-        
+
         // Set to keep track of all unique users who need feed updates (to avoid duplicates)
         var usersToUpdate = Set(firstDegreeFriends)
-        
+
         // Fetch second-degree friends
         for friendID in firstDegreeFriends {
             let secondDegreeFriends = try await UserService.fetchSecondDegreeFriends(forUserID: friendID)
@@ -146,3 +146,25 @@ extension NoteService {
     }
 }
 
+// this new version uses the populate network func to show gathering posts from the user's network! i dont really see a difference between this func and the other one so i leave it commented out for testing purposes
+
+//extension NoteService {
+//    private static func updateUserFeedsAfterPost(noteId: String) async throws {
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+//
+//        // Fetch the combined network (first and second-degree friends)
+//        let combinedNetwork = await populateNetwork(forUserID: uid)
+//
+//        // Update each user's feed in the combined network
+//        for userID in combinedNetwork {
+//            try await FirestoreConstants
+//                .UserCollection
+//                .document(userID)
+//                .collection("user-feed")
+//                .document(noteId).setData([:])
+//        }
+//
+//        // Update the user's own feed
+//        try await FirestoreConstants.UserCollection.document(uid).collection("user-feed").document(noteId).setData([:])
+//    }
+//}

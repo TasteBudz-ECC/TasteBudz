@@ -53,9 +53,11 @@ struct UserContentListView: View {
                             .foregroundColor(.gray)
                     } else {
                         ForEach(viewModel.notes) { note in
-                            NoteCell(config: .note(note))
+                            NavigationLink(destination: NoteDetailsView(note: note)) {
+                                NoteCell(config: .note(note))
+                            }
+                            .transition(.move(edge: .leading))
                         }
-                        .transition(.move(edge: .leading))
                     }
                 } else {
                     if viewModel.replies.isEmpty {
@@ -65,8 +67,8 @@ struct UserContentListView: View {
                     } else {
                         ForEach(viewModel.replies) { reply in
                             NoteReplyCell(reply: reply)
+                            .transition(.move(edge: .trailing))
                         }
-                        .transition(.move(edge: .trailing))
                     }
                 }
             }
@@ -78,9 +80,6 @@ struct UserContentListView: View {
 
 struct UserContentListView_Previews: PreviewProvider {
     static var previews: some View {
-        UserContentListView(
-            selectedFilter: .constant(.notes),
-            user: dev.user
-        )
+        UserContentListView(selectedFilter: .constant(.notes), user: dev.user)
     }
 }
